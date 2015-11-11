@@ -26,7 +26,7 @@ module.exports = function (grunt) {
         separator: ';'
       },
       dist: {
-        src: ['app/scripts/models/*.js', 'app/scripts/services/*.js', 'app/scripts/directives/*.js', 'app/scripts/controllers/*.js', 'app/scripts/app.js',],
+        src: ['app/scripts/models/*.js', 'app/scripts/services/*.js', 'app/scripts/directives/*.js', 'app/scripts/controllers/*.js', 'app/scripts/app.js'],
         dest: 'app/scripts/typewriting.js'
       }
     },
@@ -77,7 +77,7 @@ module.exports = function (grunt) {
 
 
   grunt.registerTask('serve', ["concurrent:watchers"]);
-  grunt.registerTask('concat', ["concat"]);
+  grunt.registerTask('conc', ["concat"]);
   grunt.registerTask('cleanbuild', ["tslint:all", "ts:build", "concurrent:watchers"]);
 
 };

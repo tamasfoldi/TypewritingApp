@@ -69,7 +69,6 @@ module App {
     })
     .run(($rootScope: angular.IRootScopeService, $location, AuthenticationService: Services.AuthenticationService) => {
       $rootScope.$watch("currentUser", (currentUser) => {
-        console.log("$watch " + currentUser);
         if (!currentUser && (["/", "/login", "/logout", "/signup"].indexOf($location.path()) === -1)) {
           AuthenticationService.currentUser();
         }
