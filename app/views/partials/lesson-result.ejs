@@ -1,0 +1,31 @@
+﻿<div id="LessonResult">
+    <table class="table table-condensed table-striped">
+        <caption>Congratulation you have completed this lesson with the following statistic:</caption>
+        <tbody>
+        <tr>
+            <th>Correct keypress: </th>
+            <td>{{LessonCtrl.statistic.getNofCorrectKeyPresses()}}</td>
+        </tr>
+        <tr>
+            <th>Incorrect keypress: </th>
+            <td>{{LessonCtrl.statistic.getNofMistakes()}}</td>
+        </tr>
+        <tr>
+            <th>Total keypress: </th>
+            <td>{{(LessonCtrl.statistic.getNofMistakes())--(LessonCtrl.statistic.getNofCorrectKeyPresses())}}</td>
+        </tr>
+        <tr>
+            <th>Accuracy: </th>
+            <td>{{LessonCtrl.statistic.getAccuracy() | number:2}}%</td>
+        </tr>
+        <tr>
+            <th>Typing speed: </th>
+            <td>{{LessonCtrl.statistic.getTypingSpeed() | number:2}} keypress / minute</td>
+        </tr>
+        <tr>
+            <th>Duration: </th>
+            <td>{{LessonCtrl.statistic.getTimeInSeconds() | number:2}} seconds</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

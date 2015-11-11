@@ -1,0 +1,19 @@
+﻿<section>    
+    <md-sidenav class="md-sidenav-left md-whiteframe-dp1" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
+        <md-toolbar class="md-theme-indigo">
+            <h1 class="md-toolbar-tools">Menu</h1>
+        </md-toolbar>
+        <md-content>
+            <h3 class="md-headline">Lessons</h3>
+            <section layout="column" layout-align="center center" layout-wrap>
+                <md-button ng-click="MenuCtrl.loadLesson(lesson.id)" id="LessonId{{lesson.id}}" ng-repeat="lesson in MenuCtrl.lessons | orderBy: 'id'">
+                    {{lesson.name}}
+                </md-button>
+                <md-button ng-click="MenuCtrl.register()" ng-hide="MenuCtrl.currentUser">Register</md-button>
+                <md-button ng-click="MenuCtrl.login()" ng-hide="MenuCtrl.currentUser">Log in</md-button>
+                <md-button ng-click="MenuCtrl.logout()" ng-show="MenuCtrl.currentUser">Log out</md-button>                
+            </section>
+            <!--<md-divider ng-if="!$last"></md-divider>-->
+        </md-content>
+    </md-sidenav>
+</section>
