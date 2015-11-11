@@ -1,3 +1,5 @@
 node_modules/
 references.js
 references.js.map
+/**/*.js
+/**/*.js.map
