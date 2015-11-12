@@ -13,7 +13,7 @@ module Controllers {
       this.AuthSrvc = AuthenticationService;
     }
 
-    login(LoginForm: FormData) {
+    login() {
       var username = this.username;
       var password = this.password;
       this.AuthSrvc.login("password", { username, password })

@@ -26,13 +26,14 @@ describe('Lesson Controller Specs', () => {
 
     beforeEach(inject(function (_$httpBackend_, $rootScope, $controller) {
         $httpBackend = _$httpBackend_;
-        $httpBackend.expectGET('/lessons/1').respond(
+        $httpBackend.expectGET('/api/lessons/1').respond(
             {
                 "id": 1,
                 "name": "Lesson 1",
                 "text": "Text"
             }
         );
+        $httpBackend.expectGET('/api/auth/sessions').respond("");
     }));
 
     it('should fetch lesson details', function () {

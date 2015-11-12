@@ -15,7 +15,7 @@ describe('Menu Controller Specs', () => {
 
   beforeEach(inject(function(_$httpBackend_, $rootScope, $controller) {
     $httpBackend = _$httpBackend_;
-    $httpBackend.expectGET('/lessons').respond(
+    $httpBackend.expectGET('/api/lessons').respond(
       [
         {
           "id": 1,
@@ -29,14 +29,14 @@ describe('Menu Controller Specs', () => {
     );
   }));
 
-  beforeEach(() => inject(($location, $routeParams, $rootScope, LessonService) => {
+  beforeEach(() => inject(($location, $routeParams, $rootScope, LessonService, AuthenticationService) => {
     location = $location;
-    menuCtrl = new Controllers.MenuCtrl(location, LessonService);
+    menuCtrl = new Controllers.MenuCtrl(location, LessonService, AuthenticationService, $rootScope);
   }));
 
-  it('should have its location as ""', () => {
-    $httpBackend.expectGET('App/menu.html').respond(200);
-    expect(location.path()).toEqual('');
+  it('should have its location as "/"', () => {
+    $httpBackend.expectGET('/side-menu.ejs').respond(200);
+    expect(location.path()).toEqual('/');
   });
 
   it('should fetch lessons details', function() {

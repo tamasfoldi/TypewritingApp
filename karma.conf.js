@@ -14,23 +14,16 @@ module.exports = function(config) {
 
 
     // list of files / patterns to load in the browser
-    files: [
-		'node_modules/angular/angular.js',
-		'node_modules/angular-mocks/angular-mocks.js',
-		'node_modules/angular-route/angular-route.js',
-		'node_modules/angular-resource/angular-resource.js',
-		'public/angular-timer-all.min.js',
-		'node_modules/angular-*/angular-*.js',
-		'node_modules/angular-ui/*.js',
-		'public/app.js',
-		'public/Services/**.js',
-				
-		'public/Model/**.js',
-		'public/Controllers/**.js',
-		'Specs/ControllerSpecs/*.js',
-		
-		
-		],
+     files: ['node_modules/angular/angular.js',
+                  'node_modules/angular-mocks/angular-mocks.js',
+                  'node_modules/angular-route/angular-route.js',
+                  'node_modules/angular-resource/angular-resource.js',
+                  'app/scripts/angular-timer-all.min.js',
+                  'node_modules/angular-*/angular-*.js',
+                  'node_modules/angular-ui/*.js',
+                  'app/scripts/typewriting.js',
+                  'Specs/ControllerSpecs/*.js'
+    ],
 
 
     // list of files to exclude
@@ -48,7 +41,13 @@ module.exports = function(config) {
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'],
+    reporters: ['mocha'],
+    
+    plugins: [
+      'karma-jasmine',
+      'karma-phantomjs-launcher',
+      'karma-mocha-reporter'
+    ],
 
 
     // web server port
@@ -65,7 +64,7 @@ module.exports = function(config) {
 
 
     // enable / disable watching file and executing tests whenever any file changes
-    autoWatch: true,
+    autoWatch: false,
 
 
     // start these browsers
@@ -75,6 +74,6 @@ module.exports = function(config) {
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false
+    singleRun: true
   })
 }

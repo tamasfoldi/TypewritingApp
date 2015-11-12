@@ -6,7 +6,7 @@ module.exports = function (grunt) {
         configuration: grunt.file.readJSON("tslint.json")
       },
       all: {
-        src: ["**/*.ts", "!node_modules/**/*.ts", "!obj/**/*.ts", "!Scripts/typings/**/*.ts", '!Specs/**/*.ts', "!references.ts"]
+        src: ["**/*.ts", "!node_modules/**/*.ts", "!Scripts/typings/**/*.ts", "!Specs/**/*.ts", "!references.ts"]
         // avoid linting typings files and node_modules files
       }
     },
@@ -38,6 +38,10 @@ module.exports = function (grunt) {
         options: {
           spawn: false // makes the watch task faster
         }
+      },
+      karmawatch: {
+        files: ['**/*.ts', '!node_modules/**/*.ts'], // the watched files
+        tasks: ["ts:build", "concat:dist", "karma:unit"], // the task to run
       }
     },
 
@@ -62,6 +66,13 @@ module.exports = function (grunt) {
           logConcurrentOutput: true
         }
       }
+    },
+
+    karma: {
+      unit: {
+        configFile: 'karma.conf.js',
+        
+      }
     }
 
   });
@@ -78,6 +89,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('serve', ["concurrent:watchers"]);
   grunt.registerTask('conc', ["concat"]);
+  grunt.registerTask('test', ["karma:unit", "watch:karmawatch"]);
   grunt.registerTask('cleanbuild', ["tslint:all", "ts:build", "concat", "concurrent:watchers"]);
 
 };

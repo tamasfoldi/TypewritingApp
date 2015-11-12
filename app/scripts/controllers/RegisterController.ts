@@ -16,7 +16,7 @@ module Controllers {
       this.authSrv = AuthenticationService;
     }
 
-    register(form: FormData) {
+    register() {
       var username = this.username;
       var email = this.email;
       var password = this.password;

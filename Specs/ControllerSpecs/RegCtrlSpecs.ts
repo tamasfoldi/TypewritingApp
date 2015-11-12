@@ -18,18 +18,18 @@ describe('Register Controller Specs', () => {
   beforeEach(inject(function($location, _$httpBackend_, $rootScope) {
     location = $location;
     $httpBackend = _$httpBackend_;
-    resp = $httpBackend.expectPOST('/users');
+    resp = $httpBackend.expectPOST('/api/users');
   }));
 
-  beforeEach(() => inject(($http, $location, UserService) => {
-    regCtrl = new Controllers.RegCtrl($http, $location, UserService);
+  beforeEach(() => inject(($location, AuthenticationService) => {
+    regCtrl = new Controllers.RegCtrl( $location, AuthenticationService);
   }));
 
   it('should handle the error when the registration fails', () => {
     regCtrl.register();
-    resp.respond(400, { error: { username: { message: 'The username is already exists' } } });
+    resp.respond(400, { errors: { username: { message: 'The username is already exists' }, email: { message: 'The email is already exists'} } });
     $httpBackend.flush();
-    expect(regCtrl.respMsg).toBe('The username is already exists');
+    expect(regCtrl.errors).toEqual({username : 'The username is already exists', email: 'The email is already exists'});
   });
 
   it('should register the new users and redirect to /login', () => {
@@ -37,7 +37,7 @@ describe('Register Controller Specs', () => {
     regCtrl.register();
     resp.respond(200, { success: "Registration was successful" });
     $httpBackend.flush();
-    expect(regCtrl.respMsg).toBe("Registration was successful");
+    //expect(regCtrl.respMsg).toBe("Registration was successful");
     expect(location.path).toHaveBeenCalledWith('/login');
     expect(regCtrl.location.path()).toEqual("/login");
   });
