@@ -43,10 +43,11 @@ module.exports = function (config) {
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['mocha', 'coverage'],
+    reporters: ['mocha', 'coverage', 'junit'],
 
     plugins: [
       'karma-coverage',
+      'karma-junit-reporter',
       'karma-jasmine',
       'karma-phantomjs-launcher',
       'karma-chrome-launcher',
@@ -77,6 +78,11 @@ module.exports = function (config) {
         { type: 'html', subdir: 'html' }
       ]
     },
+    
+    junitReporter : {
+      outputFile: 'junitreport/junitreport.xml',
+      suite: 'unit'
+    }
 
 
     // start these browsers

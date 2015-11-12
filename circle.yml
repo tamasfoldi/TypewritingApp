@@ -2,6 +2,7 @@ dependencies:
   pre:
     - npm install -g grunt
     - npm install -g grunt-cli
+    - CIRCLE_TEST_REPORTS=junitreport
 
 test:
   override:
