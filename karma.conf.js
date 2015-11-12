@@ -22,7 +22,8 @@ module.exports = function(config) {
                   'node_modules/angular-*/angular-*.js',
                   'node_modules/angular-ui/*.js',
                   'app/scripts/typewriting.js',
-                  'Specs/ControllerSpecs/*.js'
+                  'Specs/ControllerSpecs/*.js',
+                  'Specs/ServiceSpecs/*.js',                  
     ],
 
 

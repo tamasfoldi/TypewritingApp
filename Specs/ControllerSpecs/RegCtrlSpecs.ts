@@ -31,18 +31,4 @@ describe('Register Controller Specs', () => {
     $httpBackend.flush();
     expect(regCtrl.errors).toEqual({username : 'The username is already exists', email: 'The email is already exists'});
   });
-
-  it('should register the new users and redirect to /login', () => {
-    spyOn(location, 'path').and.returnValue("/login");
-    regCtrl.register();
-    resp.respond(200, { success: "Registration was successful" });
-    $httpBackend.flush();
-    //expect(regCtrl.respMsg).toBe("Registration was successful");
-    expect(location.path).toHaveBeenCalledWith('/login');
-    expect(regCtrl.location.path()).toEqual("/login");
-  });
-
-
-
-
 });
