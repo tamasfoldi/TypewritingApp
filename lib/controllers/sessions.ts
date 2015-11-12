@@ -12,17 +12,17 @@ exports.login = function(req, res, next) {
   passport.authenticate("local", function(err, user, info) {
     if (err) {
       console.log("err " + err);
-      res.status(401).send({error: info.message});
+      res.status(401).send({ message: info.message });
       return next(err);
     }
     if (!user) {
-      res.status(401).send({error: info.message});
+      res.status(401).send({ message: info.message });
       return next(err);
     }
     req.logIn(user, function(error) {
       if (error) {
         console.log(user, error);
-        res.status(401).send({error: info.message});
+        res.status(401).send({ message: info.message });
         return next(error);
       }
       res.status(200).send(req.user.user_info);

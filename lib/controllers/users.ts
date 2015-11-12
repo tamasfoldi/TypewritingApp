@@ -16,7 +16,7 @@ exports.show = function(req, res, next) {
     if (user) {
       res.send({ username: user.username, profile: user.profile });
     } else {
-      res.status(404).send({ error: "User not found" });
+      res.status(404).send({ message: "User not found" });
     }
   });
 };
@@ -28,7 +28,7 @@ exports.create = function(req, res, next) {
   newUser.provider = "local";
   newUser.save(function(err) {
     if (err) {
-      return res.status(400).send({ error: err });
+      return res.status(400).send(err);
     }
     req.logIn(newUser, function(error) {
       if (error) {

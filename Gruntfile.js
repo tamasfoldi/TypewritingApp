@@ -78,6 +78,6 @@ module.exports = function (grunt) {
 
   grunt.registerTask('serve', ["concurrent:watchers"]);
   grunt.registerTask('conc', ["concat"]);
-  grunt.registerTask('cleanbuild', ["tslint:all", "ts:build", "concurrent:watchers"]);
+  grunt.registerTask('cleanbuild', ["tslint:all", "ts:build", "concat", "concurrent:watchers"]);
 
 };

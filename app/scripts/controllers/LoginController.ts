@@ -6,6 +6,7 @@ module Controllers {
     AuthSrvc: Services.AuthenticationService;
     username: string = "";
     password: string = "";
+    error: string = "";
 
     constructor($location: angular.ILocationService, AuthenticationService: Services.AuthenticationService) {
       this.location = $location;
@@ -16,11 +17,11 @@ module Controllers {
       var username = this.username;
       var password = this.password;
       this.AuthSrvc.login("password", { username, password })
-        .then((msg) => {
+        .then(() => {
           this.AuthSrvc.currentUser();
           this.location.path("/");
-        }, (msg) => {
-          console.log(msg);
+        }, (msg: angular.IHttpPromiseCallbackArg<any>) => {
+          this.error = msg.data.message;
         });
     }
   }

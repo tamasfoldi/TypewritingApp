@@ -2,28 +2,31 @@
 module Controllers {
   export class RegCtrl {
     username: string;
-    mailAddr: string;
+    email: string;
     password: string;
-    errors: Array<string>;
+    errors;
     location: angular.ILocationService;
     authSrv: Services.AuthenticationService;
     constructor($location: angular.ILocationService, AuthenticationService: Services.AuthenticationService) {
       this.username = "";
-      this.mailAddr = "";
+      this.email = "";
       this.password = "";
+      this.errors = {};
       this.location = $location;
-      this.errors = [];
       this.authSrv = AuthenticationService;
     }
 
     register(form: FormData) {
       var username = this.username;
-      var email = this.mailAddr;
+      var email = this.email;
       var password = this.password;
-      this.authSrv.createUser({username, email, password}).then((msg) => {
+      this.errors = {};
+      this.authSrv.createUser({ username, email, password }).then(() => {
         this.location.path("/login");
-      }, (msg) => {
-        console.log(msg);
+      }, (msg: angular.IHttpPromiseCallbackArg<any>) => {
+        for (var field in msg.data.errors) {
+          this.errors[field] = msg.data.errors[field].message;
+        }
       });
     }
   }
