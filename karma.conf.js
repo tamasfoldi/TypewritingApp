@@ -82,7 +82,7 @@ module.exports = function (config) {
     junitReporter : {
       outputFile: 'junitreport/junitreport.xml',
       suite: 'unit'
-    }
+    },
 
 
     // start these browsers
