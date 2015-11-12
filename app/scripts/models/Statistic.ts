@@ -35,7 +35,7 @@ module Model {
       this.nofCorrectKeyPresses++;
     }
 
-    increasNofMistakes() {
+    increaseNofMistakes() {
       this.nofMistakes++;
     }
 

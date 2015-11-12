@@ -84,7 +84,7 @@ module.exports = function (config) {
       suite: 'unit',
       useBrowserName: true
     },
-
+    
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
