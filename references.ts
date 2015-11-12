@@ -29,6 +29,7 @@
 /// <reference path="Specs/E2ESpecs/LessonE2E.ts" />
 /// <reference path="Specs/E2ESpecs/MenuE2E.ts" />
 /// <reference path="Specs/E2ESpecs/RegisterE2E.ts" />
+/// <reference path="Specs/ModelSpecs/StatisticSpecs.ts" />
 /// <reference path="Specs/ServiceSpecs/AuthenticationServiceSpecs.ts" />
 /// <reference path="app/scripts/app.ts" />
 /// <reference path="app/scripts/controllers/LessonController.ts" />

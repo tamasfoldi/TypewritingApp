@@ -63,12 +63,6 @@ describe('Lesson Controller Specs', () => {
     expect(lessonCtrl.statistic.increaseNofCorrectKeyPresses).toHaveBeenCalled();
     expect(lessonCtrl.statistic.increaseNofMistakes).toHaveBeenCalled();      
     expect(lessonCtrl.textToBeType).toEqual("ext");
-    //expect(lessonCtrl.typedText).toEqual("T");
-    // lessonCtrl.keyPressHandler({which: 101});
-    // lessonCtrl.keyPressHandler({which: 120});
-    // lessonCtrl.keyPressHandler({which: 116});
-    // expect(lessonCtrl.typedText).toEqual("Text");
-    // expect(lessonCtrl.textareaIsDisabled)
   });
   
   it('should broadcast a timer-stop event at the last char', () => {

@@ -24,6 +24,7 @@ module.exports = function (config) {
       'app/scripts/typewriting.js',
       'Specs/ControllerSpecs/*.js',
       'Specs/ServiceSpecs/*.js',
+      'Specs/ModelSpecs/*.js'
     ],
 
 
