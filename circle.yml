@@ -1,0 +1,9 @@
+dependencies:
+  pre:
+    - npm install -g grunt
+    - npm install -g grunt-cli
+
+test:
+  override:
+    - grunt test
+    

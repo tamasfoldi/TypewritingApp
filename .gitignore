@@ -4,3 +4,4 @@ references.js.map
 /app/scripts/typewriting.js
 /**/*.js
 /**/*.js.map
+coverage/

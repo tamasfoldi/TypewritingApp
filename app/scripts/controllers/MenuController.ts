@@ -22,8 +22,6 @@ module Controllers {
     logout() {
       this.authSrv.logout().then(() => {
         this.location.path("/login");
-      }, (error) => {
-        console.log(error);
       });
     }
 
