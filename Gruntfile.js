@@ -70,8 +70,11 @@ module.exports = function (grunt) {
 
     karma: {
       unit: {
+        configFile: 'karma.conf.js',        
+      },
+      continous: {
         configFile: 'karma.conf.js',
-        
+        reporters: 'junit'
       }
     }
 
@@ -90,7 +93,7 @@ module.exports = function (grunt) {
   grunt.registerTask('serve', ["concurrent:watchers"]);
   grunt.registerTask('conc', ["concat"]);
   grunt.registerTask('test', ["karma:unit", "watch:karmawatch"]);
-  grunt.registerTask('circletest', ["ts:build", "concat", "karma:unit"]);
+  grunt.registerTask('circletest', ["ts:build", "concat", "karma:continous"]);
   grunt.registerTask('cleanbuild', ["tslint:all", "ts:build", "concat", "concurrent:watchers"]);
 
 };
