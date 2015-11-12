@@ -80,8 +80,9 @@ module.exports = function (config) {
     },
     
     junitReporter : {
-      outputFile: 'junitreport/junitreport.xml',
-      suite: 'unit'
+      outputDir: 'junitreport',
+      suite: 'unit',
+      useBrowserName: true
     },
 
 
