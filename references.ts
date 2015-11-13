@@ -36,7 +36,6 @@
 /// <reference path="app/scripts/controllers/LoginController.ts" />
 /// <reference path="app/scripts/controllers/MenuController.ts" />
 /// <reference path="app/scripts/controllers/RegisterController.ts" />
-/// <reference path="app/scripts/directives/LessonResultDirective.ts" />
 /// <reference path="app/scripts/models/ILesson.ts" />
 /// <reference path="app/scripts/models/ISession.ts" />
 /// <reference path="app/scripts/models/IUser.ts" />
