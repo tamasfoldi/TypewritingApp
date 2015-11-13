@@ -1,6 +1,8 @@
 ﻿/// <reference path="../../../references.ts" />
 
-module Model {
+// todo better to create an interface and controller
+
+module Model { 
   export class Statistic {
     private nofMistakes: number = 0;
     private typingSpeed: number = 0;

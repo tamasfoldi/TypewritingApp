@@ -15,6 +15,7 @@ module App {
     .controller("LessonCtrl", ["$location", "$scope", "LessonService", Controllers.LessonCtrl])
     .controller("RegCtrl", ["$http", "$location", "UserService", Controllers.RegCtrl])
     .controller("LoginCtrl", ["$location", "AuthenticationService", Controllers.LoginCtrl])
+    .controller("UserCtrl", ["$location", "$rootScope", "$scope", "UserService", Controllers.UserCtrl])
     .directive("lessonResult", () => {
       return {
         restrict: "E",
@@ -59,6 +60,11 @@ module App {
           controller: Controllers.LessonCtrl,
           controllerAs: "LessonCtrl"
         })
+        .when("/user", {
+          templateUrl: "/partials/user.ejs",
+          controller: Controllers.UserCtrl,
+          controllerAs: "UserCtrl"
+        })
         .otherwise({
           templateUrl: "/partials/register.ejs",
           controller: Controllers.RegCtrl,
@@ -68,13 +74,17 @@ module App {
     })
     .run(($rootScope: angular.IRootScopeService, $location, AuthenticationService: Services.AuthenticationService) => {
       $rootScope.$watch("currentUser", (currentUser) => {
-        if (!currentUser && (["/", "/login", "/logout", "/signup"].indexOf($location.path()) === -1)) {
+        if (!currentUser && (["/", "/login", "/logout", "/register"].indexOf($location.path()) === -1)) {
           AuthenticationService.currentUser();
         }
       });
 
       $rootScope.$on("event:auth-loginRequired", () => {
         $location.path("/login");
+        return false;
+      });
+      $rootScope.$on("event:auth-invalidAuthentication", () => {
+        $location.path("/"); // todo new page smthg
         return false;
       });
     });
