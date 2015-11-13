@@ -40,9 +40,7 @@ module Services {
     currentUser(): void {
       this.sessionSrv.get().$promise.then((user) => {
         this.rootScope.currentUser = user;
-      }, (msg) => {
-        console.log(msg);
-      });
+      }); // todo on error 404 redirect
     }
 
     createUser(userinfo): angular.IPromise<Model.IUser> {

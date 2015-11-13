@@ -23,10 +23,9 @@ module Controllers {
       this.statistic = new Statistic();
       this.resultIsHidden = true;
       this.textareaIsDisabled = false;
-      this.scope.$on("timer-stopped", function(event, data) {
-        var scope: any = event.currentScope;
-        scope.LessonCtrl.statistic.calculateTypingSpeed(data.millis);
-        scope.LessonCtrl.statistic.setTime(data.millis);
+      this.scope.$on("timer-stopped", (event, data) => {
+        this.statistic.calculateTypingSpeed(data.millis);
+        this.statistic.setTime(data.millis);
       });
     }
 

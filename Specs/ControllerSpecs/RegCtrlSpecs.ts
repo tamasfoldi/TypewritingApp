@@ -22,13 +22,21 @@ describe('Register Controller Specs', () => {
   }));
 
   beforeEach(() => inject(($location, AuthenticationService) => {
-    regCtrl = new Controllers.RegCtrl( $location, AuthenticationService);
+    regCtrl = new Controllers.RegCtrl($location, AuthenticationService);
   }));
 
   it('should handle the error when the registration fails', () => {
     regCtrl.register();
-    resp.respond(400, { errors: { username: { message: 'The username is already exists' }, email: { message: 'The email is already exists'} } });
+    resp.respond(400, { errors: { username: { message: 'The username is already exists' }, email: { message: 'The email is already exists' } } });
     $httpBackend.flush();
-    expect(regCtrl.errors).toEqual({username : 'The username is already exists', email: 'The email is already exists'});
+    expect(regCtrl.errors).toEqual({ username: 'The username is already exists', email: 'The email is already exists' });
+  });
+
+  it('should redirect to "/login" on correct register', () => {
+    regCtrl.register();
+    resp.respond(200, { message: "Successfully logged in" });
+    $httpBackend.flush();
+
+    expect(location.path()).toEqual('/login');
   });
 });

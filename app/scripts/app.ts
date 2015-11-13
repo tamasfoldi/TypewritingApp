@@ -13,7 +13,6 @@ module App {
     .service("AuthenticationService", ["$location", "$rootScope", "UserService", "SessionService", "$cookieStore", Services.AuthenticationService])
     .controller("MenuCtrl", ["$location", "LessonService", "$rootScope", Controllers.MenuCtrl])
     .controller("LessonCtrl", ["$location", "$scope", "LessonService", Controllers.LessonCtrl])
-    .controller("TimerCtrl", ["$interval", Controllers.TimerCtrl])
     .controller("RegCtrl", ["$http", "$location", "UserService", Controllers.RegCtrl])
     .controller("LoginCtrl", ["$location", "AuthenticationService", Controllers.LoginCtrl])
     .directive("lessonResult", () => {
@@ -74,7 +73,7 @@ module App {
         }
       });
 
-      $rootScope.$on("event:auth-loginRequired", function() {
+      $rootScope.$on("event:auth-loginRequired", () => {
         $location.path("/login");
         return false;
       });

@@ -18,7 +18,6 @@ module Controllers {
       var password = this.password;
       this.AuthSrvc.login("password", { username, password })
         .then(() => {
-          this.AuthSrvc.currentUser();
           this.location.path("/");
         }, (msg: angular.IHttpPromiseCallbackArg<any>) => {
           this.error = msg.data.message;

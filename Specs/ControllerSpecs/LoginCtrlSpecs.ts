@@ -33,4 +33,13 @@ describe('Login Controller Specs', () => {
     $httpBackend.flush();
     expect(loginCtrl.error).toEqual('Invalid username');
   });
+  
+  it('should redirect to "/" on correct login', () =>{
+    loginCtrl.login();
+    spyOn(location, 'path').and.callThrough();
+    resp.respond(200, {message: "Successfully logged in"});
+    $httpBackend.flush();
+    
+    expect(location.path()).toEqual('/');
+  });
 });
