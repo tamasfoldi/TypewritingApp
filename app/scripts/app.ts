@@ -5,7 +5,11 @@ module App {
       return <Services.ILessonService>$resource("/api/lessons/:id", { id: "@id" });
     }])
     .factory("UserService", ["$resource", ($resource: angular.resource.IResourceService): Services.IUserService => {
-      return <Services.IUserService>$resource("/api/users/:id", { id: "@id" });
+      var update : angular.resource.IActionDescriptor = {
+            method: "PUT",
+            isArray: false
+        };
+      return <Services.IUserService>$resource("/api/users/:id", { id: "@id" }, {update: update});
     }])
     .factory("SessionService", ["$resource", ($resource: angular.resource.IResourceService): Services.ISessionService => {
       return <Services.ISessionService>$resource("/api/auth/sessions/", {});

@@ -39,8 +39,6 @@ describe('User Controller Specs', () => {
     }));
 
     it('should emit "event:auth-loginRequired" if there is no currect user', () => {
-      $httpBackend.expectGET('/api/users').respond(404, 'User Not Found');
-      rootScope.currentUser = { username: "test", email: "test@gmail.com" }
       userCtrl = new Controllers.UserCtrl(location, rootScope, scope, userService);
       spyOn(userCtrl.scope, "$emit");
 
@@ -49,12 +47,32 @@ describe('User Controller Specs', () => {
 
 
     it('should emit "event:auth-invalidAuthentication" if the requested user is not the current', () => {
-      $httpBackend.expectGET('/api/users').respond(404, 'User Not Found');
-      rootScope.currentUser = { username: "test", email: "test@gmail.com" }
+      rootScope.currentUser = { username: "test2", email: "test@gmail.com" }
       userCtrl = new Controllers.UserCtrl(location, rootScope, scope, userService);
       spyOn(userCtrl.scope, "$emit");
 
-      expect(userCtrl.scope.$emit).not.toHaveBeenCalledWith("event:auth-loginRequired");
+      expect(userCtrl.scope.$emit).not.toHaveBeenCalledWith("event:auth-invalidAuthentication");
+    });
+    
+    it('should update the users email', () => {
+      rootScope.currentUser = { username: "test", email: "test@gmail.com" }
+      userCtrl = new Controllers.UserCtrl(location, rootScope, scope, userService);
+      spyOn(userCtrl, "updateUser").and.callThrough();   
+      
+      $httpBackend.expectGET('/api/users').respond(
+        {
+          username: "test",
+          email: "test@gmail.com"
+        }
+      );      
+      
+      $httpBackend.flush();
+      
+      userCtrl.updateName = "test2";      
+      userCtrl.updateUser();
+      $httpBackend.expectPUT('/api/users/test').respond(200);
+      
+      expect(userCtrl.user.username).toEqual("test2");
     });
   });
 

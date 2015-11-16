@@ -6,6 +6,7 @@ module Controllers {
     user: Model.IUser;
     scope: angular.IScope;
     userSrv: Services.IUserService;
+    updateName: string = "";
 
     constructor($location: angular.ILocationService, $rootScope, $scope: angular.IScope, UserService: Services.IUserService) {
       this.location = $location;
@@ -22,6 +23,13 @@ module Controllers {
       }, () => {
         $scope.$emit("event:auth-userNotExists");
       });
+    }
+    
+    updateUser() {
+      this.user.username = this.updateName;
+      this.userSrv.update(this.user).$promise.then((user) => {
+        this.user = user;
+      })
     }
   }
 }
