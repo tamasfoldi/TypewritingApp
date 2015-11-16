@@ -6,6 +6,7 @@ module.exports = function(app) {
   var users = require("../controllers/users");
   app.post("/api/users", users.create);
   app.get("/api/users/:userId", users.show);
+  app.put("/api/users/:userId", users.updateUser);
   // lesson Routes
   var lessons = require("../controllers/lessons");
   app.get("/api/lessons", lessons.query);

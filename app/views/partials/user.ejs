@@ -3,8 +3,8 @@
     <h1>{{ UserCtrl.user.username }}</h1>
     <form name="UserForm" ng-submit="UserCtrl.updateUser()">
       <md-input-container>
-        <label>Password</label>
-        <input required type="password" name="password" ng-model="LoginCtrl.password" />
+        <label>Username</label>
+        <input required name="username" ng-model="UserCtrl.updateName" />
       </md-input-container>
                   <!-- Login Button -->
       <md-content>

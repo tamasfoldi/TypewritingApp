@@ -25,6 +25,7 @@ exports.show = function(req, res, next) {
 /* POST /api/users */
 exports.create = function(req, res, next) {
   var newUser = new User(req.body);
+
   newUser.provider = "local";
   newUser.save(function(err) {
     if (err) {
@@ -36,5 +37,13 @@ exports.create = function(req, res, next) {
       }
       return res.status(200).send(newUser.user_info);
     });
+  });
+};
+
+exports.updateUser = function(req, res, next) {
+  User.findOneAndUpdate(ObjectId(req.params.userId), req.body, {new: true}, function(err, user) {
+    if ( !err ) {
+      return res.status(200).send(user.user_info);
+    }
   });
 };

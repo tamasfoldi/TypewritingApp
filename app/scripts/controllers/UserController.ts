@@ -10,7 +10,7 @@ module Controllers {
 
     constructor($location: angular.ILocationService, $rootScope, $scope: angular.IScope, UserService: Services.IUserService) {
       this.location = $location;
-      this.scope= $scope;
+      this.scope = $scope;
       this.userSrv = UserService;
       this.userSrv.get({ id: $location.search().id }).$promise.then((user) => {
         if ($rootScope.currentUser === null) {
@@ -24,12 +24,11 @@ module Controllers {
         $scope.$emit("event:auth-userNotExists");
       });
     }
-    
+
     updateUser() {
-      this.user.username = this.updateName;
-      this.userSrv.update(this.user).$promise.then((user) => {
+      this.userSrv.update({ id: this.location.search().id, username: this.updateName}).$promise.then((user) => {
         this.user = user;
-      })
+      });
     }
   }
 }

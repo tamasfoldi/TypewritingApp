@@ -58,6 +58,7 @@ describe('User Controller Specs', () => {
       rootScope.currentUser = { username: "test", email: "test@gmail.com" }
       userCtrl = new Controllers.UserCtrl(location, rootScope, scope, userService);
       spyOn(userCtrl, "updateUser").and.callThrough();   
+      spyOn(userCtrl.userSrv, "update").and.callThrough();
       
       $httpBackend.expectGET('/api/users').respond(
         {
@@ -70,8 +71,9 @@ describe('User Controller Specs', () => {
       
       userCtrl.updateName = "test2";      
       userCtrl.updateUser();
-      $httpBackend.expectPUT('/api/users/test').respond(200);
+      $httpBackend.expectPUT('/api/users').respond(200);
       
+      $httpBackend.flush();
       expect(userCtrl.user.username).toEqual("test2");
     });
   });
