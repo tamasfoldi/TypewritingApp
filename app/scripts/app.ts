@@ -72,7 +72,7 @@ module App {
         });
       $locationProvider.html5Mode(true);
     })
-    .run(($rootScope: angular.IRootScopeService, $location, AuthenticationService: Services.AuthenticationService) => {
+    .run(($rootScope: angular.IRootScopeService, $location: angular.ILocationService, AuthenticationService: Services.AuthenticationService) => {
       $rootScope.$watch("currentUser", (currentUser) => {
         if (!currentUser && (["/", "/login", "/logout", "/register"].indexOf($location.path()) === -1)) {
           AuthenticationService.currentUser();
@@ -81,10 +81,17 @@ module App {
 
       $rootScope.$on("event:auth-loginRequired", () => {
         $location.path("/login");
+        $location.search("");
         return false;
       });
       $rootScope.$on("event:auth-invalidAuthentication", () => {
         $location.path("/"); // todo new page smthg
+        $location.search("");
+        return false;
+      });
+      $rootScope.$on("event:auth-userNotExists", () => {
+        $location.path("/"); // todo new page smthg
+        $location.search("");
         return false;
       });
     });

@@ -23,6 +23,7 @@ module Controllers {
       this.errors = {};
       this.authSrv.createUser({ username, email, password }).then(() => {
         this.location.path("/login");
+        this.location.search("");
       }, (msg: angular.IHttpPromiseCallbackArg<any>) => {
         for (var field in msg.data.errors) {
           this.errors[field] = msg.data.errors[field].message;

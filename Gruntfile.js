@@ -61,7 +61,7 @@ module.exports = function (grunt) {
     // run watch and nodemon at the same time
     concurrent: {
       watchers: {
-        tasks: ['nodemon', 'watch'],
+        tasks: ['nodemon', 'watch:scripts'],
         options: {
           logConcurrentOutput: true
         }

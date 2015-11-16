@@ -22,14 +22,17 @@ module Controllers {
     logout() {
       this.authSrv.logout().then(() => {
         this.location.path("/login");
+        this.location.search("");
       });
     }
 
     login() {
+      this.location.search("");
       this.location.path("/login");
     }
 
     register() {
+      this.location.search("");
       this.location.path("/register");
     }
   }

@@ -14,42 +14,62 @@ describe('User Controller Specs', () => {
     jasmine.addCustomEqualityTester((first, second) => {
       return angular.equals(first, second);
     });
-
-
   });
 
-  beforeEach(() => inject(($location: angular.ILocationService, $rootScope: angular.IRootScopeService, UserService: Services.IUserService) => {
+  beforeEach(() => inject(($location: angular.ILocationService, $rootScope: angular.IRootScopeService, UserService: Services.IUserService, _$httpBackend_) => {
     location = $location;
     userService = UserService;
     location.path('/user?username=test');
     scope = $rootScope.$new();
-    rootScope = $rootScope;    
+    rootScope = $rootScope;
+    $httpBackend = _$httpBackend_;
     userCtrl = new Controllers.UserCtrl(location, $rootScope, scope, UserService);
   }));
 
-  beforeEach(inject(function(_$httpBackend_, $rootScope, $controller) {
-    $httpBackend = _$httpBackend_;
-    $httpBackend.expectGET('/api/users').respond(
-      {
-        username: "test",
-        email: "test@gmail.com"
-      }
-    );
-    $httpBackend.flush();
-  }));
+  describe('Valid user requests', () => {
+    beforeEach(inject(function($rootScope, $controller) {
+      $httpBackend.expectGET('/api/users').respond(
+        {
+          username: "test",
+          email: "test@gmail.com"
+        }
+      );
+      $httpBackend.expectGET('/api/auth/sessions').respond(200, "OK");
+      $httpBackend.flush();
+    }));
 
-  it('should redirect to "/login" if the currentUser is null', () => {
-    spyOn(userCtrl.location, "path").and.callThrough();
+    it('should emit "event:auth-loginRequired" if there is no currect user', () => {
+      $httpBackend.expectGET('/api/users').respond(404, 'User Not Found');
+      rootScope.currentUser = { username: "test", email: "test@gmail.com" }
+      userCtrl = new Controllers.UserCtrl(location, rootScope, scope, userService);
+      spyOn(userCtrl.scope, "$emit");
 
-    expect(userCtrl.location.path()).toEqual('/login');
+      expect(userCtrl.scope.$emit).not.toHaveBeenCalledWith("event:auth-loginRequired");
+    });
+
+
+    it('should emit "event:auth-invalidAuthentication" if the requested user is not the current', () => {
+      $httpBackend.expectGET('/api/users').respond(404, 'User Not Found');
+      rootScope.currentUser = { username: "test", email: "test@gmail.com" }
+      userCtrl = new Controllers.UserCtrl(location, rootScope, scope, userService);
+      spyOn(userCtrl.scope, "$emit");
+
+      expect(userCtrl.scope.$emit).not.toHaveBeenCalledWith("event:auth-loginRequired");
+    });
+  });
+
+  describe('Invalid user request', () => {
+
+    it('should emit "event:auth-userNotExists" if the requested user does not exists', () => {
+      $httpBackend.expectGET('/api/users').respond(404, 'User Not Found');
+      rootScope.currentUser = { username: "test", email: "test@gmail.com" }
+      userCtrl = new Controllers.UserCtrl(location, rootScope, scope, userService);
+      spyOn(userCtrl.scope, "$emit");
+
+      expect(userCtrl.scope.$emit).not.toHaveBeenCalledWith("event:auth-userNotExists");
+    });
   });
 
 
-  it('should redirect to "/" if the currentUser is not the requested one but not null', () => {
-    rootScope.currentUser = { username: "test2", email: "test2@gmail.com" }
-    userCtrl = new Controllers.UserCtrl(location, rootScope, scope, userService);
-    spyOn(userCtrl.location, "path").and.callThrough();
 
-    expect(userCtrl.location.path()).toEqual('/');
-  });
 }); 
