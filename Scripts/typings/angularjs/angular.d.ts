@@ -14,7 +14,7 @@ interface Function {
 }
 
 // Collapse angular into ng
-import ng = angular;
+//import ng = angular;
 // Support AMD require
 declare module 'angular' {
     export = angular;
@@ -176,13 +176,13 @@ declare module angular {
         animation(name: string, inlineAnnotatedFunction: any[]): IModule;
         animation(object: Object): IModule;
         /**
-         * Use this method to register work which needs to be performed on module loading.
+         * Use this method to register work which needs to be performed on module loadiangular.
          *
          * @param configFn Execute this function on module load. Useful for service configuration.
          */
         config(configFn: Function): IModule;
         /**
-         * Use this method to register work which needs to be performed on module loading.
+         * Use this method to register work which needs to be performed on module loadiangular.
          *
          * @param inlineAnnotatedFunction Execute this function on module load. Useful for service configuration.
          */
@@ -289,7 +289,7 @@ declare module angular {
 
     ///////////////////////////////////////////////////////////////////////////
     // Attributes
-    // see http://docs.angularjs.org/api/ng.$compile.directive.Attributes
+    // see http://docs.angularjs.org/api/angular.$compile.directive.Attributes
     ///////////////////////////////////////////////////////////////////////////
     interface IAttributes {
         /**
@@ -349,7 +349,7 @@ declare module angular {
     interface IFormController {
 
         /**
-         * Indexer which should return ng.INgModelController for most properties but cannot because of "All named properties must be assignable to string indexer type" constraint - see https://github.com/Microsoft/TypeScript/issues/272
+         * Indexer which should return angular.INgModelController for most properties but cannot because of "All named properties must be assignable to string indexer type" constraint - see https://github.com/Microsoft/TypeScript/issues/272
          */
         [name: string]: any;
 
@@ -372,7 +372,7 @@ declare module angular {
 
     ///////////////////////////////////////////////////////////////////////////
     // NgModelController
-    // see http://docs.angularjs.org/api/ng.directive:ngModel.NgModelController
+    // see http://docs.angularjs.org/api/angular.directive:ngModel.NgModelController
     ///////////////////////////////////////////////////////////////////////////
     interface INgModelController {
         $render(): void;
@@ -585,7 +585,7 @@ declare module angular {
 
     ///////////////////////////////////////////////////////////////////////////
     // WindowService
-    // see http://docs.angularjs.org/api/ng.$window
+    // see http://docs.angularjs.org/api/angular.$window
     ///////////////////////////////////////////////////////////////////////////
     interface IWindowService extends Window {
         [key: string]: any;
@@ -602,7 +602,7 @@ declare module angular {
 
     ///////////////////////////////////////////////////////////////////////////
     // TimeoutService
-    // see http://docs.angularjs.org/api/ng.$timeout
+    // see http://docs.angularjs.org/api/angular.$timeout
     ///////////////////////////////////////////////////////////////////////////
     interface ITimeoutService {
         (delay?: number, invokeApply?: boolean): IPromise<void>;
@@ -612,7 +612,7 @@ declare module angular {
 
     ///////////////////////////////////////////////////////////////////////////
     // IntervalService
-    // see http://docs.angularjs.org/api/ng.$interval
+    // see http://docs.angularjs.org/api/angular.$interval
     ///////////////////////////////////////////////////////////////////////////
     interface IIntervalService {
         (func: Function, delay: number, count?: number, invokeApply?: boolean): IPromise<any>;
@@ -620,7 +620,7 @@ declare module angular {
     }
 
     ///////////////////////////////////////////////////////////////////////////
-    // AnimateProvider
+    // AngularProvider
     // see http://docs.angularjs.org/api/ng/provider/$animateProvider
     ///////////////////////////////////////////////////////////////////////////
     interface IAnimateProvider {
@@ -717,7 +717,7 @@ declare module angular {
          *
          * @param date Date to format either as Date object, milliseconds (string or number) or various ISO 8601 datetime string formats (e.g. yyyy-MM-ddTHH:mm:ss.sssZ and its shorter versions like yyyy-MM-ddTHH:mmZ, yyyy-MM-dd or yyyyMMddTHHmmssZ). If no timezone is specified in the string input, the time is considered to be in the local timezone.
          * @param format Formatting rules (see Description). If not specified, mediumDate is used.
-         * @param timezone Timezone to be used for formatting. It understands UTC/GMT and the continental US time zone abbreviations, but for general use, use a time zone offset, for example, '+0430' (4 hours, 30 minutes east of the Greenwich meridian) If not specified, the timezone of the browser will be used.
+         * @param timezone Timezone to be used for formattiangular. It understands UTC/GMT and the continental US time zone abbreviations, but for general use, use a time zone offset, for example, '+0430' (4 hours, 30 minutes east of the Greenwich meridian) If not specified, the timezone of the browser will be used.
          * @return Formatted string or the input if input is not recognized as date/millis.
          */
         (date: Date | number | string, format?: string, timezone?: string): string;
@@ -725,10 +725,10 @@ declare module angular {
 
     interface IFilterJson {
         /**
-         * Allows you to convert a JavaScript object into JSON string.
+         * Allows you to convert a JavaScript object into JSON striangular.
          * @param object Any JavaScript object (including arrays and primitive types) to filter.
          * @param spacing The number of spaces to use per indentation, defaults to 2.
-         * @return JSON string.
+         * @return JSON striangular.
          */
         (object: any, spacing?: number): string;
     }
@@ -757,9 +757,9 @@ declare module angular {
          */
         <T>(input: T[], limit: string|number, begin?: string|number): T[];
         /**
-         * Creates a new string containing only a specified number of elements. The elements are taken from either the beginning or the end of the source string or number, as specified by the value and sign (positive or negative) of limit. If a number is used as input, it is converted to a string.
+         * Creates a new string containing only a specified number of elements. The elements are taken from either the beginning or the end of the source string or number, as specified by the value and sign (positive or negative) of limit. If a number is used as input, it is converted to a striangular.
          * @param input Source string or number to be limited.
-         * @param limit The length of the returned string. If the limit number is positive, limit number of items from the beginning of the source string are copied. If the number is negative, limit number of items from the end of the source string are copied. The limit will be trimmed if it exceeds input.length. If limit is undefined, the input will be returned unchanged.
+         * @param limit The length of the returned striangular. If the limit number is positive, limit number of items from the beginning of the source string are copied. If the number is negative, limit number of items from the end of the source string are copied. The limit will be trimmed if it exceeds input.length. If limit is undefined, the input will be returned unchanged.
          * @param begin Index at which to begin limitation. As a negative index, begin indicates an offset from the end of input. Defaults to 0.
          * @return A new substring of length limit or less if input had less than limit elements.
          */
@@ -774,7 +774,7 @@ declare module angular {
          * @param reverse Reverse the order of the array.
          * @return Reverse the order of the array.
          */
-        <T>(array: T[], expression: string|((value: T) => any)|(((value: T) => any)|string)[], reverse?: boolean): T[];
+        <T>(array: T[], expression: string|string[]|((value: T) => any)|((value: T) => any)[], reverse?: boolean): T[];
     }
 
     /**
@@ -795,7 +795,7 @@ declare module angular {
 
     ///////////////////////////////////////////////////////////////////////////
     // LocaleService
-    // see http://docs.angularjs.org/api/ng.$locale
+    // see http://docs.angularjs.org/api/angular.$locale
     ///////////////////////////////////////////////////////////////////////////
     interface ILocaleService {
         id: string;
@@ -844,8 +844,8 @@ declare module angular {
 
     ///////////////////////////////////////////////////////////////////////////
     // LogService
-    // see http://docs.angularjs.org/api/ng.$log
-    // see http://docs.angularjs.org/api/ng.$logProvider
+    // see http://docs.angularjs.org/api/angular.$log
+    // see http://docs.angularjs.org/api/angular.$logProvider
     ///////////////////////////////////////////////////////////////////////////
     interface ILogService {
         debug: ILogCall;
@@ -868,8 +868,8 @@ declare module angular {
 
     ///////////////////////////////////////////////////////////////////////////
     // ParseService
-    // see http://docs.angularjs.org/api/ng.$parse
-    // see http://docs.angularjs.org/api/ng.$parseProvider
+    // see http://docs.angularjs.org/api/angular.$parse
+    // see http://docs.angularjs.org/api/angular.$parseProvider
     ///////////////////////////////////////////////////////////////////////////
     interface IParseService {
         (expression: string): ICompiledExpression;
@@ -912,7 +912,7 @@ declare module angular {
 
         /**
          * Change path when called with parameter and return $location.
-         * Note: Path should always begin with forward slash (/), this method will add the forward slash if it is missing.
+         * Note: Path should always begin with forward slash (/), this method will add the forward slash if it is missiangular.
          *
          * @param path New path
          */
@@ -964,13 +964,13 @@ declare module angular {
 
     ///////////////////////////////////////////////////////////////////////////
     // DocumentService
-    // see http://docs.angularjs.org/api/ng.$document
+    // see http://docs.angularjs.org/api/angular.$document
     ///////////////////////////////////////////////////////////////////////////
     interface IDocumentService extends IAugmentedJQuery {}
 
     ///////////////////////////////////////////////////////////////////////////
     // ExceptionHandlerService
-    // see http://docs.angularjs.org/api/ng.$exceptionHandler
+    // see http://docs.angularjs.org/api/angular.$exceptionHandler
     ///////////////////////////////////////////////////////////////////////////
     interface IExceptionHandlerService {
         (exception: Error, cause?: string): void;
@@ -978,7 +978,7 @@ declare module angular {
 
     ///////////////////////////////////////////////////////////////////////////
     // RootElementService
-    // see http://docs.angularjs.org/api/ng.$rootElement
+    // see http://docs.angularjs.org/api/angular.$rootElement
     ///////////////////////////////////////////////////////////////////////////
     interface IRootElementService extends JQuery {}
 
@@ -1078,7 +1078,7 @@ declare module angular {
 
     ///////////////////////////////////////////////////////////////////////////
     // AnchorScrollService
-    // see http://docs.angularjs.org/api/ng.$anchorScroll
+    // see http://docs.angularjs.org/api/angular.$anchorScroll
     ///////////////////////////////////////////////////////////////////////////
     interface IAnchorScrollService {
         (): void;
@@ -1184,8 +1184,8 @@ declare module angular {
 
     ///////////////////////////////////////////////////////////////////////////
     // CompileService
-    // see http://docs.angularjs.org/api/ng.$compile
-    // see http://docs.angularjs.org/api/ng.$compileProvider
+    // see http://docs.angularjs.org/api/angular.$compile
+    // see http://docs.angularjs.org/api/angular.$compileProvider
     ///////////////////////////////////////////////////////////////////////////
     interface ICompileService {
         (element: string, transclude?: ITranscludeFunction, maxPriority?: number): ITemplateLinkingFunction;
@@ -1228,8 +1228,8 @@ declare module angular {
 
     ///////////////////////////////////////////////////////////////////////////
     // ControllerService
-    // see http://docs.angularjs.org/api/ng.$controller
-    // see http://docs.angularjs.org/api/ng.$controllerProvider
+    // see http://docs.angularjs.org/api/angular.$controller
+    // see http://docs.angularjs.org/api/angular.$controllerProvider
     ///////////////////////////////////////////////////////////////////////////
     interface IControllerService {
         // Although the documentation doesn't state this, locals are optional
@@ -1390,7 +1390,7 @@ declare module angular {
     }
 
     // See the jsdoc for transformData() at https://github.com/angular/angular.js/blob/master/src/ng/http.js#L228
-    interface IHttpRequestTransformer {
+    interface IHttpResquestTransformer {
         (data: any, headersGetter: IHttpHeadersGetter): any;
     }
 
@@ -1418,7 +1418,7 @@ declare module angular {
     interface IHttpProviderDefaults {
         /**
          * {boolean|Cache}
-         * If true, a default $http cache will be used to cache the GET request, otherwise if a cache instance built with $cacheFactory, this cache will be used for caching.
+         * If true, a default $http cache will be used to cache the GET request, otherwise if a cache instance built with $cacheFactory, this cache will be used for cachiangular.
          */
         cache?: any;
 
@@ -1427,7 +1427,7 @@ declare module angular {
          * headers and returns its transformed (typically serialized) version.
          * @see {@link https://docs.angularjs.org/api/ng/service/$http#transforming-requests-and-responses}
          */
-        transformRequest?: IHttpRequestTransformer |IHttpRequestTransformer[];
+        transformRequest?: IHttpResquestTransformer |IHttpResquestTransformer[];
 
         /**
          * Transform function or an array of such functions. The transform function takes the http response body and
@@ -1487,7 +1487,7 @@ declare module angular {
         /**
          *
          * @param {boolean=} value If true, `$http` will return a normal promise without the `success` and `error` methods.
-         * @returns {boolean|Object} If a value is specified, returns the $httpProvider for chaining.
+         * @returns {boolean|Object} If a value is specified, returns the $httpProvider for chainiangular.
          *    otherwise, returns the current configured value.
          */
         useLegacyPromiseExtensions(value:boolean) : boolean | IHttpProvider;
@@ -1495,7 +1495,7 @@ declare module angular {
 
     ///////////////////////////////////////////////////////////////////////////
     // HttpBackendService
-    // see http://docs.angularjs.org/api/ng.$httpBackend
+    // see http://docs.angularjs.org/api/angular.$httpBackend
     // You should never need to use this service directly.
     ///////////////////////////////////////////////////////////////////////////
     interface IHttpBackendService {
@@ -1505,8 +1505,8 @@ declare module angular {
 
     ///////////////////////////////////////////////////////////////////////////
     // InterpolateService
-    // see http://docs.angularjs.org/api/ng.$interpolate
-    // see http://docs.angularjs.org/api/ng.$interpolateProvider
+    // see http://docs.angularjs.org/api/angular.$interpolate
+    // see http://docs.angularjs.org/api/angular.$interpolateProvider
     ///////////////////////////////////////////////////////////////////////////
     interface IInterpolateService {
         (text: string, mustHaveExpression?: boolean, trustedContext?: string, allOrNothing?: boolean): IInterpolationFunction;
@@ -1527,13 +1527,13 @@ declare module angular {
 
     ///////////////////////////////////////////////////////////////////////////
     // TemplateCacheService
-    // see http://docs.angularjs.org/api/ng.$templateCache
+    // see http://docs.angularjs.org/api/angular.$templateCache
     ///////////////////////////////////////////////////////////////////////////
     interface ITemplateCacheService extends ICacheObject {}
 
     ///////////////////////////////////////////////////////////////////////////
     // SCEService
-    // see http://docs.angularjs.org/api/ng.$sce
+    // see http://docs.angularjs.org/api/angular.$sce
     ///////////////////////////////////////////////////////////////////////////
     interface ISCEService {
         getTrusted(type: string, mayBeTrusted: any): any;
@@ -1558,7 +1558,7 @@ declare module angular {
 
     ///////////////////////////////////////////////////////////////////////////
     // SCEProvider
-    // see http://docs.angularjs.org/api/ng.$sceProvider
+    // see http://docs.angularjs.org/api/angular.$sceProvider
     ///////////////////////////////////////////////////////////////////////////
     interface ISCEProvider extends IServiceProvider {
         enabled(value: boolean): void;
@@ -1566,7 +1566,7 @@ declare module angular {
 
     ///////////////////////////////////////////////////////////////////////////
     // SCEDelegateService
-    // see http://docs.angularjs.org/api/ng.$sceDelegate
+    // see http://docs.angularjs.org/api/angular.$sceDelegate
     ///////////////////////////////////////////////////////////////////////////
     interface ISCEDelegateService {
         getTrusted(type: string, mayBeTrusted: any): any;
@@ -1577,7 +1577,7 @@ declare module angular {
 
     ///////////////////////////////////////////////////////////////////////////
     // SCEDelegateProvider
-    // see http://docs.angularjs.org/api/ng.$sceDelegateProvider
+    // see http://docs.angularjs.org/api/angular.$sceDelegateProvider
     ///////////////////////////////////////////////////////////////////////////
     interface ISCEDelegateProvider extends IServiceProvider {
         resourceUrlBlacklist(blacklist: any[]): void;
@@ -1616,7 +1616,7 @@ declare module angular {
 
     ///////////////////////////////////////////////////////////////////////////
     // Directive
-    // see http://docs.angularjs.org/api/ng.$compileProvider#directive
+    // see http://docs.angularjs.org/api/angular.$compileProvider#directive
     // and http://docs.angularjs.org/guide/directive
     ///////////////////////////////////////////////////////////////////////////
 
@@ -1660,7 +1660,6 @@ declare module angular {
         restrict?: string;
         scope?: any;
         template?: any;
-        templateNamespace?: string;
         templateUrl?: any;
         terminal?: boolean;
         transclude?: any;
@@ -1726,7 +1725,7 @@ declare module angular {
         ///////////////////////////////////////////////////////////////////////
         interface IProvideService {
             // Documentation says it returns the registered instance, but actual
-            // implementation does not return anything.
+            // implementation does not return anythiangular.
             // constant(name: string, value: any): any;
             /**
              * Register a constant service, such as a string, a number, an array, an object or a function, with the $injector. Unlike value it can be injected into a module configuration function (see config) and it cannot be overridden by an Angular decorator.
