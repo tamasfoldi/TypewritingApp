@@ -18,6 +18,10 @@ module Controllers {
     constructor($location: angular.ILocationService, $scope, LessonService: Services.ILessonService) {
       this.location = $location;
       this.lesson = LessonService.get({ id: this.location.search().id });
+      this.lesson.$promise.then((data) => {
+        this.textToBeType = this.lesson.text;
+      });
+      this.textToBeType = this.lesson.text;
       this.typedText = "";
       this.scope = $scope;
       this.statistic = new Statistic();
