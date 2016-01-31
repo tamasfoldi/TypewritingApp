@@ -63,5 +63,4 @@ describe("Typewriting main tests", function() {
         expect(element.querySelectorAll("h1").length).toBe(1);
       });
   }));
-
 });
