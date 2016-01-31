@@ -27,7 +27,7 @@ describe("Typewriting main tests", function() {
         fixture.detectChanges();
 
         let element = fixture.nativeElement;
-        expect(element.querySelectorAll("tpw-footer").length).toBe(1);
+        expect(element.querySelectorAll("tpw-footer").length).toEqual(1);
       });
   }));
 
@@ -38,7 +38,7 @@ describe("Typewriting main tests", function() {
         fixture.detectChanges();
 
         let element = fixture.nativeElement;
-        expect(element.querySelectorAll("section").length).toBe(1);
+        expect(element.querySelectorAll("section").length).toEqual(1);
       });
   }));
 
@@ -49,7 +49,7 @@ describe("Typewriting main tests", function() {
         fixture.detectChanges();
 
         let element = fixture.nativeElement;
-        expect(element.querySelectorAll("h1").length).toBe(1);
+        expect(element.querySelectorAll("h1").length).toEqual(1);
       });
   }));
 });
