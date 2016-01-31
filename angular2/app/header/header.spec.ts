@@ -25,13 +25,13 @@ describe("Typewriting header tests", function() {
       .then(fixture => {
 
         let headerCmp = fixture.componentInstance;
-        headerCmp.title = "asdf";
+        headerCmp.title = "Test title";
 
 
         fixture.detectChanges();
 
         let element = fixture.nativeElement;
-        expect(element.querySelector("h1")).toHaveText("asdf");
+        expect(element.querySelector("h1")).toHaveText("Test title");
       });
   }));
 });

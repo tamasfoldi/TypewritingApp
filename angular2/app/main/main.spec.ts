@@ -42,17 +42,6 @@ describe("Typewriting main tests", function() {
       });
   }));
 
-  it("should have one section", injectAsync([], () => {
-    return tcb.createAsync(MainComponent)
-      .then(fixture => {
-
-        fixture.detectChanges();
-
-        let element = fixture.nativeElement;
-        expect(element.querySelectorAll("section").length).toBe(1);
-      });
-  }));
-
   it("should have one h1", injectAsync([], () => {
     return tcb.createAsync(MainComponent)
       .then(fixture => {
