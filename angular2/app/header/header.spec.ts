@@ -9,19 +9,20 @@ describe("Typewriting header tests", function() {
     tcb = tcBuilder;
   }));
 
-  it("should have one h1", injectAsync([], () => {
-    return tcb.createAsync(HeaderComponent)
+  it("should have one h1", done => {
+    tcb.createAsync(HeaderComponent)
       .then(fixture => {
 
         fixture.detectChanges();
 
         let element = fixture.nativeElement;
         expect(element.querySelectorAll("h1").length).toEqual(1);
+        done();
       });
-  }));
+  });
 
-  it("should have a title", injectAsync([], () => {
-    return tcb.createAsync(HeaderComponent)
+  it("should have a title", done => {
+    tcb.createAsync(HeaderComponent)
       .then(fixture => {
 
         let headerCmp = fixture.componentInstance;
@@ -32,6 +33,7 @@ describe("Typewriting header tests", function() {
 
         let element = fixture.nativeElement;
         expect(element.querySelector("h1")).toHaveText("Test title");
+        done();
       });
-  }));
+  });
 });
