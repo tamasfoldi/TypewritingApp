@@ -3,14 +3,15 @@ import {MenuLessonService} from "./menu_lesson.service";
 import {MenuLesson} from "../../../DTO/MenuLesson";
 
 @Component({
+  bindings: [MenuLessonService],
   selector: "tpw-menu-lesson",
-  templateUrl: "app/menu/menu.html"
+  templateUrl: "app/menu/menu_lesson/menu_lesson.html"
 })
 export class MenuLessonComponent {
-  lessonMenu: Array<MenuLesson>;
+  lessonMenuElems: Array<MenuLesson>;
 
   constructor(menuLessonService: MenuLessonService) {
-    this.lessonMenu = menuLessonService.query();
+    this.lessonMenuElems = menuLessonService.query();
   }
 
 }
