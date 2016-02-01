@@ -9,51 +9,47 @@ describe("Typewriting main tests", function() {
     tcb = tcBuilder;
   }));
 
-  it("should have one header", done => {
-    tcb.createAsync(MainComponent)
+  it("should have one header", injectAsync([], () => {
+    return tcb.createAsync(MainComponent)
       .then(fixture => {
 
         fixture.detectChanges();
 
         let element = fixture.nativeElement;
         expect(element.querySelectorAll("tpw-header").length).toEqual(1);
-        done()
       });
-  });
+  }));
 
-  it("should have one footer", done => {
-    tcb.createAsync(MainComponent)
+  it("should have one footer", injectAsync([], () => {
+    return tcb.createAsync(MainComponent)
       .then(fixture => {
 
         fixture.detectChanges();
 
         let element = fixture.nativeElement;
         expect(element.querySelectorAll("tpw-footer").length).toEqual(1);
-        done();
       });
-  });
+  }));
 
-  it("should have one section", done => {
-    tcb.createAsync(MainComponent)
+  it("should have one section", injectAsync([], () => {
+    return tcb.createAsync(MainComponent)
       .then(fixture => {
 
         fixture.detectChanges();
 
         let element = fixture.nativeElement;
         expect(element.querySelectorAll("section").length).toEqual(1);
-        done();
       });
-  });
+  }));
 
-  it("should have one h1", done => {
-    tcb.createAsync(MainComponent)
+  it("should have one h1", injectAsync([], () => {
+    return tcb.createAsync(MainComponent)
       .then(fixture => {
 
         fixture.detectChanges();
 
         let element = fixture.nativeElement;
         expect(element.querySelectorAll("h1").length).toEqual(1);
-        done();
       });
-  });
+  }));
 });
