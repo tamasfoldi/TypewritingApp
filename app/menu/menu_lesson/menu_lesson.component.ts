@@ -3,7 +3,6 @@ import {MenuLessonService} from "./menu_lesson.service";
 import {MenuLesson} from "../../../DTO/MenuLesson";
 
 @Component({
-  bindings: [MenuLessonService],
   selector: "tpw-menu-lesson",
   templateUrl: "app/menu/menu_lesson/menu_lesson.html"
 })
