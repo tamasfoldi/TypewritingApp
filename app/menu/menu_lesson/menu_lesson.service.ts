@@ -3,7 +3,7 @@ import {MenuLesson} from "../../../DTO/MenuLesson";
 
 @Injectable()
 export class MenuLessonService {
-  query() {
+  query(): Array<MenuLesson> {
     return [{
       id: 1,
       name: "Lesson 1"

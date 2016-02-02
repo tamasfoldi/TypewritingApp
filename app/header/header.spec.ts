@@ -2,7 +2,7 @@ import { describe, it, expect, inject,
 injectAsync, beforeEach, TestComponentBuilder } from "angular2/testing";
 import {HeaderComponent} from "./header.component";
 
-describe("Typewriting header tests", function() {
+describe("Typewriting header tests", () => {
   let tcb: TestComponentBuilder;
 
   beforeEach(inject([TestComponentBuilder], tcBuilder => {
