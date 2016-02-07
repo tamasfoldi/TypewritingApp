@@ -75,6 +75,4 @@ describe("Typewriting main tests", () => {
         expect(cmp.login()).toEqual({ username: "Test", password: "TestPassword" });
       });
   }));
-
-
 });

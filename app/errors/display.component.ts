@@ -7,8 +7,10 @@ import {NgFormModel, AbstractControl} from "angular2/common";
   template: "<div *ngIf='isDisplayed()'><ng-content></ng-content></div>"
 })
 export class DisplayErrorCmp implements OnInit {
-  @Input("control") controlName: string;
-  @Input() error: string;
+  @Input("control")
+  controlName: string;
+  @Input()
+  error: string;
   control: AbstractControl;
 
   constructor( @Host() private formModel: NgFormModel) {
@@ -19,6 +21,6 @@ export class DisplayErrorCmp implements OnInit {
   }
 
   isDisplayed() {
-    return this.control.hasError(this.error); //this.control.dirty &&
+    return this.control.hasError(this.error);
   }
 }
