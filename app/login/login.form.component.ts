@@ -1,9 +1,9 @@
 import {Component} from "angular2/core";
 import {FormBuilder, Control, ControlGroup, Validators} from "angular2/common";
-import {DisplayErrorCmp} from "../errors/display.component";
+import {DisplayErrorComponent} from "../errors/display.component";
 
 @Component({
-  directives: [DisplayErrorCmp],
+  directives: [DisplayErrorComponent],
   selector: "tpw-login-form",
   templateUrl: "app/login/login-form.html",
   viewProviders: [FormBuilder]

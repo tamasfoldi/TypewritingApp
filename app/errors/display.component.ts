@@ -6,7 +6,7 @@ import {NgFormModel, AbstractControl} from "angular2/common";
   selector: "display-error",
   template: "<div *ngIf='isDisplayed()'><ng-content></ng-content></div>"
 })
-export class DisplayErrorCmp implements OnInit {
+export class DisplayErrorComponent implements OnInit {
   @Input("control")
   controlName: string;
   @Input()

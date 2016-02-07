@@ -4,7 +4,7 @@ import {FormBuilder} from "angular2/common";
 
 import {LoginFormComponent} from "./login.form.component";
 
-describe("Typewriting main tests", () => {
+describe("Typewriting login form tests", () => {
   let tcb: TestComponentBuilder;
 
   beforeEach(inject([TestComponentBuilder, FormBuilder], (tcBuilder, FormBuilder) => {
