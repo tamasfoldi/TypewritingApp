@@ -1,4 +1,4 @@
-import {Component} from "angular2/core";
+import {Component, ViewChildren} from "angular2/core";
 import {MenuLessonComponent} from "./menu_lesson/menu_lesson.component";
 
 @Component({
@@ -7,4 +7,8 @@ import {MenuLessonComponent} from "./menu_lesson/menu_lesson.component";
   templateUrl: "app/menu/menu.html"
 })
 export class MenuComponent {
+  @ViewChildren (MenuLessonComponent)
+  menuLessonComponents: Array<MenuLessonComponent>;
+  @ViewChildren (MenuComponent)
+  menuComponents: Array<MenuComponent>;
 }
