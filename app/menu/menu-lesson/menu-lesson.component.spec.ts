@@ -21,7 +21,6 @@ describe("Typewriting menu lesson", () => {
       provide(MenuLessonService, { useValue: menuLessonService })
     ])
     .createAsync(MenuLessonComponent);
-
   }));
 
   it("should have one menuLessonElem with name 'lesson 1'", injectAsync([], () => {

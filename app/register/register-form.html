@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<h2>Register</h2>
+<form (ngSubmit)="register()" [ngFormModel]="registerForm">
+  <div>
+    <label for="username">Username</label>
+    <input id="username" [(ngModel)]="username.value" ngControl="username" name="username" type="text">
+    <display-error control="username" error="required">Username is required</display-error>
+  </div>
+  <div>
+    <label for="email">Email</label>
+    <input id="email" [(ngModel)]="email.value" ngControl="email" name="email" type="text">
+    <display-error control="email" error="required">Email is required</display-error>
+    <display-error control="email" error="invalidMail">Email is invalid</display-error>
+  </div>
+  <div>
+    <label for="password">Password</label>
+    <input id="password" [(ngModel)]="password.value" ngControl="password" name="password" type="password">
+    <display-error control="password" error="required">Password is required</display-error>
+  </div>
+  <button type="submit" [disabled]="!registerForm.valid">Register</button>
+</form>
