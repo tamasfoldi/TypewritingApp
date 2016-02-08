@@ -1,7 +1,7 @@
 import {Component, ViewChild} from "angular2/core";
 import {HeaderComponent} from "../header/header.component";
 import {MenuComponent} from "../menu/menu.component";
-import {LoginFormComponent} from "../login/login.form.component";
+import {LoginFormComponent} from "../login/login-form.component";
 
 @Component({
   directives: [HeaderComponent, MenuComponent, LoginFormComponent],

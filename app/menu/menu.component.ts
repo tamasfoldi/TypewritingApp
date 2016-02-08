@@ -1,5 +1,5 @@
 import {Component, ViewChildren} from "angular2/core";
-import {MenuLessonComponent} from "./menu_lesson/menu_lesson.component";
+import {MenuLessonComponent} from "./menu-lesson/menu-lesson.component";
 
 @Component({
   directives: [MenuLessonComponent],

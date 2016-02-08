@@ -1,6 +1,6 @@
 import { describe, it, expect, inject,
 injectAsync, beforeEach, beforeEachProviders, TestComponentBuilder } from "angular2/testing";
-import {MenuLessonService} from "./menu_lesson.service";
+import {MenuLessonService} from "./menu-lesson.service";
 
 describe("Typewriting menu lesson", () => {
   let menuLessonService: MenuLessonService;

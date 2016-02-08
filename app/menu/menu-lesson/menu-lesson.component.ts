@@ -1,10 +1,10 @@
 import {Component} from "angular2/core";
-import {MenuLessonService} from "./menu_lesson.service";
+import {MenuLessonService} from "./menu-lesson.service";
 import {MenuLesson} from "../../../DTO/MenuLesson";
 
 @Component({
   selector: "tpw-menu-lesson",
-  templateUrl: "app/menu/menu_lesson/menu_lesson.html"
+  templateUrl: "app/menu/menu-lesson/menu-lesson.html"
 })
 export class MenuLessonComponent {
   lessonMenuElems: Array<MenuLesson>;

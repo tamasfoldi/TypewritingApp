@@ -2,7 +2,7 @@ import { describe, it, expect, inject,
 injectAsync, beforeEach, TestComponentBuilder } from "angular2/testing";
 import {FormBuilder} from "angular2/common";
 
-import {LoginFormComponent} from "./login.form.component";
+import {LoginFormComponent} from "./login-form.component";
 
 describe("Typewriting login form tests", () => {
   let tcb: TestComponentBuilder;

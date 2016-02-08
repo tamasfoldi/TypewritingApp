@@ -1,7 +1,7 @@
 import { describe, it, expect, inject,
 injectAsync, beforeEach, beforeEachProviders, TestComponentBuilder } from "angular2/testing";
-import {MenuLessonComponent} from "./menu_lesson.component";
-import {MenuLessonService} from "./menu_lesson.service";
+import {MenuLessonComponent} from "./menu-lesson.component";
+import {MenuLessonService} from "./menu-lesson.service";
 
 describe("Typewriting menu lesson", () => {
   let tcb: TestComponentBuilder;
