@@ -72,7 +72,7 @@ describe("Typewriting login form tests", () => {
         passwordInput.updateValue("TestPassword");
         fixture.detectChanges();
 
-        expect(cmp.login()).toEqual({ username: "Test", password: "TestPassword" });
+        expect(cmp.login()).toEqual({ username: "Test", password: "TestPassword", rememberMe: false });
       });
   }));
 });
