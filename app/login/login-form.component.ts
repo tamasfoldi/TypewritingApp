@@ -16,7 +16,7 @@ export class LoginFormComponent {
 
   constructor(fb: FormBuilder) {
     this.username = fb.control("", Validators.compose([Validators.required]));
-    this.password = fb.control("", Validators.compose([Validators.required]));
+    this.password = fb.control("", Validators.compose([Validators.required, Validators.minLength(6)]));
     this.rememberMe = fb.control(false);
     this.loginForm = fb.group({
       username: this.username,
@@ -27,6 +27,7 @@ export class LoginFormComponent {
   }
 
   login() {
+
     return this.loginForm.value;
   }
 }
