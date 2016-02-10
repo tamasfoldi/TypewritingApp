@@ -7,18 +7,19 @@ import {MenuLesson} from "../../../DTO/MenuLesson";
   selector: "tpw-menu-lesson",
   templateUrl: "app/menu/menu-lesson/menu-lesson.html"
 })
-export class MenuLessonComponent {
+export class MenuLessonComponent implements OnInit {
   lessonMenuElems: Array<MenuLesson>;
 
   private menuLessonService: MenuLessonService;
-  constructor( @Inject(MenuLessonService) menuLessonService: MenuLessonService) {
-    this.menuLessonService = menuLessonService;
-
-    this.getMenuItems();
+  constructor( @Inject(MenuLessonService) private _menuLessonService: MenuLessonService) {
   }
 
   getMenuItems() {
-    this.lessonMenuElems = this.menuLessonService.query();
+    this.lessonMenuElems = this._menuLessonService.query();
+  }
+
+  ngOnInit() {
+    this.getMenuItems();
   }
 
 }

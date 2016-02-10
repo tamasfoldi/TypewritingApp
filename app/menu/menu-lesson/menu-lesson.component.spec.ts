@@ -20,13 +20,17 @@ describe("Typewriting menu lesson", () => {
     tcb.overrideProviders(MenuLessonComponent, [
       provide(MenuLessonService, { useValue: menuLessonService })
     ])
-    .createAsync(MenuLessonComponent);
+      .createAsync(MenuLessonComponent);
   }));
 
   it("should have one menuLessonElem with name 'lesson 1'", injectAsync([], () => {
     return tcb.createAsync(MenuLessonComponent)
       .then(fixture => {
         let cmp = fixture.componentInstance;
+        spyOn(cmp, "ngOnInit").and.callThrough();
+
+        cmp.ngOnInit();
+
         expect(cmp.lessonMenuElems.length).toEqual(1);
         expect(cmp.lessonMenuElems[0].name).toBe("lesson 1");
       });
