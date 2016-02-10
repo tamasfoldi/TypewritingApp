@@ -2,8 +2,10 @@
 <tpw-header title="Typewriting app"></tpw-header>
 <section>
   <tpw-menu></tpw-menu>
-  <tpw-login-form></tpw-login-form>
-  <tpw-register-form></tpw-register-form>
+  <router-outlet></router-outlet>
+    <a [routerLink]="['Register']">Register</a>
+    <a [routerLink]="['Login']">Login</a>
+
   <tpw-content></tpw-content>
 </section>
 <tpw-footer></tpw-footer>
