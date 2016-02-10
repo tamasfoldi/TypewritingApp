@@ -10,7 +10,6 @@
     <label for="password">Password</label>
     <input id="password" [(ngModel)]="password.value" ngControl="password" name="password" type="password">
     <display-error control="password" error="required">Password is required</display-error>
-    <display-error control="password" error="minlength">Password should be atleast 6 char long</display-error>
   </div>
   <div>
     <input type="checkbox" id="rememberMe" name="rememberMe" [(ngModel)]="rememberMe.value" ngControl="rememberMe">

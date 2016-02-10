@@ -16,7 +16,7 @@ export class RegisterFormComponent {
 
   constructor(fb: FormBuilder) {
     this.username = fb.control("", Validators.compose([Validators.required]));
-    this.password = fb.control("", Validators.compose([Validators.required]));
+    this.password = fb.control("", Validators.compose([Validators.required, Validators.minLength(6)]));
     this.email = fb.control("", Validators.compose([Validators.required, this.isValidEmail]));
 
     this.registerForm = fb.group({

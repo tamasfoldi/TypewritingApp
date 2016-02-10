@@ -40,6 +40,24 @@ describe("Typewriting login form tests", () => {
       });
   }));
 
+  it("should have valid password input exists and min 6 char long", injectAsync([], () => {
+    return tcb.createAsync(RegisterFormComponent)
+      .then(fixture => {
+        let cmp = fixture.componentInstance;
+        let element = fixture.nativeElement;
+        let passwordInput = cmp.password;
+
+        passwordInput.updateValue("test");
+        fixture.detectChanges();
+
+        expect(passwordInput.valid).toBeFalsy();
+
+        passwordInput.updateValue("testStrong");
+        expect(passwordInput.valid).toBeTruthy();
+
+      });
+  }));
+
   it("should be valid if all the validators correct", injectAsync([], () => {
     return tcb.createAsync(RegisterFormComponent)
       .then(fixture => {
