@@ -15,7 +15,7 @@ describe("Typewriting menu lesson", () => {
   beforeEach(inject([TestComponentBuilder], (tcBuilder) => {
     menuLessonService = new MenuLessonService();
     tcb = tcBuilder;
-    spyOn(menuLessonService, "query").and.returnValue([{ id: 1, name: "lesson 1" }]);
+    spyOn(menuLessonService, "query").and.returnValue(Promise.resolve([{ id: 1, name: "lesson 1" }]));
 
     tcb.overrideProviders(MenuLessonComponent, [
       provide(MenuLessonService, { useValue: menuLessonService })
@@ -28,24 +28,18 @@ describe("Typewriting menu lesson", () => {
       .then(fixture => {
         let cmp = fixture.componentInstance;
         spyOn(cmp, "ngOnInit").and.callThrough();
+        spyOn(cmp, "queryMenuItems").and.callThrough();
 
-        cmp.ngOnInit();
+        Promise.resolve(cmp.ngOnInit()).then(() => {
+          fixture.detectChanges();
+          let element = fixture.nativeElement;
 
-        expect(cmp.lessonMenuElems.length).toEqual(1);
-        expect(cmp.lessonMenuElems[0].name).toBe("lesson 1");
-      });
-  }));
+          expect(cmp.lessonMenuElems.length).toEqual(1);
+          expect(cmp.lessonMenuElems[0].name).toBe("lesson 1");
+          expect(element.querySelectorAll("li").length).toEqual(1);
+          expect(element.querySelector("li")).toHaveText("lesson 1");
+        });
 
-
-  it("should have one li with text 'lesson 1'", injectAsync([], () => {
-    return tcb.createAsync(MenuLessonComponent)
-      .then(fixture => {
-
-        fixture.detectChanges();
-
-        let element = fixture.nativeElement;
-        expect(element.querySelectorAll("li").length).toEqual(1);
-        expect(element.querySelector("li")).toHaveText("lesson 1");
       });
   }));
 

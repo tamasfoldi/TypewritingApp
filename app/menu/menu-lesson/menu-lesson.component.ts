@@ -14,12 +14,13 @@ export class MenuLessonComponent implements OnInit {
   constructor( @Inject(MenuLessonService) private _menuLessonService: MenuLessonService) {
   }
 
-  getMenuItems() {
-    this.lessonMenuElems = this._menuLessonService.query();
-  }
-
   ngOnInit() {
-    this.getMenuItems();
+    this.queryMenuItems();
   }
 
+  queryMenuItems() {
+    this._menuLessonService.query().then( (lessonMenuElems) => {
+      this.lessonMenuElems = lessonMenuElems;
+    });
+  }
 }

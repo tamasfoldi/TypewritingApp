@@ -14,15 +14,16 @@ describe("Typewriting menu lesson", () => {
   ]);
 
   it("should should return with 2 MenuLesson", () => {
-    let menuLessons = menuLessonService.query();
-
-    expect(menuLessons.length).toEqual(2);
+    menuLessonService.query().then(menuLessons => {
+      expect(menuLessons.length).toEqual(2);
+    });
   });
 
   it("should have the first element id: 1 name: Lesson 1", () => {
-    let menuLessons = menuLessonService.query();
+    menuLessonService.query().then(menuLessons => {
+      expect(menuLessons[0].name).toBe("Lesson 1");
+    });
 
-    expect(menuLessons[0].name).toBe("Lesson 1");
   });
 
 });
