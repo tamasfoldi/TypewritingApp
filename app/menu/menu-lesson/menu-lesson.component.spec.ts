@@ -31,15 +31,13 @@ describe("Typewriting menu lesson", () => {
         spyOn(cmp, "ngOnInit").and.callThrough();
         spyOn(cmp, "queryMenuItems").and.callThrough();
 
-        Promise.resolve(cmp.ngOnInit()).then(() => {
-          fixture.detectChanges();
-          let element = fixture.nativeElement;
+        fixture.detectChanges();
+        let element = fixture.nativeElement;
 
-          expect(cmp.lessonMenuElems.length).toEqual(1);
-          expect(cmp.lessonMenuElems[0].name).toBe("lesson 1");
-          expect(element.querySelectorAll("li").length).toEqual(1);
-          expect(element.querySelector("li")).toHaveText("lesson 1");
-        });
+        expect(cmp.lessonMenuElems.length).toEqual(1);
+        expect(cmp.lessonMenuElems[0].name).toBe("lesson 1");
+        expect(element.querySelectorAll("li").length).toEqual(1);
+        expect(element.querySelector("li")).toHaveText("lesson 1");
 
       });
   }));
