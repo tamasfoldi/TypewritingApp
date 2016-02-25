@@ -19,7 +19,7 @@ export class MenuLessonComponent implements OnInit {
   }
 
   queryMenuItems() {
-    this._menuLessonService.query().then( (lessonMenuElems) => {
+    this._menuLessonService.query().subscribe( (lessonMenuElems) => {
       this.lessonMenuElems = lessonMenuElems;
     });
   }

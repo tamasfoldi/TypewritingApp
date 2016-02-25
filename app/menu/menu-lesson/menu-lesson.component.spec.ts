@@ -1,6 +1,7 @@
 import { describe, it, expect, inject,
 injectAsync, beforeEach, beforeEachProviders, TestComponentBuilder } from "angular2/testing";
 import {provide} from "angular2/core";
+import {Observable} from "rxjs/Rx";
 import {MenuLessonComponent} from "./menu-lesson.component";
 import {MenuLessonService} from "./menu-lesson.service";
 
@@ -15,7 +16,7 @@ describe("Typewriting menu lesson", () => {
   beforeEach(inject([TestComponentBuilder], (tcBuilder) => {
     menuLessonService = new MenuLessonService();
     tcb = tcBuilder;
-    spyOn(menuLessonService, "query").and.returnValue(Promise.resolve([{ id: 1, name: "lesson 1" }]));
+    spyOn(menuLessonService, "query").and.returnValue(Observable.of([{ id: 1, name: "lesson 1" }]));
 
     tcb.overrideProviders(MenuLessonComponent, [
       provide(MenuLessonService, { useValue: menuLessonService })
