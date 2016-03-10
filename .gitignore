@@ -2,4 +2,5 @@
 /typings
 /.vscode
 **/*.js
+!wallaby.js
 **/*.js.map
