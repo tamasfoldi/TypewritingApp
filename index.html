@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <base href="/">
+    <!--<base href="/">-->
     <title>Typewriting App</title>
     <!-- 1. Load libraries -->
     <!-- IE required polyfills, in this exact order -->
@@ -23,12 +23,12 @@
           }
         }
       });
-      System.import('main')
+      System.import('app/main')
             .then(null, console.error.bind(console));
     </script>
   </head>
   <!-- 3. Display the application -->
   <body>
-    <tpw-main></tpw-main>
+    <tpw-app></tpw-app>
   </body>
 </html>
