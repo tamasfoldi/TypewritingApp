@@ -6,7 +6,6 @@ import {MapComponent} from "./map/map.component";
   templateUrl: "app/app.component.html",
   directives: [MapComponent]
 })
-
 export class AppComponent implements OnInit {
 
   constructor() { }

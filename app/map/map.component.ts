@@ -5,13 +5,13 @@ import {FigureComponent} from "../figure/figure.component";
 @Component({
   selector: "tpw-map",
   templateUrl: "app/map/map.component.html",
-  directives: [WaypointComponent]
+  directives: [WaypointComponent, FigureComponent]
 })
 
 export class MapComponent implements OnInit {
   @ViewChild(WaypointComponent)
   waypointComponent: WaypointComponent;
-  @ViewChild(WaypointComponent)
+  @ViewChild(FigureComponent)
   figureComponent: FigureComponent;
 
   constructor() { }
