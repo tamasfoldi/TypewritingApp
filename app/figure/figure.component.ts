@@ -4,11 +4,9 @@ import {Component, OnInit} from "angular2/core";
   selector: "tpw-figure",
   templateUrl: "app/figure/figure.component.html"
 })
-
 export class FigureComponent implements OnInit {
 
   constructor() { }
 
   ngOnInit() { }
-
 }
