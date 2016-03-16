@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, QueryList} from "angular2/core";
+import {Component, OnInit, ViewChild} from "angular2/core";
 import {WaypointComponent} from "../waypoint/waypoint.component";
 import {FigureComponent} from "../figure/figure.component";
 
@@ -14,7 +14,8 @@ export class MapComponent implements OnInit {
   @ViewChild(FigureComponent)
   figureComponent: FigureComponent;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() { }
 }
