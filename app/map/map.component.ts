@@ -7,7 +7,6 @@ import {FigureComponent} from "../figure/figure.component";
   templateUrl: "app/map/map.component.html",
   directives: [WaypointComponent, FigureComponent]
 })
-
 export class MapComponent implements OnInit {
   @ViewChild(WaypointComponent)
   waypointComponent: WaypointComponent;
