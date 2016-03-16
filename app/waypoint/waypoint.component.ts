@@ -10,11 +10,9 @@ export class WaypointComponent extends Drawable implements OnInit {
     super();
   }
 
-  draw() {
+  draw(canvas: HTMLCanvasElement) {
     console.log("Draw waypoint to(x, y): ", this.posX, this.posY);
   }
 
-  ngOnInit() {
-    this.draw();
-  }
+  ngOnInit() { }
 }

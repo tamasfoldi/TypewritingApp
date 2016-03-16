@@ -5,5 +5,5 @@ export abstract class Drawable {
   posX: number;
   @Input()
   posY: number;
-  abstract draw(): void;
+  abstract draw(canvas: HTMLCanvasElement): void;
 }
