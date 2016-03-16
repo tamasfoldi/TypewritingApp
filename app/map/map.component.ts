@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, Input} from "angular2/core";
+import {Component, OnInit, ContentChild, Input} from "angular2/core";
 import {WaypointComponent} from "../waypoint/waypoint.component";
 import {FigureComponent} from "../figure/figure.component";
 import {Drawable} from "../common/Drawable";
@@ -9,10 +9,10 @@ import {Drawable} from "../common/Drawable";
   directives: [WaypointComponent, FigureComponent]
 })
 export class MapComponent extends Drawable implements OnInit {
-  @ViewChild(WaypointComponent)
+  @ContentChild(WaypointComponent)
   waypointComponent: WaypointComponent;
 
-  @ViewChild(FigureComponent)
+  @ContentChild(FigureComponent)
   figureComponent: FigureComponent;
 
   @Input()
