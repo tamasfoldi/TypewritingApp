@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, Input} from "angular2/core";
+import {Component, OnInit} from "angular2/core";
 import {Drawable} from "../common/Drawable";
 
 @Component({
