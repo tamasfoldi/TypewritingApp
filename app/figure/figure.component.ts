@@ -11,7 +11,11 @@ export class FigureComponent extends Drawable implements OnInit {
     super();
   }
 
-  draw() { }
+  draw(): void { 
+    console.log("Draw figure to(x, y): ", this.posX, this.posY);
+  }
 
-  ngOnInit() { }
+  ngOnInit(): void { 
+    this.draw();
+  }
 }

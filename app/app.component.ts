@@ -1,4 +1,4 @@
-import {Component, OnInit} from "angular2/core";
+import {Component, OnInit, ViewChild} from "angular2/core";
 import {MapComponent} from "./map/map.component";
 
 @Component({
@@ -7,6 +7,8 @@ import {MapComponent} from "./map/map.component";
   directives: [MapComponent]
 })
 export class AppComponent implements OnInit {
+  @ViewChild(MapComponent)
+  mapComponent: MapComponent;
 
   constructor() { }
 
