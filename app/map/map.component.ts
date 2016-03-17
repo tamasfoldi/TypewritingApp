@@ -33,6 +33,8 @@ export class MapComponent extends Drawable implements OnInit, AfterViewInit {
     console.log("Draw map with height", this.height, "with width", this.width);
     this.waypointComponent.draw(canvas);
     this.figureComponent.draw(canvas);
+    console.log(this.waypointComponent.popFigure());
+    this.waypointComponent.draw(canvas);
   }
 
   ngOnInit() {
