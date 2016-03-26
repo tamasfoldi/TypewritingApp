@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, ViewChildren, ChangeDetectionStrategy} from "angular2/core";
+import {Component, OnInit, ViewChild, ViewChildren} from "angular2/core";
 import {MapComponent} from "./map/map.component";
 import {WaypointComponent} from "./waypoint/waypoint.component";
 import {Waypoint, WaypointService} from "./waypoint/waypoint.service";
@@ -23,7 +23,13 @@ export class AppComponent implements OnInit {
     this.waypoints = this.waypointService.getAll();
   }
 
+
   gameFinished($event) {
-    this.waypoints = this.waypointService.moveFigure();
+    this.waypointService.moveFigure();
+    if($event + 1 < this.waypoints.length) {
+      this.waypoints[$event + 1].hasFigure = true;
+    } else {
+      console.log("END OF GAME");
+    }
   }
 }

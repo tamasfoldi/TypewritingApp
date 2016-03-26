@@ -11,9 +11,13 @@ export class WaypointComponent implements OnInit {
   figureComponent: FigureComponent;
 
   @Input()
+  id: number;
+  @Input()
   posX: number;
   @Input()
   posY: number;
+  @Input()
+  hasFigure: boolean;
 
   @Output()
   gameFinished = new EventEmitter();
@@ -21,7 +25,10 @@ export class WaypointComponent implements OnInit {
   constructor() { }
 
   gameStart() {
-    console.log(this.figureComponent);
+    if(this.hasFigure) {
+      this.hasFigure = false;
+      this.gameFinished.emit(this.id);
+    }
   }
 
   ngOnInit() { }

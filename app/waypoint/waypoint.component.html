@@ -1,2 +1,2 @@
 <div (click)="gameStart()" >Waypoint: {{posX}}, {{posY}}</div>
-<ng-content></ng-content>
+<ng-content *ngIf="hasFigure"></ng-content>
