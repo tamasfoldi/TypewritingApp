@@ -1,16 +1,11 @@
-import {Component, Input, OnInit, ContentChild, Output, EventEmitter} from "angular2/core";
-import {FigureComponent} from "../figure/figure.component";
+import {Component, Input, OnInit, Output, EventEmitter} from "angular2/core";
 import {Waypoint} from "./waypoint.service";
 
 @Component({
   selector: "tpw-waypoint",
   templateUrl: "app/waypoint/waypoint.component.html",
-  directives: [FigureComponent]
 })
 export class WaypointComponent implements OnInit {
-  @ContentChild(FigureComponent)
-  figureComponent: FigureComponent;
-
   @Input()
   waypoint: Waypoint;
 

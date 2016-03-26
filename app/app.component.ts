@@ -16,7 +16,10 @@ export class AppComponent implements OnInit {
   mapComponent: MapComponent;
 
   @ViewChildren(WaypointComponent)
-  waypointComponents: WaypointComponent[]
+  waypointComponents: WaypointComponent[];
+
+  @ViewChild(FigureComponent)
+  figureComponent: FigureComponent;
 
   waypoints: Waypoint[];
 
