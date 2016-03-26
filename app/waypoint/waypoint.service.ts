@@ -16,14 +16,4 @@ export class WaypointService {
   getAll(): Waypoint[] {
     return this.waypoints;
   }
-
-  moveFigure(): Waypoint[] {
-    let waypointIdWithFigure = this.waypoints.filter((w) => w.hasFigure)[0].id;
-    if(waypointIdWithFigure + 1 < this.waypoints.length) {
-      this.waypoints[waypointIdWithFigure].hasFigure = false;
-      this.waypoints[waypointIdWithFigure + 1].hasFigure = true;
-      return this.waypoints;
-    }
-  }
-
 }

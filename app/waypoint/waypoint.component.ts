@@ -1,5 +1,6 @@
 import {Component, Input, OnInit, ContentChild, Output, EventEmitter} from "angular2/core";
 import {FigureComponent} from "../figure/figure.component";
+import {Waypoint} from "./waypoint.service";
 
 @Component({
   selector: "tpw-waypoint",
@@ -11,23 +12,17 @@ export class WaypointComponent implements OnInit {
   figureComponent: FigureComponent;
 
   @Input()
-  id: number;
-  @Input()
-  posX: number;
-  @Input()
-  posY: number;
-  @Input()
-  hasFigure: boolean;
+  waypoint: Waypoint;
 
   @Output()
-  gameFinished = new EventEmitter();
+  gameFinished = new EventEmitter<number>();
 
   constructor() { }
 
   gameStart() {
-    if(this.hasFigure) {
-      this.hasFigure = false;
-      this.gameFinished.emit(this.id);
+    if(this.waypoint.hasFigure) {
+      this.waypoint.hasFigure = false;
+      this.gameFinished.emit(this.waypoint.id);
     }
   }
 

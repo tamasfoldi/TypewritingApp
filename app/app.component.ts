@@ -15,6 +15,9 @@ export class AppComponent implements OnInit {
   @ViewChild(MapComponent)
   mapComponent: MapComponent;
 
+  @ViewChildren(WaypointComponent)
+  waypointComponents: WaypointComponent[]
+
   waypoints: Waypoint[];
 
   constructor(private waypointService: WaypointService) { }
@@ -24,9 +27,8 @@ export class AppComponent implements OnInit {
   }
 
 
-  gameFinished($event) {
-    this.waypointService.moveFigure();
-    if($event + 1 < this.waypoints.length) {
+  gameFinished($event: number) {
+    if ($event + 1 < this.waypoints.length) {
       this.waypoints[$event + 1].hasFigure = true;
     } else {
       console.log("END OF GAME");
