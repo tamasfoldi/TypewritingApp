@@ -4,8 +4,6 @@
     <base href="/">
     <title>Typewriting App</title>
     <!-- 1. Load libraries -->
-    <!-- IE required polyfills, in this exact order -->
-    <script src="node_modules/es6-shim/es6-shim.min.js"></script>
     <script src="node_modules/systemjs/dist/system-polyfills.js"></script>
     <script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
     <script src="node_modules/systemjs/dist/system.src.js"></script>
@@ -16,11 +14,15 @@
     <script>
       System.config({
         // baseUrl: "/",
+        map: {
+          rxjs: 'node_modules/rxjs' // added this map section
+        },
         packages: {        
           app: {
             format: 'register',
             defaultExtension: 'js'
-          }
+          },
+          'rxjs': {defaultExtension: 'js'}
         }
       });
       System.import('app/main')

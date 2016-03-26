@@ -1,19 +1,16 @@
-import {Component, OnInit} from "angular2/core";
-import {Drawable} from "../common/Drawable";
+import {Component, OnInit, Input} from "angular2/core";
 
 @Component({
   selector: "tpw-figure",
   templateUrl: "app/figure/figure.component.html"
 })
-export class FigureComponent extends Drawable implements OnInit {
+export class FigureComponent implements OnInit {
+  @Input()
+  posX: number;
+  @Input()
+  posY: number;
 
-  constructor() {
-    super();
-  }
-
-  draw(canvas: HTMLCanvasElement): void { 
-    console.log("Draw figure to(x, y): ", this.posX, this.posY);
-  }
+  constructor() { }
 
   ngOnInit(): void { }
 }

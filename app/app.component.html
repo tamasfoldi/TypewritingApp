@@ -1,5 +1,5 @@
 <tpw-map width=600 height=600>
-  <tpw-waypoint posX=0 posY=0>
-    <tpw-figure posX=10 posY=10></tpw-figure>
+  <tpw-waypoint *ngFor="#waypoint of waypoints" [posX]="waypoint.posX" [posY]="waypoint.posY" (gameFinished)="gameFinished()">
+    <tpw-figure *ngIf="waypoint.hasFigure" [posX]="waypoint.posX" [posY]="waypoint.posY"></tpw-figure>
   </tpw-waypoint>
 </tpw-map>
