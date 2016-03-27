@@ -1,0 +1,4 @@
+<tpw-waypoint *ngFor="#waypoint of waypoints" [waypoint]="waypoint" (gameFinished)="gameFinished($event)">
+    <tpw-figure *ngIf="waypoint.hasFigure" [posX]="waypoint.posX" [posY]="waypoint.posY"></tpw-figure>
+</tpw-waypoint>
+<canvas #mapCanvas height="{{height}}" width="{{width}}"></canvas>
