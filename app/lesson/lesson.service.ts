@@ -1,5 +1,4 @@
 import { Injectable } from "angular2/core";
-import { Observable } from "Rxjs/Rx";
 
 export interface Lesson {
   id: number;
@@ -62,8 +61,8 @@ export class LessonService {
     ];
   }
 
-  getAll(): Observable<Lesson> {
-    return Observable.fromArray(this.lessons);
+  getAll(): Lesson[] {
+    return this.lessons;
   }
 
   get(id: number) {
