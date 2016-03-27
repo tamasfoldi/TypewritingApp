@@ -4,7 +4,7 @@ import {FigureComponent} from "../figure/figure.component";
 
 @Component({
   selector: "tpw-map",
-  templateUrl: "app/map/map.component.html",
+  templateUrl: "app/gameselector/map/map.component.html",
   directives: [WaypointComponent, FigureComponent]
 })
 export class MapComponent implements OnInit {

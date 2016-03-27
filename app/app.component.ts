@@ -1,8 +1,8 @@
 import {Component, OnInit, ViewChild, ViewChildren} from "angular2/core";
-import {MapComponent} from "./map/map.component";
-import {WaypointComponent} from "./waypoint/waypoint.component";
-import {Waypoint, WaypointService} from "./waypoint/waypoint.service";
-import {FigureComponent} from "./figure/figure.component";
+import {MapComponent} from "./gameselector/map/map.component";
+import {WaypointComponent} from "./gameselector/waypoint/waypoint.component";
+import {Waypoint, WaypointService} from "./gameselector/waypoint/waypoint.service";
+import {FigureComponent} from "./gameselector/figure/figure.component";
 
 
 @Component({

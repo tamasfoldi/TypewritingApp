@@ -3,7 +3,7 @@ import {Waypoint} from "./waypoint.service";
 
 @Component({
   selector: "tpw-waypoint",
-  templateUrl: "app/waypoint/waypoint.component.html",
+  templateUrl: "app/gameselector/waypoint/waypoint.component.html",
 })
 export class WaypointComponent implements OnInit {
   @Input()
