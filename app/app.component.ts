@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
   mapComponent: MapComponent;
   @ViewChild(TypewriterComponent)
   typewriterComponent: TypewriterComponent;
-   
+
   constructor() { }
 
   ngOnInit() { }

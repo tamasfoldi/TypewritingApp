@@ -25,14 +25,14 @@ export class MapComponent implements OnInit {
   @Input()
   height: number;
 
-  waypoints: Waypoint[]
+  waypoints: Waypoint[];
 
   constructor(private waypointService: WaypointService) { }
 
   ngOnInit() {
     this.waypoints = this.waypointService.getAll();
   }
-  
+
   gameFinished($event: number) {
     if ($event + 1 < this.waypoints.length) {
       this.waypoints[$event + 1].hasFigure = true;

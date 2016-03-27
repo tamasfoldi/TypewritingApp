@@ -15,7 +15,7 @@ export class WaypointComponent implements OnInit {
   constructor() { }
 
   gameStart() {
-    if(this.waypoint.hasFigure) {
+    if (this.waypoint.hasFigure) {
       this.waypoint.hasFigure = false;
       this.gameFinished.emit(this.waypoint.id);
     }
