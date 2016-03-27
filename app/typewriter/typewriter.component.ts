@@ -1,11 +1,27 @@
 import { Component, OnInit, Input, ElementRef, ViewChild, AfterViewInit } from "angular2/core";
 import { LessonService, Lesson } from "../lesson/lesson.service";
+import { Pipe, PipeTransform } from "angular2/core";
+
+@Pipe({name: "lessonTextCut"})
+export class LessonTextCutPipe implements PipeTransform {
+  transform(baseText: string, [textToBeCut]) : string {
+    return baseText.substr(textToBeCut.length, baseText.length);
+  }
+}
+
+@Pipe({name: "spaceToUnderscore"})
+export class SpaceToUnderscorePipe implements PipeTransform {
+  transform(baseText: string) : string {
+    return baseText.replace(/( )/g, "_");
+  }
+}
 
 @Component({
   selector: "tpw-typewriter",
   templateUrl: "app/typewriter/typewriter.component.html",
   providers: [LessonService],
-  styleUrls: ["app/typewriter/typewriter.component.css"]
+  styleUrls: ["app/typewriter/typewriter.component.css"],
+  pipes: [LessonTextCutPipe, SpaceToUnderscorePipe]
 })
 
 export class TypewriterComponent implements OnInit, AfterViewInit {

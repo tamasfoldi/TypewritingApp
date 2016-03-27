@@ -6,7 +6,7 @@ import {TypewriterComponent} from "./typewriter/typewriter.component";
 @Component({
   selector: "tpw-app",
   templateUrl: "app/app.component.html",
-  directives: [MapComponent, TypewriterComponent],
+  directives: [MapComponent, TypewriterComponent]
 })
 export class AppComponent implements OnInit {
   @ViewChild(MapComponent)

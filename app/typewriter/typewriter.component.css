@@ -1,3 +1,6 @@
 #inputElement {
   outline: none
 }
+span {
+  color: red;
+}
