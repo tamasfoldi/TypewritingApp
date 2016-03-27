@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <base href="/">
     <title>Typewriting App</title>
     <!-- 1. Load libraries -->
     <script src="node_modules/systemjs/dist/system-polyfills.js"></script>
@@ -13,7 +12,7 @@
     <!-- 2. Configure SystemJS -->
     <script>
       System.config({
-        // baseUrl: "/",
+        baseUrl: "/",
         map: {
           rxjs: 'node_modules/rxjs' // added this map section
         },
