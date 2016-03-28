@@ -56,6 +56,7 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.focus.nativeElement.focus();
+    this.stats = new StatisticsComponent(this.statisticsService);
   }
 
   keypress($event: KeyboardEvent) {
@@ -74,7 +75,6 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
     if (this.hasReachedTheEnd()) {
       this.focus.nativeElement.blur();
       this.timer = Date.now() - this.timer;
-      this.stats = new StatisticsComponent(this.statisticsService);
       this.stats.setStatisticsFromLessonStat(this.correctPresses, this.incorrectPresses, this.timer);
       this.canShowStats = true;
     }
