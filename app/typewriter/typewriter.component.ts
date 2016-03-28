@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, ElementRef, ViewChild, AfterViewInit } from "angular2/core";
 import { LessonService, Lesson } from "../lesson/lesson.service";
 import { Pipe, PipeTransform } from "angular2/core";
+import { Statistics, StatisticsService } from "./statistics/statistics.service";
+import { StatisticsComponent } from "./statistics/statistics.component";
 
 @Pipe({ name: "lessonTextCut" })
 export class LessonTextCutPipe implements PipeTransform {
@@ -19,14 +21,17 @@ export class SpaceToUnderscorePipe implements PipeTransform {
 @Component({
   selector: "tpw-typewriter",
   templateUrl: "app/typewriter/typewriter.component.html",
-  providers: [LessonService],
+  providers: [LessonService, StatisticsService],
   styleUrls: ["app/typewriter/typewriter.component.css"],
-  pipes: [LessonTextCutPipe, SpaceToUnderscorePipe]
+  pipes: [LessonTextCutPipe, SpaceToUnderscorePipe],
+  directives: [StatisticsComponent]
 })
 
 export class TypewriterComponent implements OnInit, AfterViewInit {
   @ViewChild("focus")
   focus: ElementRef;
+  @ViewChild(StatisticsComponent)
+  stats: StatisticsComponent;
   @Input()
   lessonId: number;
   lesson: Lesson;
@@ -34,14 +39,19 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
   correctPresses: number;
   incorrectPresses: number;
   timer: number;
+  canShowStats: boolean;
 
-  constructor(private lessonService: LessonService) { }
+  constructor(
+    private lessonService: LessonService,
+    private statisticsService: StatisticsService
+  ) { }
 
   ngOnInit() {
     this.lesson = this.lessonService.get(this.lessonId);
     this.typedText = "";
     this.correctPresses = 0;
     this.incorrectPresses = 0;
+    this.canShowStats = false;
   }
 
   ngAfterViewInit() {
@@ -49,7 +59,7 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
   }
 
   keypress($event: KeyboardEvent) {
-    let char = String.fromCharCode($event.which); 
+    let char = String.fromCharCode($event.which);
     if (!this.hasReachedTheEnd()) {
       if (this.wasItCorrectChar(char)) {
         this.typedText = this.typedText + char;
@@ -64,8 +74,9 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
     if (this.hasReachedTheEnd()) {
       this.focus.nativeElement.blur();
       this.timer = Date.now() - this.timer;
-      // TODO generate statistics
-      console.log(this.correctPresses, this.incorrectPresses, this.timer);
+      this.stats = new StatisticsComponent(this.statisticsService);
+      this.stats.setStatisticsFromLessonStat(this.correctPresses, this.incorrectPresses, this.timer);
+      this.canShowStats = true;
     }
   }
 
