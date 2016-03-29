@@ -3,6 +3,7 @@ import { LessonService, Lesson } from "../lesson/lesson.service";
 import { Pipe, PipeTransform } from "angular2/core";
 import { Statistics, StatisticsService } from "./statistics/statistics.service";
 import { StatisticsComponent } from "./statistics/statistics.component";
+import { BlinkingCursorComponent } from "../util/blinking-cursor/blinking-cursor.component";
 
 @Pipe({ name: "lessonTextCut" })
 export class LessonTextCutPipe implements PipeTransform {
@@ -24,14 +25,16 @@ export class SpaceToUnderscorePipe implements PipeTransform {
   providers: [LessonService, StatisticsService],
   styleUrls: ["app/typewriter/typewriter.component.css"],
   pipes: [LessonTextCutPipe, SpaceToUnderscorePipe],
-  directives: [StatisticsComponent]
+  directives: [StatisticsComponent, BlinkingCursorComponent]
 })
 
 export class TypewriterComponent implements OnInit, AfterViewInit {
   @ViewChild("focus")
   focus: ElementRef;
+  @ViewChild(BlinkingCursorComponent)
+  blinkingCursorComponent: BlinkingCursorComponent;
   @ContentChild(StatisticsComponent)
-  stats: StatisticsComponent;
+  statisticsComponent: StatisticsComponent;
   @Input()
   lessonId: number;
   lesson: Lesson;
@@ -74,7 +77,7 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
     if (this.hasReachedTheEnd()) {
       this.focus.nativeElement.blur();
       this.timer = (Date.now() - this.timer) / 1000;
-      this.stats.setStatisticsFromLessonStat(this.correctPresses, this.incorrectPresses, this.timer);
+      this.statisticsComponent.setStatisticsFromLessonStat(this.correctPresses, this.incorrectPresses, this.timer);
       this.canShowStats = true;
     }
   }
