@@ -37,12 +37,12 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
   statisticsComponent: StatisticsComponent;
   @Input()
   lessonId: number;
+
   lesson: Lesson;
   typedText: string;
   correctPresses: number;
   incorrectPresses: number;
   timer: number;
-  canShowStats: boolean;
   statistics: Statistics;
 
   constructor(
@@ -55,7 +55,6 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
     this.typedText = "";
     this.correctPresses = 0;
     this.incorrectPresses = 0;
-    this.canShowStats = false;
   }
 
   ngAfterViewInit() {
@@ -79,8 +78,6 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
       this.focus.nativeElement.blur();
       this.timer = (Date.now() - this.timer) / 1000;
       this.statistics = this.statisticsService.calculateStatisticsForLesson(this.correctPresses, this.incorrectPresses, this.timer);
-      console.log(this.statistics);
-      this.canShowStats = true;
     }
   }
 
