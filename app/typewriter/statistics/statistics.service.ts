@@ -5,7 +5,7 @@ export interface Statistics {
   numberOfCorrectKeypresses: number;
   numberOfIncorrectKeypresses: number;
   pressedKeysPerSec: number;
-  timeToCompleteLesson?: number;
+  secondsToCompleteLesson?: number;
 }
 
 @Injectable()
@@ -13,19 +13,19 @@ export class StatisticsService {
 
   constructor() { }
 
-  calculateStatisticsForLesson(correctKeypresses: number, incorrectKeypresses: number, timeToComplete: number): Statistics {
+  calculateStatisticsForLesson(correctKeypresses: number, incorrectKeypresses: number, secondsToCompleteLesson: number): Statistics {
     let calculatedStatistics: Statistics = {
      numberOfTotalKeypresses: 0,
      numberOfCorrectKeypresses: 0,
      numberOfIncorrectKeypresses: 0,
      pressedKeysPerSec: 0,
-     timeToCompleteLesson: 0
+     secondsToCompleteLesson: 0
     };
     calculatedStatistics.numberOfTotalKeypresses = correctKeypresses + incorrectKeypresses;
     calculatedStatistics.numberOfCorrectKeypresses = correctKeypresses;
     calculatedStatistics.numberOfIncorrectKeypresses = incorrectKeypresses;
-    calculatedStatistics.timeToCompleteLesson = timeToComplete;
-    calculatedStatistics.pressedKeysPerSec = calculatedStatistics.numberOfTotalKeypresses / calculatedStatistics.timeToCompleteLesson;
+    calculatedStatistics.secondsToCompleteLesson = secondsToCompleteLesson;
+    calculatedStatistics.pressedKeysPerSec = calculatedStatistics.numberOfCorrectKeypresses / calculatedStatistics.secondsToCompleteLesson;
     return calculatedStatistics;
   }
 

@@ -13,10 +13,10 @@
   </tr>
   <tr>
     <td class="statisticName">Typing speed:</td>
-    <td>{{statistics.pressedKeysPerSec}} keypress/sec</td>
+    <td>{{statistics.pressedKeysPerSec | number: '.0-3'}} keypresses/sec</td>
   </tr>
   <tr>
     <td class="statisticName">Time to complete lesson:</td>
-    <td>{{statistics.timeToCompleteLesson}} seconds</td>
+    <td>{{statistics.secondsToCompleteLesson | number: '.0-3'}} seconds</td>
   </tr>
 </table>

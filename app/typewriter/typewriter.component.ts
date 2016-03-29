@@ -73,7 +73,7 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
     }
     if (this.hasReachedTheEnd()) {
       this.focus.nativeElement.blur();
-      this.timer = Date.now() - this.timer;
+      this.timer = (Date.now() - this.timer) / 1000;
       this.stats.setStatisticsFromLessonStat(this.correctPresses, this.incorrectPresses, this.timer);
       this.canShowStats = true;
     }

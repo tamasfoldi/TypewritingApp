@@ -17,7 +17,7 @@ export class StatisticsComponent implements OnInit {
       numberOfCorrectKeypresses: 0,
       numberOfIncorrectKeypresses: 0,
       pressedKeysPerSec: 0,
-      timeToCompleteLesson: 0
+      secondsToCompleteLesson: 0
     };
   }
 
