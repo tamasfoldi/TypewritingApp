@@ -3,4 +3,4 @@
 <div #focus id="inputElement" tabindex="1" (keypress)="keypress($event)">
   {{typedText}}<blinking-cursor *ngIf="!hasReachedTheEnd()"></blinking-cursor>
 </div>
-<ng-content *ngIf="canShowStats" ></ng-content>
+<tpw-lesson-statistics *ngIf="canShowStats" [statistics]="statistics"></tpw-lesson-statistics>

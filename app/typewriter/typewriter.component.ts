@@ -33,7 +33,7 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
   focus: ElementRef;
   @ViewChild(BlinkingCursorComponent)
   blinkingCursorComponent: BlinkingCursorComponent;
-  @ContentChild(StatisticsComponent)
+  @ViewChild(StatisticsComponent)
   statisticsComponent: StatisticsComponent;
   @Input()
   lessonId: number;
@@ -43,6 +43,7 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
   incorrectPresses: number;
   timer: number;
   canShowStats: boolean;
+  statistics: Statistics;
 
   constructor(
     private lessonService: LessonService,
@@ -77,7 +78,8 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
     if (this.hasReachedTheEnd()) {
       this.focus.nativeElement.blur();
       this.timer = (Date.now() - this.timer) / 1000;
-      this.statisticsComponent.setStatisticsFromLessonStat(this.correctPresses, this.incorrectPresses, this.timer);
+      this.statistics = this.statisticsService.calculateStatisticsForLesson(this.correctPresses, this.incorrectPresses, this.timer);
+      console.log(this.statistics);
       this.canShowStats = true;
     }
   }
