@@ -4,7 +4,8 @@ import { Statistics, StatisticsService } from "./statistics.service";
 @Component({
   selector: "tpw-lesson-statistics",
   templateUrl: "app/typewriter/statistics/statistics.component.html",
-  providers: [StatisticsService]
+  providers: [StatisticsService],
+  styleUrls: ["app/typewriter/statistics/statistics.component.css"]
 })
 export class StatisticsComponent implements OnInit {
   constructor(private statisticsService: StatisticsService) { }
