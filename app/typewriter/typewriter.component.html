@@ -1,4 +1,4 @@
 <h1>{{lesson.name}}</h1>
 <p><span>{{typedText | spaceToUnderscore}}</span>{{lesson.text | lessonTextCut: typedText}}</p>
 <div #focus id="inputElement" tabindex="1" (keypress)="keypress($event)">{{typedText}}</div>
-<tpw-lesson-statistics *ngIf="canShowStats" ></tpw-lesson-statistics>
+<ng-content *ngIf="canShowStats" ></ng-content>

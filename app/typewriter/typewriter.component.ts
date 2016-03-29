@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ElementRef, ViewChild, AfterViewInit } from "angular2/core";
+import { Component, OnInit, Input, ElementRef, ViewChild, ContentChild, AfterViewInit } from "angular2/core";
 import { LessonService, Lesson } from "../lesson/lesson.service";
 import { Pipe, PipeTransform } from "angular2/core";
 import { Statistics, StatisticsService } from "./statistics/statistics.service";
@@ -30,7 +30,7 @@ export class SpaceToUnderscorePipe implements PipeTransform {
 export class TypewriterComponent implements OnInit, AfterViewInit {
   @ViewChild("focus")
   focus: ElementRef;
-  @ViewChild(StatisticsComponent)
+  @ContentChild(StatisticsComponent)
   stats: StatisticsComponent;
   @Input()
   lessonId: number;
@@ -56,7 +56,6 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.focus.nativeElement.focus();
-    this.stats = new StatisticsComponent(this.statisticsService);
   }
 
   keypress($event: KeyboardEvent) {
