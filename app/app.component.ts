@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild, ViewChildren} from "angular2/core";
 import {MapComponent} from "./map/map.component";
 import {TypewriterComponent} from "./typewriter/typewriter.component";
-
+import {WaypointService} from "./map/waypoint/waypoint.service";
 
 @Component({
   selector: "tpw-app",
@@ -14,7 +14,22 @@ export class AppComponent implements OnInit {
   @ViewChild(TypewriterComponent)
   typewriterComponent: TypewriterComponent;
 
-  constructor() { }
+  selectedLesson: number;
 
-  ngOnInit() { }
+  constructor(private waypointService: WaypointService) { }
+
+  ngOnInit() {
+    this.selectedLesson = -1;
+  }
+
+  handleLessonSelect($event: number) {
+    this.selectedLesson = $event;
+  }
+
+  handleLessonResult($event: string) {
+    if ($event === "done") {
+      this.waypointService.moveFigure(this.selectedLesson);
+    }
+    this.selectedLesson = -1;
+  }
 }

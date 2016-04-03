@@ -16,4 +16,18 @@ export class WaypointService {
   getAll(): Waypoint[] {
     return this.waypoints;
   }
+  
+  moveFigure(waypointId: number) {
+    this.removeFigureFrom(waypointId);
+    this.addFigureTo(waypointId + 1);
+  }
+
+  addFigureTo(waypointId: number) {
+    this.waypoints[waypointId].hasFigure = true;
+    console.log(this.waypoints);
+  }
+
+  removeFigureFrom(waypointId: number) {
+    this.waypoints[waypointId].hasFigure = false;
+  }
 }

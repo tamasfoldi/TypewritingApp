@@ -1,5 +1,5 @@
 import {Component, Input, OnInit, Output, EventEmitter} from "angular2/core";
-import {Waypoint} from "./waypoint.service";
+import {Waypoint, WaypointService} from "./waypoint.service";
 
 @Component({
   selector: "tpw-waypoint",
@@ -12,11 +12,12 @@ export class WaypointComponent implements OnInit {
   @Output()
   gameFinished = new EventEmitter<number>();
 
-  constructor() { }
+  constructor(private waypointService: WaypointService) { }
 
   gameStart() {
     if (this.waypoint.hasFigure) {
       this.waypoint.hasFigure = false;
+      this.waypointService.removeFigureFrom(this.waypoint.id);
       this.gameFinished.emit(this.waypoint.id);
     }
   }

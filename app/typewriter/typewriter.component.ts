@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ElementRef, ViewChild, ContentChild, AfterViewInit } from "angular2/core";
+import { Component, OnInit, Input, Output, EventEmitter, ElementRef, ViewChild, ContentChild, AfterViewInit } from "angular2/core";
 import { LessonService, Lesson } from "../lesson/lesson.service";
 import { Pipe, PipeTransform } from "angular2/core";
 import { Statistics, StatisticsService } from "./statistics/statistics.service";
@@ -37,6 +37,8 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
   statisticsComponent: StatisticsComponent;
   @Input()
   lessonId: number;
+  @Output()
+  lessonFinished: EventEmitter<string> = new EventEmitter();
 
   lesson: Lesson;
   typedText: string;
@@ -78,6 +80,9 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
       this.focus.nativeElement.blur();
       this.timer = (Date.now() - this.timer) / 1000;
       this.statistics = this.statisticsService.calculateStatisticsForLesson(this.correctPresses, this.incorrectPresses, this.timer);
+      setTimeout(() => {
+        this.lessonFinished.emit("done"); 
+      }, 1000);
     }
   }
 
