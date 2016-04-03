@@ -28,6 +28,10 @@ export class AppComponent implements OnInit {
 
   handleLessonResult($event: string) {
     if ($event === "done") {
+      if (this.waypointService.getNumberOfWaypoints() === this.waypointService.getFigureWaypointId() + 1) {
+        console.log("END");
+        return;
+      }
       this.waypointService.moveFigure(this.selectedLesson);
     }
     this.selectedLesson = -1;

@@ -16,8 +16,6 @@ export class WaypointComponent implements OnInit {
 
   gameStart() {
     if (this.waypoint.hasFigure) {
-      this.waypoint.hasFigure = false;
-      this.waypointService.removeFigureFrom(this.waypoint.id);
       this.gameFinished.emit(this.waypoint.id);
     }
   }

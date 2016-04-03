@@ -33,7 +33,6 @@ export class MapComponent implements OnInit {
 
   ngOnInit() {
     this.waypoints = this.waypointService.getAll();
-    console.log("init");
   }
 
   gameFinished($event: number) { 
