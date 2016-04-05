@@ -1,10 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter, ElementRef, ViewChild, ContentChild, AfterViewInit } from "angular2/core";
+import { Component, OnInit, Injector, Input, Output, EventEmitter, ElementRef, ViewChild, ContentChild, AfterViewInit } from "angular2/core";
 import { LessonService, Lesson } from "../lesson/lesson.service";
 import { Pipe, PipeTransform } from "angular2/core";
-import { RouteParams, Router } from "angular2/router";
+import { RouteParams, Router, CanActivate, ComponentInstruction } from "angular2/router";
 import { Statistics, StatisticsService } from "./statistics/statistics.service";
 import { StatisticsComponent } from "./statistics/statistics.component";
 import { BlinkingCursorComponent } from "../util/blinking-cursor/blinking-cursor.component";
+import {appInjector} from "../app-injector";
 
 @Pipe({ name: "lessonTextCut" })
 export class LessonTextCutPipe implements PipeTransform {
@@ -28,7 +29,20 @@ export class SpaceToUnderscorePipe implements PipeTransform {
   pipes: [LessonTextCutPipe, SpaceToUnderscorePipe],
   directives: [StatisticsComponent, BlinkingCursorComponent]
 })
+@CanActivate((next: ComponentInstruction, prev: ComponentInstruction) => {
+  let injector: Injector = appInjector();
+  let _lessonService: LessonService = injector.get(LessonService);
+  let _router: Router = injector.get(Router);
 
+  return new Promise((resolve) => {
+    if (_lessonService.getLastUnsolvedId() >= parseInt(next.params["id"])) {
+      resolve(true);
+    } else {
+      _router.navigate(["Map"]);
+      resolve(false);
+    }
+  });
+})
 export class TypewriterComponent implements OnInit, AfterViewInit {
   @ViewChild("focus")
   focus: ElementRef;
