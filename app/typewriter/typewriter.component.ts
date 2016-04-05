@@ -23,7 +23,7 @@ export class SpaceToUnderscorePipe implements PipeTransform {
 @Component({
   selector: "tpw-typewriter",
   templateUrl: "app/typewriter/typewriter.component.html",
-  providers: [LessonService, StatisticsService],
+  providers: [StatisticsService],
   styleUrls: ["app/typewriter/typewriter.component.css"],
   pipes: [LessonTextCutPipe, SpaceToUnderscorePipe],
   directives: [StatisticsComponent, BlinkingCursorComponent]
@@ -79,6 +79,7 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
       this.focus.nativeElement.blur();
       this.timer = (Date.now() - this.timer) / 1000;
       this.statistics = this._statisticsService.calculateStatisticsForLesson(this.correctPresses, this.incorrectPresses, this.timer);
+      this._lessonService.setAsSolved(this.lesson.id);
       setTimeout(() => {
         this._router.navigate(["Map"]);
       }, 1000);

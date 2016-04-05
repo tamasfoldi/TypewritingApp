@@ -1,6 +1,6 @@
 import {Component, Input, OnInit, Output, EventEmitter} from "angular2/core";
 import { Router } from "angular2/router";
-import {Waypoint, WaypointService} from "./waypoint.service";
+import {Waypoint} from "./waypoint.service";
 
 @Component({
   selector: "tpw-waypoint",
@@ -10,7 +10,7 @@ export class WaypointComponent implements OnInit {
   @Input()
   waypoint: Waypoint;
 
-  constructor(private waypointService: WaypointService, private _router: Router) { }
+  constructor(private _router: Router) { }
 
   gameStart() {
     if (this.waypoint.hasFigure) {

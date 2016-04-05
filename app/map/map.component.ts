@@ -3,6 +3,7 @@ import {WaypointComponent} from "./waypoint/waypoint.component";
 import {Waypoint, WaypointService} from "./waypoint/waypoint.service";
 import {FigureComponent} from "./figure/figure.component";
 
+
 @Component({
   selector: "tpw-map",
   templateUrl: "app/map/map.component.html",
@@ -19,11 +20,21 @@ export class MapComponent implements OnInit {
   @ViewChild("mapCanvas")
   canvas: ElementRef;
 
-  waypoints: Waypoint[];
+  waypoints: Waypoint[] = new Array<Waypoint>();
 
-  constructor(private waypointService: WaypointService) { }
+  constructor(private _waypointService: WaypointService) { }
 
   ngOnInit() {
-    this.waypoints = this.waypointService.getAll();
+    this.getAllWaypoints();
+  }
+
+  ngAfterViewInit() {
+
+  }
+
+  getAllWaypoints() {
+    this._waypointService.getAll().subscribe(waypoint => {
+      this.waypoints.push(waypoint);
+    });
   }
 }
