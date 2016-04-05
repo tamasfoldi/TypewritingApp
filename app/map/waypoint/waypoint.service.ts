@@ -23,11 +23,11 @@ export class WaypointService {
     });
   }
 
-  getAll(): Observable<Waypoint> {
+  getAll(): Observable<Waypoint[]> {
     while (this.getFigureWaypointId() !== this._lessonService.getLastUnsolvedId()) {
       this.moveFigure(this.getFigureWaypointId());
     }
-    return Observable.fromArray(this.waypoints);
+    return Observable.of(this.waypoints);
   }
 
   moveFigure(waypointId: number) {

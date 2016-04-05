@@ -24,17 +24,10 @@ export class MapComponent implements OnInit {
 
   constructor(private _waypointService: WaypointService) { }
 
-  ngOnInit() {
-    this.getAllWaypoints();
-  }
+  ngOnInit() { }
 
   ngAfterViewInit() {
 
   }
 
-  getAllWaypoints() {
-    this._waypointService.getAll().subscribe(waypoint => {
-      this.waypoints.push(waypoint);
-    });
-  }
 }

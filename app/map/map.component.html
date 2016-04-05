@@ -1,4 +1,4 @@
-<tpw-waypoint *ngFor="#waypoint of waypoints" [waypoint]="waypoint">
+<tpw-waypoint *ngFor="#waypoint of _waypointService.getAll() | async" [waypoint]="waypoint">
     <tpw-figure *ngIf="waypoint.hasFigure" [posX]="waypoint.posX" [posY]="waypoint.posY"></tpw-figure>
 </tpw-waypoint>
 <canvas #mapCanvas></canvas>
