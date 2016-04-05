@@ -1,2 +1,1 @@
-<tpw-map *ngIf="selectedLesson < 0" width=600 height=600 (lessonSelected)="handleLessonSelect($event)"></tpw-map>
-<tpw-typewriter *ngIf="selectedLesson >= 0" [lessonId]="selectedLesson" (lessonFinished)="handleLessonResult($event)"></tpw-typewriter>
+<router-outlet></router-outlet>

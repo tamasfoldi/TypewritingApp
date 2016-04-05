@@ -9,7 +9,7 @@ export interface Waypoint {
 
 @Injectable()
 export class WaypointService {
-  private waypoints = [{ id: 0, posX: 0, posY: 0, hasFigure: true }, { id: 1, posX: 10, posY: 10, hasFigure: false }];
+  private waypoints = [{ id: 0, posX: 0, posY: 0, hasFigure: false }, { id: 1, posX: 10, posY: 10, hasFigure: true }];
 
   constructor() { }
 

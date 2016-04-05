@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, ElementRef, ViewChild, ContentChild, AfterViewInit } from "angular2/core";
 import { LessonService, Lesson } from "../lesson/lesson.service";
 import { Pipe, PipeTransform } from "angular2/core";
+import { RouteParams, Router } from "angular2/router";
 import { Statistics, StatisticsService } from "./statistics/statistics.service";
 import { StatisticsComponent } from "./statistics/statistics.component";
 import { BlinkingCursorComponent } from "../util/blinking-cursor/blinking-cursor.component";
@@ -35,10 +36,6 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
   blinkingCursorComponent: BlinkingCursorComponent;
   @ViewChild(StatisticsComponent)
   statisticsComponent: StatisticsComponent;
-  @Input()
-  lessonId: number;
-  @Output()
-  lessonFinished: EventEmitter<string> = new EventEmitter();
 
   lesson: Lesson;
   typedText: string;
@@ -48,12 +45,14 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
   statistics: Statistics;
 
   constructor(
-    private lessonService: LessonService,
-    private statisticsService: StatisticsService
+    private _lessonService: LessonService,
+    private _statisticsService: StatisticsService,
+    private _router: Router,
+    private _routeParams: RouteParams
   ) { }
 
   ngOnInit() {
-    this.lesson = this.lessonService.get(this.lessonId);
+    this.lesson = this._lessonService.get(parseInt(this._routeParams.get("id")));
     this.typedText = "";
     this.correctPresses = 0;
     this.incorrectPresses = 0;
@@ -79,9 +78,9 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
     if (this.hasReachedTheEnd()) {
       this.focus.nativeElement.blur();
       this.timer = (Date.now() - this.timer) / 1000;
-      this.statistics = this.statisticsService.calculateStatisticsForLesson(this.correctPresses, this.incorrectPresses, this.timer);
+      this.statistics = this._statisticsService.calculateStatisticsForLesson(this.correctPresses, this.incorrectPresses, this.timer);
       setTimeout(() => {
-        this.lessonFinished.emit("done"); 
+        this._router.navigate(["Map"]);
       }, 1000);
     }
   }

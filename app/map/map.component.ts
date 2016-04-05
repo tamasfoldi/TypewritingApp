@@ -8,6 +8,7 @@ import {FigureComponent} from "./figure/figure.component";
   templateUrl: "app/map/map.component.html",
   directives: [WaypointComponent, FigureComponent]
 })
+
 export class MapComponent implements OnInit {
   @ContentChild(WaypointComponent)
   waypointComponent: WaypointComponent;
@@ -18,24 +19,11 @@ export class MapComponent implements OnInit {
   @ViewChild("mapCanvas")
   canvas: ElementRef;
 
-  @Input()
-  width: number;
-
-  @Input()
-  height: number;
-  
-  @Output()
-  lessonSelected: EventEmitter<number> = new EventEmitter();
-
   waypoints: Waypoint[];
 
   constructor(private waypointService: WaypointService) { }
 
   ngOnInit() {
     this.waypoints = this.waypointService.getAll();
-  }
-
-  gameFinished($event: number) { 
-      this.lessonSelected.emit($event);
   }
 }
