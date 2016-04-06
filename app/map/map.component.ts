@@ -11,15 +11,6 @@ import {FigureComponent} from "./figure/figure.component";
 })
 
 export class MapComponent implements OnInit {
-  @ContentChild(WaypointComponent)
-  waypointComponent: WaypointComponent;
-
-  @ContentChild(FigureComponent)
-  figureComponent: FigureComponent;
-
-  @ViewChild("mapCanvas")
-  canvas: ElementRef;
-
   waypoints: Waypoint[] = new Array<Waypoint>();
 
   constructor(private _waypointService: WaypointService) { }

@@ -16,12 +16,12 @@ export class StatisticsService {
 
   calculateStatisticsForLesson(correctKeypresses: number, incorrectKeypresses: number, secondsToCompleteLesson: number): Statistics {
     let calculatedStatistics: Statistics = {
-     numberOfTotalKeypresses: 0,
-     numberOfCorrectKeypresses: 0,
-     numberOfIncorrectKeypresses: 0,
-     pressedKeysPerSec: 0,
-     secondsToCompleteLesson: 0,
-     accuracy: 0
+      numberOfTotalKeypresses: 0,
+      numberOfCorrectKeypresses: 0,
+      numberOfIncorrectKeypresses: 0,
+      pressedKeysPerSec: 0,
+      secondsToCompleteLesson: 0,
+      accuracy: 0
     };
     calculatedStatistics.numberOfTotalKeypresses = correctKeypresses + incorrectKeypresses;
     calculatedStatistics.numberOfCorrectKeypresses = correctKeypresses;

@@ -13,10 +13,6 @@ import {TypewriterComponent} from "./typewriter/typewriter.component";
   {path: "/lesson/:id", name: "Typewriter", component: TypewriterComponent}
 ])
 export class AppComponent implements OnInit {
-  @ViewChild(MapComponent)
-  mapComponent: MapComponent;
-  @ViewChild(TypewriterComponent)
-  typewriterComponent: TypewriterComponent;
 
   constructor() { }
 

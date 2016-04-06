@@ -7,10 +7,10 @@ import { Statistics } from "./statistics.service";
   styleUrls: ["app/typewriter/statistics/statistics.component.css"]
 })
 export class StatisticsComponent implements OnInit {
-  constructor() { }
-
   @Input()
   statistics: Statistics;
+
+  constructor() { }
 
   ngOnInit() { }
 

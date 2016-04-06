@@ -46,10 +46,6 @@ export class SpaceToUnderscorePipe implements PipeTransform {
 export class TypewriterComponent implements OnInit, AfterViewInit {
   @ViewChild("focus")
   focus: ElementRef;
-  @ViewChild(BlinkingCursorComponent)
-  blinkingCursorComponent: BlinkingCursorComponent;
-  @ViewChild(StatisticsComponent)
-  statisticsComponent: StatisticsComponent;
 
   lesson: Lesson;
   typedText: string;
