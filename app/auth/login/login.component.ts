@@ -1,6 +1,7 @@
 import { Component, OnInit } from "angular2/core";
 import { RouterLink } from "angular2/router";
-import {FormBuilder, ControlGroup, Control, Validators} from "angular2/common";
+import { FormBuilder, ControlGroup, Control, Validators } from "angular2/common";
+
 @Component({
   selector: "tpw-login",
   templateUrl: "app/auth/login/login.component.html",

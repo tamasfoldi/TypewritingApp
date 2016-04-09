@@ -1,7 +1,7 @@
-import {Component, OnInit, ContentChild, ViewChild, Input, Output, EventEmitter, ElementRef} from "angular2/core";
-import {WaypointComponent} from "./waypoint/waypoint.component";
-import {Waypoint, WaypointService} from "./waypoint/waypoint.service";
-import {FigureComponent} from "./figure/figure.component";
+import { Component, OnInit, ContentChild, ViewChild, Input, Output, EventEmitter, ElementRef } from "angular2/core";
+import { WaypointComponent } from "./waypoint/waypoint.component";
+import { Waypoint, WaypointService } from "./waypoint/waypoint.service";
+import { FigureComponent } from "./figure/figure.component";
 
 @Component({
   selector: "tpw-map",

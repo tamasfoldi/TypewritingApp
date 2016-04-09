@@ -1,6 +1,7 @@
 <h1>{{lesson.name}}</h1>
 <p><span>{{typedText | spaceToUnderscore}}</span>{{lesson.text | lessonTextCut: typedText}}</p>
 <div #focus id="inputElement" tabindex="1" (keypress)="keypress($event)">
-  {{typedText}}<blinking-cursor *ngIf="!hasReachedTheEnd()"></blinking-cursor>
+  {{typedText}}
+  <blinking-cursor *ngIf="!hasReachedTheEnd()"></blinking-cursor>
 </div>
-<tpw-lesson-statistics *ngIf="hasReachedTheEnd()" [statistics]="statistics"></tpw-lesson-statistics>    
+<tpw-lesson-statistics *ngIf="hasReachedTheEnd()" [statistics]="statistics"></tpw-lesson-statistics>

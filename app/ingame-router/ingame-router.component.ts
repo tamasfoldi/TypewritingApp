@@ -2,7 +2,7 @@ import { Component, OnInit, Injector } from "angular2/core";
 import { RouteConfig, Router, ROUTER_DIRECTIVES, CanActivate, ComponentInstruction } from "angular2/router";
 import { TypewriterComponent } from "../typewriter/typewriter.component";
 import { MapComponent } from "../map/map.component";
-import { appInjector } from "../app-injector"; 
+import { appInjector } from "../app-injector";
 
 @Component({
   selector: "tpw-ingame-router",
@@ -18,7 +18,7 @@ import { appInjector } from "../app-injector";
   let _router: Router = injector.get(Router);
 
   return new Promise((resolve) => {
-    let boolean = false;
+    let boolean = true;
     if (boolean) {
       resolve(true);
     } else {

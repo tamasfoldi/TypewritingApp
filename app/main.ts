@@ -4,7 +4,7 @@ import { ROUTER_PROVIDERS } from "angular2/router";
 import { AppComponent } from "./app.component";
 import { WaypointService } from "./map/waypoint/waypoint.service";
 import { LessonService } from "./lesson/lesson.service";
-import {appInjector} from "./app-injector";
+import { appInjector } from "./app-injector";
 
 bootstrap(AppComponent, [
   LessonService,

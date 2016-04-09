@@ -1,6 +1,6 @@
-import {Component, Input, OnInit, Output, EventEmitter} from "angular2/core";
+import { Component, Input, OnInit, Output, EventEmitter } from "angular2/core";
 import { Router } from "angular2/router";
-import {Waypoint} from "./waypoint.service";
+import { Waypoint } from "./waypoint.service";
 
 @Component({
   selector: "tpw-waypoint",

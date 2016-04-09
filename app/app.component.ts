@@ -1,5 +1,5 @@
-import {Component, OnInit, ViewChild, ViewChildren} from "angular2/core";
-import {RouteConfig, ROUTER_DIRECTIVES} from "angular2/router";
+import { Component, OnInit, ViewChild, ViewChildren } from "angular2/core";
+import { RouteConfig, ROUTER_DIRECTIVES } from "angular2/router";
 import { AuthComponent } from "./auth/auth.component";
 import { IngameRouterComponent } from "./ingame-router/ingame-router.component";
 
