@@ -1,0 +1,16 @@
+<form (submit)="register()" [ngFormModel]="registerForm">
+  <div>
+    <label>Username: </label><input type="text" ngControl="username" />
+    <div *ngIf="username.dirty && username.hasError('required')">Username is required</div>
+  </div>
+    <div>
+    <label>E-mail: </label><input type="text" ngControl="email" />
+    <div *ngIf="email.dirty && email.hasError('required')">E-mail is required</div>
+    <div *ngIf="email.dirty && email.hasError('invalidEmail')">E-mail format is incorrect</div>    
+  </div>
+  <div>
+    <label>Password: </label><input type="password" ngControl="password" />
+    <div *ngIf="password.dirty && password.hasError('required')">Password is required</div>
+  </div>
+  <button type="submit" [disabled]="!registerForm.valid">Register</button>
+</form>
