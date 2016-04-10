@@ -16,7 +16,7 @@ export class AuthService {
     this._authHttp.post("http://localhost:3000/api/user/login", JSON.stringify(user))
       .map(response => response.json())
       .subscribe((data) => {
-        localStorage.setItem("id_token", data);
+        localStorage.setItem("id_token", data.id_token);
       });
     } catch (err) {
       console.log(err);
