@@ -9,8 +9,8 @@ import { IngameRouterComponent } from "./ingame-router/ingame-router.component";
   directives: [ROUTER_DIRECTIVES]
 })
 @RouteConfig([
-  { path: "/auth/...", as: "Auth", component: AuthComponent, useAsDefault: true },
-  { path: "/game/...", as: "Game", component: IngameRouterComponent }
+  { path: "/auth/...", as: "Auth", component: AuthComponent },
+  { path: "/game/...", as: "Game", component: IngameRouterComponent, useAsDefault: true }
 ])
 export class AppComponent implements OnInit {
 

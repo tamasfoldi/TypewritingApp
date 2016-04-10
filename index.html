@@ -1,36 +1,44 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <base href="/">
-    <title>Typewriting App</title>
-    <!-- 1. Load libraries -->
-    <script src="node_modules/systemjs/dist/system-polyfills.js"></script>
-    <script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
-    <script src="node_modules/systemjs/dist/system.src.js"></script>
-    <script src="node_modules/rxjs/bundles/Rx.js"></script>
-    <script src="node_modules/angular2/bundles/angular2.dev.js"></script>
-    <script src="node_modules/angular2/bundles/router.dev.js"></script>
-    <!-- 2. Configure SystemJS -->
-    <script>
-      System.config({
+
+<head>
+  <base href="/">
+  <title>Typewriting App</title>
+  <!-- 1. Load libraries -->
+  <script src="node_modules/systemjs/dist/system-polyfills.js"></script>
+  <script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
+  <script src="node_modules/systemjs/dist/system.src.js"></script>
+  <script src="node_modules/rxjs/bundles/Rx.js"></script>
+  <script src="node_modules/angular2/bundles/angular2.dev.js"></script>
+  <script src="node_modules/angular2/bundles/router.dev.js"></script>
+  <script src="node_modules/angular2/bundles/http.dev.js"></script>
+  <!-- Auth0 Lock script and AngularJS module -->
+  <script src="//cdn.auth0.com/js/lock-7.9.min.js"></script>
+  <!-- 2. Configure SystemJS -->
+  <script>
+    System.config({
         baseUrl: "/",
         map: {
-          rxjs: 'node_modules/rxjs' // added this map section
+          "rxjs": "node_modules/rxjs",
+          "angular2-jwt": "node_modules/angular2-jwt"
         },
         packages: {        
           app: {
-            format: 'register',
-            defaultExtension: 'js'
+            format: "register",
+            defaultExtension: "js"
           },
-          'rxjs': {defaultExtension: 'js'}
+          "rxjs": {defaultExtension: "js"},
+          "angular2-jwt": { defaultExtension: "js"}
         }
       });
-      System.import('app/main')
+      System.import("app/main")
             .then(null, console.error.bind(console));
-    </script>
-  </head>
-  <!-- 3. Display the application -->
-  <body>
-    <tpw-app></tpw-app>
-  </body>
+  </script>
+</head>
+<!-- 3. Display the application -->
+
+<body>
+  <tpw-app></tpw-app>
+</body>
+
 </html>
