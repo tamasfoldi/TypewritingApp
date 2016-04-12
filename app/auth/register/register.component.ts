@@ -1,5 +1,5 @@
 import { Component, OnInit } from "angular2/core";
-import { RouterLink } from "angular2/router";
+import { RouterLink, Router } from "angular2/router";
 import { AuthService, User } from "../auth.service";
 import { FormBuilder, ControlGroup, Control, Validators } from "angular2/common";
 
@@ -15,12 +15,16 @@ export class RegisterComponent implements OnInit {
   password: Control;
   registerForm: ControlGroup;
 
-  constructor(private _formBuilder: FormBuilder, private _authService: AuthService) { }
+  constructor(
+    private _formBuilder: FormBuilder,
+    private _authService: AuthService,
+    private _router: Router
+  ) { }
 
   ngOnInit() {
-    this.username = this._formBuilder.control("asdf", Validators.required);
-    this.email = this._formBuilder.control("asdf@gmail.com", Validators.compose([Validators.required, this.isValidEmail]));
-    this.password = this._formBuilder.control("asdfasdf", Validators.required);
+    this.username = this._formBuilder.control("test@test.com", Validators.required);
+    this.email = this._formBuilder.control("test@test.com", Validators.compose([Validators.required, this.isValidEmail]));
+    this.password = this._formBuilder.control("test12345", Validators.required);
     this.registerForm = this._formBuilder.group({
       username: this.username,
       email: this.email,
@@ -34,7 +38,13 @@ export class RegisterComponent implements OnInit {
       email: this.email.value,
       password: this.password.value
     };
-    this._authService.register(user);
+    this._authService.register(user).subscribe((response) => {
+      this._authService.login(user).subscribe((data: any) => {
+        this._router.parent.navigate(["Login"]);
+      });
+
+    });
+
   }
 
   reset(): void {
