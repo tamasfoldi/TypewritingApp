@@ -1,6 +1,6 @@
 {
     "ambientDependencies": {
         "es6-shim": "github:DefinitelyTyped/DefinitelyTyped/es6-shim/es6-shim.d.ts#684bb45932fc225b5a42926c78f1c2a2845d248f",
-        "jasmine": "github:DefinitelyTyped/DefinitelyTyped/jasmine/jasmine.d.ts#684bb45932fc225b5a42926c78f1c2a2845d248f"              
+        "jasmine": "github:DefinitelyTyped/DefinitelyTyped/jasmine/jasmine.d.ts#684bb45932fc225b5a42926c78f1c2a2845d248f"           
     }
 }

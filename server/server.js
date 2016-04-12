@@ -1,5 +1,6 @@
 var express = require('express');
 var path = require('path');
+var jwt = require('jsonwebtoken');
 var app = express();
 
 app.use('/app', express.static(path.resolve(__dirname, '../app')));
@@ -9,8 +10,13 @@ var renderIndex = function (req, res) {
     res.sendFile(path.resolve(__dirname, '../index.html'));
 };
 
+app.get('/api/user/login', function(req, res) {
+    res.send(jwt.verify(req.headers.authorization.split(" ")[1], "secret"));
+});
+
 app.post('/api/user/login', function (req, res) {
-    res.send({ "id_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImV4cCI6IjE0NjAzMTk5NjkifQ.ouX3YPsmlZvV9JOM6g4i8ApwxDSxUnMt-NLJrRuDs6g" });
+    var token = jwt.sign({}, "secret", {expiresIn: 60});
+    res.send({ "id_token": token });
 });
 
 app.get('/*', renderIndex);

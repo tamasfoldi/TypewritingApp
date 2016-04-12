@@ -3,6 +3,7 @@ import { RouteConfig, Router, ROUTER_DIRECTIVES, CanActivate, ComponentInstructi
 import { TypewriterComponent } from "../typewriter/typewriter.component";
 import { MapComponent } from "../map/map.component";
 import { appInjector } from "../app-injector";
+import { JwtHelper } from "angular2-jwt/angular2-jwt";
 
 @Component({
   selector: "tpw-ingame-router",
@@ -19,7 +20,7 @@ import { appInjector } from "../app-injector";
 
   return new Promise((resolve) => {
     let boolean = true;
-    if (boolean) {
+    if (!new JwtHelper().isTokenExpired(localStorage.getItem("id_token"))) {
       resolve(true);
     } else {
       _router.navigate(["Auth"]);
