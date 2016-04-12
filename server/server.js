@@ -10,10 +10,6 @@ var renderIndex = function (req, res) {
     res.sendFile(path.resolve(__dirname, '../index.html'));
 };
 
-app.get('/api/user/login', function(req, res) {
-    res.send(jwt.verify(req.headers.authorization.split(" ")[1], "secret"));
-});
-
 app.post('/api/user/login', function (req, res) {
     var token = jwt.sign({}, "secret", {expiresIn: 60});
     res.send({ "id_token": token });
