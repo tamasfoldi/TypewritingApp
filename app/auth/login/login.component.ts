@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
       username: this.username.value,
       password: this.password.value
     }
-    this._authService.login(user).subscribe((data: any) => {
+    this._authService.login(user).subscribe((data: any) => { // ☐ error handling 
       localStorage.setItem("id_token", data.id_token);
       this._router.parent.navigate(["../Game"]);
     });

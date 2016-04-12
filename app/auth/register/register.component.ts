@@ -38,14 +38,11 @@ export class RegisterComponent implements OnInit {
       email: this.email.value,
       password: this.password.value
     };
-    this._authService.register(user).subscribe((response) => {
-      this._authService.login(user).subscribe((data: any) => {
-        this._router.parent.navigate(["Login"]);
-      });
-
+    this._authService.register(user).subscribe((response) => { // ☐ error handling
+        this._router.parent.navigate(["Login"]); // ☐ auto login
     });
 
-  }
+  } 
 
   reset(): void {
     this.username.updateValue("");
