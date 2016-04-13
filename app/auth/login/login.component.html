@@ -8,5 +8,6 @@
     <div *ngIf="password.dirty && password.hasError('required')">Password is required</div>
   </div>
   <button type="submit" [disabled]="!loginForm.valid">Login</button>
+  <div *ngIf="responseError">{{responseError}}</div> 
 </form>
-<div>Click <a [routerLink]="['Register']" >here</a> to Register</div>
+<div>Click <a [routerLink]="['Register']">here</a> to Register</div>

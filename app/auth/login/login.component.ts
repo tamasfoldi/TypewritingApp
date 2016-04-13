@@ -14,6 +14,8 @@ export class LoginComponent implements OnInit {
   password: Control;
   loginForm: ControlGroup;
 
+  responseError: string;
+  
   constructor(
     private _formBuilder: FormBuilder,
     private _authService: AuthService,
@@ -21,8 +23,8 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.username = this._formBuilder.control("", Validators.required);
-    this.password = this._formBuilder.control("", Validators.required);
+    this.username = this._formBuilder.control("test", Validators.required);
+    this.password = this._formBuilder.control("test12345", Validators.required);
     this.loginForm = this._formBuilder.group({
       username: this.username,
       password: this.password
@@ -34,9 +36,11 @@ export class LoginComponent implements OnInit {
       username: this.username.value,
       password: this.password.value
     }
-    this._authService.login(user).subscribe((data: any) => { // ☐ error handling 
+    this._authService.login(user).subscribe((data: any) => { // ✔ error handling  @done ( April 13th 2016, 9:19:25 pm )
       localStorage.setItem("id_token", data.id_token);
       this._router.parent.navigate(["../Game"]);
+    }, (error) => {
+      this.responseError = JSON.parse(error._body).error_description;
     });
   }
 

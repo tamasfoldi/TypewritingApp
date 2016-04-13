@@ -12,7 +12,7 @@ export interface User {
 }
 
 export class Auth0Response {
-  id_token: string; 
+  id_token: string;
   access_token: string;
   token_type: string;
 }
@@ -22,8 +22,11 @@ export class AuthService {
   clientId = "nAG6Yz8t5KQu07YukjV83Wh94hOYiR4T"
   lock = new Auth0Lock(this.clientId, 'tamasfo.eu.auth0.com');
   headers = new Headers();
-  
-  constructor(private _http: Http, private _authHttp: AuthHttp) { 
+
+  constructor(
+    private _http: Http,
+    private _authHttp: AuthHttp
+  ) {
     this.headers.append('Content-Type', 'application/json');
   }
 

@@ -19,7 +19,6 @@ import { JwtHelper, tokenNotExpired } from "angular2-jwt/angular2-jwt";
   let _router: Router = injector.get(Router);
 
   return new Promise((resolve) => {
-    let boolean = true;
     if (tokenNotExpired()) {
       resolve(true);
     } else {
