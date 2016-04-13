@@ -19,7 +19,8 @@ export class Auth0Response {
 
 @Injectable()
 export class AuthService {
-  clientId = "nAG6Yz8t5KQu07YukjV83Wh94hOYiR4T"
+  clientId = "nAG6Yz8t5KQu07YukjV83Wh94hOYiR4T";
+  connection = "mongodb";
   lock = new Auth0Lock(this.clientId, 'tamasfo.eu.auth0.com');
   headers = new Headers();
 
@@ -35,7 +36,7 @@ export class AuthService {
       "client_id": this.clientId,
       "username": user.username,
       "password": user.password,
-      "connection": "Username-Password-Authentication",
+      "connection": this.connection,
       "grant_type": "passwrod",
       "scope": "openid"
     }
@@ -49,7 +50,7 @@ export class AuthService {
       "username": user.username,
       "email": user.email,
       "password": user.password,
-      "connection": "Username-Password-Authentication"
+      "connection": this.connection
     }
     return this._http.post("https://tamasfo.eu.auth0.com/dbconnections/signup", JSON.stringify(loginBody), { headers: this.headers })
       .map(response => response.json());
