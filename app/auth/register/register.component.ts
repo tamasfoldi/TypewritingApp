@@ -42,10 +42,10 @@ export class RegisterComponent implements OnInit {
     };
     this._authService.register(user).subscribe((response) => { // ✔ error handling @done ( April 13th 2016, 8:44:57 pm )
       this._router.parent.navigate(["Login"]); // ✔ auto login @done ( April 13th 2016, 8:53:27 pm )
-    }, (error) => {
-      this.responseError = JSON.parse(error._body).description;
+    }, (error) => { 
+      this.responseError = JSON.parse(error._body).description;  // ☐ modify error handling.
     }, () => {
-      this._authService.login(user).subscribe((data: any) => {
+      this._authService.login(user).subscribe((data: any) => { // ☐ first capitalizer pipe
         localStorage.setItem("id_token", data.id_token);
         this._router.parent.navigate(["../Game"]);
       });

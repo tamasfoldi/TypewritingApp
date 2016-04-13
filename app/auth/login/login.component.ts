@@ -10,7 +10,7 @@ import { FormBuilder, ControlGroup, Control, Validators } from "angular2/common"
 })
 export class LoginComponent implements OnInit {
 
-  username: Control;
+  email: Control;
   password: Control;
   loginForm: ControlGroup;
 
@@ -23,17 +23,17 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.username = this._formBuilder.control("test", Validators.required);
+    this.email = this._formBuilder.control("test", Validators.required);
     this.password = this._formBuilder.control("test12345", Validators.required);
     this.loginForm = this._formBuilder.group({
-      username: this.username,
+      email: this.email,
       password: this.password
     });
   }
 
   login(): void {
     let user: User = {
-      username: this.username.value,
+      email: this.email.value,
       password: this.password.value
     }
     this._authService.login(user).subscribe((data: any) => { // ✔ error handling  @done ( April 13th 2016, 9:19:25 pm )
@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
   }
 
   reset(): void {
-    this.username.updateValue("");
+    this.email.updateValue("");
     this.password.updateValue("");
   }
 

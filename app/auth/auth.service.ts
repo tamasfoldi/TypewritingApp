@@ -6,8 +6,8 @@ import { Observable } from "rxjs/Rx";
 declare let Auth0Lock;
 
 export interface User {
-  username: string;
-  email?: string;
+  username?: string;
+  email: string;
   password: string;
 }
 
@@ -34,7 +34,7 @@ export class AuthService {
   login(user: User): Observable<Response> {
     let loginBody = {
       "client_id": this.clientId,
-      "username": user.username,
+      "username": user.email,
       "password": user.password,
       "connection": this.connection,
       "grant_type": "passwrod",
