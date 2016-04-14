@@ -1,14 +1,9 @@
-import { Injectable } from "angular2/core";
+import { Injectable, Inject } from "angular2/core";
 import { Http, Headers, Response } from "angular2/http";
 import { Observable } from "rxjs/Rx";
+import { AuthUser as User, UserService } from "../user/user.service";
 
 declare let Auth0Lock;
-
-export interface User {
-  username?: string;
-  email: string;
-  password: string;
-}
 
 export class Auth0Response {
   id_token: string;
@@ -21,13 +16,11 @@ export class AuthService {
   clientId = "nAG6Yz8t5KQu07YukjV83Wh94hOYiR4T";
   connection = "mongodb";
   lock = new Auth0Lock(this.clientId, 'tamasfo.eu.auth0.com');
-  headers = new Headers();
 
   constructor(
+    @Inject(UserService) private _userService: UserService,
     private _http: Http
-  ) {
-    this.headers.append('Content-Type', 'application/json');
-  }
+  ) { }
 
   login(user: User): Observable<Response> {
     let loginBody = {
@@ -38,7 +31,7 @@ export class AuthService {
       "grant_type": "passwrod",
       "scope": "openid"
     }
-    return this._http.post("https://tamasfo.eu.auth0.com/oauth/ro", JSON.stringify(loginBody), { headers: this.headers })
+    return this._http.post("https://tamasfo.eu.auth0.com/oauth/ro", JSON.stringify(loginBody))
       .map(response => response.json())
   }
 
@@ -50,7 +43,12 @@ export class AuthService {
       "password": user.password,
       "connection": this.connection
     }
-    return this._http.post("https://tamasfo.eu.auth0.com/dbconnections/signup", JSON.stringify(loginBody), { headers: this.headers })
+    return this._http.post("https://tamasfo.eu.auth0.com/dbconnections/signup", JSON.stringify(loginBody))
       .map(response => response.json());
+  }
+
+  handleSuccessLogin(data: any, loginWith: User): void {
+    localStorage.setItem("id_token", data.id_token);
+    this._userService.setUser(loginWith.email);
   }
 }

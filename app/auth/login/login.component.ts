@@ -1,6 +1,7 @@
 import { Component, OnInit } from "angular2/core";
 import { RouterLink, Router } from "angular2/router";
-import { AuthService, User, Auth0Response } from "../auth.service";
+import { AuthService, Auth0Response } from "../auth.service";
+import { AuthUser as User } from "../../user/user.service";
 import { FormBuilder, ControlGroup, Control, Validators } from "angular2/common";
 
 @Component({
@@ -37,7 +38,7 @@ export class LoginComponent implements OnInit {
       password: this.password.value
     }
     this._authService.login(user).subscribe((data: any) => { // ✔ error handling  @done ( April 13th 2016, 9:19:25 pm )
-      localStorage.setItem("id_token", data.id_token);
+      this._authService.handleSuccessLogin(data, user);
       this._router.parent.navigate(["../Game"]);
     }, (error) => {
       this.responseError = JSON.parse(error._body).error_description;

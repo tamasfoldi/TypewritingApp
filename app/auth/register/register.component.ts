@@ -1,6 +1,7 @@
 import { Component, OnInit } from "angular2/core";
 import { RouterLink, Router } from "angular2/router";
-import { AuthService, User } from "../auth.service";
+import { AuthService } from "../auth.service";
+import { AuthUser as User } from "../../user/user.service";
 import { FormBuilder, ControlGroup, Control, Validators } from "angular2/common";
 import { CapitalizeFirstPipe } from "../../util/capitalize-first.pipe";
 
@@ -48,7 +49,7 @@ export class RegisterComponent implements OnInit {
         this.responseError = JSON.parse(error._body).message;  // ✔ modify error handling. @done ( April 14th 2016, 8:23:21 am )
     }, () => {
       this._authService.login(user).subscribe((data: any) => { // ✔ first capitalizer pipe @done ( April 14th 2016, 8:25:50 am )
-        localStorage.setItem("id_token", data.id_token);
+        this._authService.handleSuccessLogin(data, user);
         this._router.parent.navigate(["../Game"]);
       });
     });

@@ -15,7 +15,16 @@ var renderIndex = function (req, res) {
     res.sendFile(path.resolve(__dirname, '../index.html'));
 };
 
-app.use('/api/path-you-want-to-protect', jwtCheck);
+app.use('/api', jwtCheck);
+
+app.get('/api/user/:email', function (req, res) {
+   res.send({ 
+       "username": "sadf",
+       "password": "adsfsadf",
+       "email": "asdfa@dasf.com",
+       "lastCompletedLessonId": "3"
+   }); 
+});
 
 app.get('/*', renderIndex);
 

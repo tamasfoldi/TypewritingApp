@@ -5,7 +5,8 @@ import { RouteParams, Router, CanActivate, ComponentInstruction } from "angular2
 import { Statistics, StatisticsService } from "./statistics/statistics.service";
 import { StatisticsComponent } from "./statistics/statistics.component";
 import { BlinkingCursorComponent } from "../util/blinking-cursor/blinking-cursor.component";
-import {appInjector} from "../app-injector";
+import { appInjector } from "../app-injector";
+import { UserService } from "../user/user.service"
 
 @Pipe({ name: "lessonTextCut" })
 export class LessonTextCutPipe implements PipeTransform {
@@ -31,14 +32,14 @@ export class SpaceToUnderscorePipe implements PipeTransform {
 })
 @CanActivate((next: ComponentInstruction, prev: ComponentInstruction) => {
   let injector: Injector = appInjector();
-  let _lessonService: LessonService = injector.get(LessonService);
+  let _userService: UserService = injector.get(UserService);
   let _router: Router = injector.get(Router);
 
   return new Promise((resolve) => {
-    if (_lessonService.getLastUnsolvedId() >= parseInt(next.params["id"])) {
+    if (_userService.user.lastCompletedLessonId >= parseInt(next.params["id"])) {
       resolve(true);
     } else {
-      _router.navigate(["Map"]);
+      _router.navigate(["Game"]);
       resolve(false);
     }
   });
@@ -57,6 +58,7 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
   constructor(
     private _lessonService: LessonService,
     private _statisticsService: StatisticsService,
+    private _userService: UserService,
     private _router: Router,
     private _routeParams: RouteParams
   ) { }
@@ -89,7 +91,7 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
       this.focus.nativeElement.blur();
       this.timer = (Date.now() - this.timer) / 1000;
       this.statistics = this._statisticsService.calculateStatisticsForLesson(this.correctPresses, this.incorrectPresses, this.timer);
-      this._lessonService.setAsSolved(this.lesson.id);
+      this._userService.updateLastCompletedLesson(this.lesson.id);
       setTimeout(() => {
         this._router.navigate(["Map"]);
       }, 1000);
