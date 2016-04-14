@@ -33,7 +33,7 @@ app.get('/api/user/:email', function (req, res) {
                 throw err;
             }
             var user = result;
-            if (!user.lastCompletedLessonId) {
+            if (!user.lastCompletedLessonId && user.lastCompletedLessonId !== 0) {
                 user.lastCompletedLessonId = -1;
             }
             res.status(200).send({ "username": user.username, "email": user.email, "password": user.password, "lastCompletedLessonId": user.lastCompletedLessonId });
