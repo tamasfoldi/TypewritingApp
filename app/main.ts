@@ -73,6 +73,30 @@ http.post("https://tamasfo.eu.auth0.com/tokeninfo", JSON.stringify(tokenInfo))
           appInjector(appRef.injector);
         });
       });
+  }, () => {
+    bootstrap(AppComponent, [
+      LessonService,
+      provide(UserService, { useValue: userService }),
+      AuthService,
+      WaypointService,
+      ROUTER_PROVIDERS,
+      HTTP_PROVIDERS,
+      provide(AuthHttp, {
+        useFactory: (http) => {
+          return new AuthHttp(new AuthConfig({
+            headerName: "Authorization",
+            headerPrefix: "Bearer",
+            tokenName: "id_token",
+            tokenGetter: (() => localStorage.getItem("id_token")),
+            noJwtError: true
+          }), http);
+        },
+        deps: [Http]
+      }),
+      provide(RequestOptions, { useClass: MyHeader })
+    ]).then((appRef: ComponentRef) => {
+      appInjector(appRef.injector);
+    });
   });
 
 
