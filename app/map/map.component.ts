@@ -2,6 +2,7 @@ import { Component, OnInit, ContentChild, ViewChild, Input, Output, EventEmitter
 import { WaypointComponent } from "./waypoint/waypoint.component";
 import { Waypoint, WaypointService } from "./waypoint/waypoint.service";
 import { FigureComponent } from "./figure/figure.component";
+import { UserService } from "../user/user.service";
 
 @Component({
   selector: "tpw-map",
@@ -11,12 +12,12 @@ import { FigureComponent } from "./figure/figure.component";
 export class MapComponent implements OnInit {
   waypoints: Waypoint[] = new Array<Waypoint>();
 
-  constructor(private _waypointService: WaypointService) { }
+  constructor(
+    private _waypointService: WaypointService,
+    private _userService: UserService
+  ) { }
 
   ngOnInit() { }
 
-  ngAfterViewInit() {
-
-  }
-
+  ngAfterViewInit() { }
 }

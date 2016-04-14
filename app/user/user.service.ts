@@ -1,4 +1,4 @@
-import { Injectable } from "angular2/core";
+import { Injectable, Inject } from "angular2/core";
 import { AuthHttp } from "angular2-jwt/angular2-jwt"
 import { Headers } from "angular2/http";
 
@@ -41,15 +41,18 @@ export class UserService {
   private _user: User;
 
   constructor(
-    private _authHttp: AuthHttp
+    @Inject(AuthHttp) private _authHttp: AuthHttp
   ) { }
 
   get user(): User {
     return this._user;
   }
+  
+  set user(user: User) {
+    this._user = user;
+  }
 
   setUser(email: string) {
-    console.log(email);
     if (!this._user) {
       this._authHttp.get("/api/user/" + email)
         .map(response => response.json())
