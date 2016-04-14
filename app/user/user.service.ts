@@ -50,6 +50,7 @@ export class UserService {
   
   set user(user: User) {
     this._user = user;
+    this._user.lastCompletedLessonId = user.lastCompletedLessonId;
   }
 
   setUser(email: string) {
@@ -62,8 +63,7 @@ export class UserService {
 
   updateLastCompletedLesson(lessonId: number) {
     if (lessonId >= this.user.lastCompletedLessonId) {
-      this.user.lastCompletedLessonId = lessonId;
-      console.log(lessonId);
+      this.user.lastCompletedLessonId = lessonId + 1;
       this._authHttp.put("/api/user/" + this.user.email, JSON.stringify(this.user))
         .map(response => response.json())
         .subscribe(data => { });

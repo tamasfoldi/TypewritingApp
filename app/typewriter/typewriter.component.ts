@@ -36,7 +36,7 @@ export class SpaceToUnderscorePipe implements PipeTransform {
   let _router: Router = injector.get(Router);
 
   return new Promise((resolve) => {
-    if (_userService.user.lastCompletedLessonId >= parseInt(next.params["id"])) {
+    if (_userService.user.lastCompletedLessonId + 1 >= parseInt(next.params["id"])) {
       resolve(true);
     } else {
       _router.navigate(["Game"]);

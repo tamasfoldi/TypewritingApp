@@ -17,7 +17,7 @@ export class WaypointComponent implements OnInit {
   ) { }
 
   gameStart() {
-    if (this.waypoint.id <= this._userService.user.lastCompletedLessonId) {
+    if (this.waypoint.id <= this._userService.user.lastCompletedLessonId + 1) {
       this._router.navigate(["Typewriter", {id: this.waypoint.id}]);
     }
   }

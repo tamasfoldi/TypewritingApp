@@ -22,7 +22,16 @@ app.get('/api/user/:email', function (req, res) {
        "username": "sadf",
        "password": "adsfsadf",
        "email": "asdfa@dasf.com",
-       "lastCompletedLessonId": "3"
+       "lastCompletedLessonId": 3
+   }); 
+});
+
+app.put('/api/user/:email', function (req, res) {
+   res.send({ 
+       "username": "sadf",
+       "password": "adsfsadf",
+       "email": "asdfa@dasf.com",
+       "lastCompletedLessonId": 3
    }); 
 });
 
