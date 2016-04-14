@@ -1,6 +1,5 @@
 import { Injectable } from "angular2/core";
 import { Http, Headers, Response } from "angular2/http";
-import { AuthHttp, JwtHelper} from "angular2-jwt/angular2-jwt";
 import { Observable } from "rxjs/Rx";
 
 declare let Auth0Lock;
@@ -25,8 +24,7 @@ export class AuthService {
   headers = new Headers();
 
   constructor(
-    private _http: Http,
-    private _authHttp: AuthHttp
+    private _http: Http
   ) {
     this.headers.append('Content-Type', 'application/json');
   }
@@ -55,5 +53,4 @@ export class AuthService {
     return this._http.post("https://tamasfo.eu.auth0.com/dbconnections/signup", JSON.stringify(loginBody), { headers: this.headers })
       .map(response => response.json());
   }
-
 }
