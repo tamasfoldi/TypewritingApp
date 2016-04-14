@@ -2,11 +2,13 @@ import { Component, OnInit } from "angular2/core";
 import { RouterLink, Router } from "angular2/router";
 import { AuthService, User } from "../auth.service";
 import { FormBuilder, ControlGroup, Control, Validators } from "angular2/common";
+import { CapitalizeFirstPipe } from "../../util/capitalize-first.pipe";
 
 @Component({
   selector: "tpw-register",
   templateUrl: "app/auth/register/register.component.html",
-  directives: [RouterLink]
+  directives: [RouterLink],
+  pipes: [CapitalizeFirstPipe]
 })
 export class RegisterComponent implements OnInit {
 
@@ -42,10 +44,10 @@ export class RegisterComponent implements OnInit {
     };
     this._authService.register(user).subscribe((response) => { // ✔ error handling @done ( April 13th 2016, 8:44:57 pm )
       this._router.parent.navigate(["Login"]); // ✔ auto login @done ( April 13th 2016, 8:53:27 pm )
-    }, (error) => { 
-      this.responseError = JSON.parse(error._body).description;  // ☐ modify error handling.
+    }, (error) => {
+        this.responseError = JSON.parse(error._body).message;  // ✔ modify error handling. @done ( April 14th 2016, 8:23:21 am )
     }, () => {
-      this._authService.login(user).subscribe((data: any) => { // ☐ first capitalizer pipe
+      this._authService.login(user).subscribe((data: any) => { // ✔ first capitalizer pipe @done ( April 14th 2016, 8:25:50 am )
         localStorage.setItem("id_token", data.id_token);
         this._router.parent.navigate(["../Game"]);
       });
