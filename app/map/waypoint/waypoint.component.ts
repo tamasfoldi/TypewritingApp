@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, Output, EventEmitter } from "angular2/core";
 import { Router } from "angular2/router";
 import { Waypoint } from "./waypoint.service";
+import { UserService } from "../../user/user.service";
 
 @Component({
   selector: "tpw-waypoint",
@@ -10,10 +11,13 @@ export class WaypointComponent implements OnInit {
   @Input()
   waypoint: Waypoint;
 
-  constructor(private _router: Router) { }
+  constructor(
+    private _router: Router, 
+    private _userService: UserService
+  ) { }
 
   gameStart() {
-    if (this.waypoint.hasFigure) {
+    if (this.waypoint.id <= this._userService.user.lastCompletedLessonId) {
       this._router.navigate(["Typewriter", {id: this.waypoint.id}]);
     }
   }
