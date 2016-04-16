@@ -1,7 +1,7 @@
 import * as express from "express";
 import { MongoClient  } from "mongodb";
+import { dbConn } from "../config";
 
-let dbConn = "mongodb://admin:MAcsek24@ds023560.mlab.com:23560/typewritingapp";
 export let userRouter = express.Router();
 
 userRouter.get("/:email", (req, res) => {
