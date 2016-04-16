@@ -1,33 +1,53 @@
 import { Injectable } from "angular2/core";
 
-export interface Statistics {
-  numberOfTotalKeypresses: number;
-  numberOfCorrectKeypresses: number;
-  numberOfIncorrectKeypresses: number;
-  pressedKeysPerSec: number;
-  accuracy: number;
-  secondsToCompleteLesson?: number;
-}
+export class Statistics {
+  private _numberOfCorrectKeypresses: number = 0;
+  private _numberOfIncorrectKeypresses: number = 0;
+  private _startTime: number = 0;
+  private _stopTime: number = 0;
 
-@Injectable()
-export class StatisticsService {
+  get numberOfCorrectKeypresses(): number {
+    return this._numberOfCorrectKeypresses;
+  }
+  set numberOfCorrectKeypresses(val: number) {
+    this._numberOfCorrectKeypresses = val;
+  }
 
-  calculateStatisticsForLesson(correctKeypresses: number, incorrectKeypresses: number, secondsToCompleteLesson: number): Statistics {
-    let calculatedStatistics: Statistics = {
-      numberOfTotalKeypresses: 0,
-      numberOfCorrectKeypresses: 0,
-      numberOfIncorrectKeypresses: 0,
-      pressedKeysPerSec: 0,
-      secondsToCompleteLesson: 0,
-      accuracy: 0
-    };
-    calculatedStatistics.numberOfTotalKeypresses = correctKeypresses + incorrectKeypresses;
-    calculatedStatistics.numberOfCorrectKeypresses = correctKeypresses;
-    calculatedStatistics.numberOfIncorrectKeypresses = incorrectKeypresses;
-    calculatedStatistics.secondsToCompleteLesson = secondsToCompleteLesson;
-    calculatedStatistics.pressedKeysPerSec = calculatedStatistics.numberOfCorrectKeypresses / calculatedStatistics.secondsToCompleteLesson;
-    calculatedStatistics.accuracy = correctKeypresses / calculatedStatistics.numberOfTotalKeypresses;
-    return calculatedStatistics;
+  get numberOfIncorrectKeypresses(): number {
+    return this._numberOfIncorrectKeypresses;
+  }
+  set numberOfIncorrectKeypresses(val: number) {
+    this._numberOfIncorrectKeypresses = val;
+  }
+
+  get startTime(): number {
+    return this._startTime;
+  }
+  set startTime(val: number) {
+    this._startTime = val;
+  }
+  
+  get stopTime(): number {
+    return this._stopTime;
+  }
+  set stopTime(val: number) {
+    this._stopTime = val;
+  }
+  
+  get secondsToCompleteLesson(): number {
+    return (this.stopTime - this.startTime) / 1000;
+  }
+
+  get pressedKeysPerSec(): number {
+    return this.numberOfCorrectKeypresses / this.secondsToCompleteLesson;
+  }
+
+  get numberOfTotalKeypresses(): number {
+    return this.numberOfCorrectKeypresses + this.numberOfIncorrectKeypresses;
+  }
+
+  get accuracy(): number {
+    return this.numberOfCorrectKeypresses / this.numberOfTotalKeypresses;
   }
 
 }

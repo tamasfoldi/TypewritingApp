@@ -2,7 +2,7 @@ import { Component, OnInit, Injector, Input, Output, EventEmitter, ElementRef, V
 import { LessonService, Lesson } from "../lesson/lesson.service";
 import { Pipe, PipeTransform } from "angular2/core";
 import { RouteParams, Router, CanActivate, ComponentInstruction } from "angular2/router";
-import { Statistics, StatisticsService } from "./statistics/statistics.service";
+import { Statistics } from "./statistics/statistics.service";
 import { StatisticsComponent } from "./statistics/statistics.component";
 import { BlinkingCursorComponent } from "../util/blinking-cursor/blinking-cursor.component";
 import { appInjector } from "../app-injector";
@@ -29,7 +29,6 @@ export class SpaceToUnderscorePipe implements PipeTransform {
 @Component({
   selector: "tpw-typewriter",
   templateUrl: "app/typewriter/typewriter.component.html",
-  providers: [StatisticsService],
   styleUrls: ["app/typewriter/typewriter.component.css"],
   pipes: [LessonTextCutPipe, SpaceToUnderscorePipe],
   directives: [StatisticsComponent, BlinkingCursorComponent]
@@ -40,11 +39,11 @@ export class SpaceToUnderscorePipe implements PipeTransform {
   let _router: Router = injector.get(Router);
 
   return new Promise((resolve) => {
-    if (_userService.user.lastCompletedLessonId + 1 >= parseInt(next.params["id"])) {
+    if (true) { // _userService.user.lastCompletedLessonId + 1 >= parseInt(next.params["id"])
       resolve(true);
     } else {
-      _router.navigate(["Game"]);
-      resolve(false);
+     // _router.navigate(["Game"]);
+     // resolve(false);
     }
   });
 })
@@ -57,22 +56,19 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
   correctPresses: number;
   incorrectPresses: number;
   timer: number;
-  statistics: Statistics;
+  statistics: Statistics = new Statistics();
 
   constructor(
     private _lessonService: LessonService,
-    private _statisticsService: StatisticsService,
     private _userService: UserService,
     private _router: Router,
     private _routeParams: RouteParams
-  ) {
+  ) { }
+
+  ngOnInit() {
     this._lessonService.get(parseInt(this._routeParams.get("id"))).subscribe((lesson) => {
       this.lesson = lesson;
     });
-  }
-
-  ngOnInit() {
-
     this.typedText = "";
     this.correctPresses = 0;
     this.incorrectPresses = 0;
@@ -95,19 +91,18 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
   handleInputChar(char: string) {
     if (this.wasItCorrectChar(char)) {
       this.typedText = this.typedText + char;
-      this.correctPresses++;
+      this.statistics.numberOfCorrectKeypresses++;
       if (this.wasTheFirstPress(char)) {
-        this.timer = Date.now();
+        this.statistics.startTime = Date.now();
       }
     } else {
-      this.incorrectPresses++;
+      this.statistics.numberOfIncorrectKeypresses++;
     }
   }
 
   handleLessonEnd() {
     this.focus.nativeElement.blur();
-    this.timer = (Date.now() - this.timer) / 1000;
-    this.statistics = this._statisticsService.calculateStatisticsForLesson(this.correctPresses, this.incorrectPresses, this.timer);
+    this.statistics.stopTime = Date.now();
     this._userService.updateLastCompletedLesson(this.lesson.id);
     setTimeout(() => {
       this._router.navigate(["Map"]);
