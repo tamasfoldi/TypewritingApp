@@ -22,25 +22,25 @@ System.register(["express", "path", "express-jwt", "mongodb", "body-parser"], fu
             }],
         execute: function() {
             app = express();
-            dbConn = 'mongodb://admin:MAcsek24@ds023560.mlab.com:23560/typewritingapp';
+            dbConn = "mongodb://admin:MAcsek24@ds023560.mlab.com:23560/typewritingapp";
             jwtCheck = jwt({
-                secret: new Buffer('1Jl2avFWtDPzXN3uJc9WOeXNKUiTNuTHHGWevec-8F6QcyIyZI3-VpdbGXzi-1M9', 'base64'),
-                audience: 'nAG6Yz8t5KQu07YukjV83Wh94hOYiR4T'
+                secret: new Buffer("1Jl2avFWtDPzXN3uJc9WOeXNKUiTNuTHHGWevec-8F6QcyIyZI3-VpdbGXzi-1M9", "base64"),
+                audience: "nAG6Yz8t5KQu07YukjV83Wh94hOYiR4T"
             });
-            app.use('/app', express.static(path.resolve(__dirname, '../app')));
-            app.use('/node_modules', express.static(path.resolve(__dirname, '../node_modules')));
+            app.use("/app", express.static(path.resolve(__dirname, "../app")));
+            app.use("/node_modules", express.static(path.resolve(__dirname, "../node_modules")));
             app.use(bodyParser.json()); // for parsing application/json
             app.use(bodyParser.urlencoded({ extended: true }));
             renderIndex = function (req, res) {
-                res.sendFile(path.resolve(__dirname, '../index.html'));
+                res.sendFile(path.resolve(__dirname, "../index.html"));
             };
-            app.use('/api', jwtCheck);
-            app.get('/api/user/:email', function (req, res) {
+            app.use("/api", jwtCheck);
+            app.get("/api/user/:email", function (req, res) {
                 mongodb_1.MongoClient.connect(dbConn, function (err, db) {
                     if (err) {
                         throw err;
                     }
-                    db.collection('users').find({ email: req.params.email }).limit(1).toArray(function (err, result) {
+                    db.collection("users").find({ email: req.params.email }).limit(1).toArray(function (err, result) {
                         if (err) {
                             throw err;
                         }
@@ -53,20 +53,47 @@ System.register(["express", "path", "express-jwt", "mongodb", "body-parser"], fu
                     });
                 });
             });
-            app.put('/api/user/:email', function (req, res) {
+            app.put("/api/user/:email", function (req, res) {
                 mongodb_1.MongoClient.connect(dbConn, function (err, db) {
                     if (err) {
                         throw err;
                     }
-                    db.collection('users').findOneAndUpdate({ email: req.params.email }, { $set: { lastCompletedLessonId: req.body.lastCompletedLessonId } }, function (result) {
+                    db.collection("users").findOneAndUpdate({ email: req.params.email }, { $set: { lastCompletedLessonId: req.body.lastCompletedLessonId } }, function (result) {
                         res.status(200).send(result);
                         db.close();
                     });
                 });
             });
-            app.get('/*', renderIndex);
+            app.get("/api/lessons", function (req, res) {
+                mongodb_1.MongoClient.connect(dbConn, function (err, db) {
+                    if (err) {
+                        throw err;
+                    }
+                    db.collection("lessons").find().toArray().then(function (result) {
+                        res.status(200).send(result);
+                        db.close();
+                    });
+                });
+            });
+            app.get("/api/lessons/:id", function (req, res) {
+                mongodb_1.MongoClient.connect(dbConn, function (err, db) {
+                    if (err) {
+                        throw err;
+                    }
+                    db.collection("lessons").find({ id: parseInt(req.params.id) }).limit(1).toArray(function (err, result) {
+                        if (err) {
+                            throw err;
+                        }
+                        var lesson = result[0];
+                        console.log(result);
+                        res.status(200).send(lesson);
+                        db.close();
+                    });
+                });
+            });
+            app.get("/*", renderIndex);
             app.listen(3000, function () {
-                console.log('Example app listening on port 3000!');
+                console.log("Example app listening on port 3000!");
             });
         }
     }

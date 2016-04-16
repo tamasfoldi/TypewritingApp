@@ -1,5 +1,8 @@
-import { Injectable } from "angular2/core";
+import { Injectable, Inject } from "angular2/core";
 import { Observable } from "rxjs/Rx";
+import { AuthHttp } from "angular2-jwt/angular2-jwt";
+import { RequestOptions } from "angular2/http";
+
 
 export interface Lesson {
   id: number;
@@ -10,63 +13,30 @@ export interface Lesson {
 @Injectable()
 export class LessonService {
 
+  private _$lessons: Observable<Lesson[]>;
   private _lessons: Lesson[];
 
-  constructor() {
-    this._lessons = [
-      {
-        "id": 0,
-        "name": "Lesson 1",
-        "text": "Lesson one text"
-      },
-      {
-        "id": 1,
-        "name": "Lesson 2",
-        "text": "Lesson two text"
-      },
-      {
-        "id": 2,
-        "name": "Lesson 3",
-        "text": "Lesson three text"
-      },
-      {
-        "id": 3,
-        "name": "Lesson 4",
-        "text": "Lesson four text"
-      },
-      {
-        "id": 4,
-        "name": "Lesson 5",
-        "text": "Lesson five text"
-      },
-      {
-        "id": 5,
-        "name": "Lesson 6",
-        "text": "Lesson six text"
-      },
-      {
-        "id": 6,
-        "name": "Lesson 7",
-        "text": "Lesson seven text"
-      },
-      {
-        "id": 7,
-        "name": "Lesson 8",
-        "text": "Lesson eight text"
-      },
-      {
-        "id": 8,
-        "name": "Lesson 9",
-        "text": "Lesson nine text"
-      }
-    ];
+  constructor(
+    @Inject(AuthHttp) private _authHttp: AuthHttp,
+    private _requestOptions: RequestOptions
+  ) {
+    this._$lessons = this._authHttp.get("/api/lessons", { headers: this._requestOptions.headers })
+      .map(result => result.json());
+    this._$lessons.subscribe((lessons) => {
+      this._lessons = lessons;
+    })
   }
 
-  get lessons(): Observable<Lesson> {
-    return Observable.fromArray(this._lessons);
+  get lessons(): Observable<Lesson[]> {
+    return this._$lessons;
   }
 
-  get(id: number) {
-    return this._lessons[id];
-  } 
+  get(id: number): Observable<Lesson> {
+    if (this._lessons) {
+      return Observable.of(this._lessons[id]);
+    } else {
+      return this._authHttp.get("/api/lessons/" + id, { headers: this._requestOptions.headers })
+        .map(result => result.json());
+    }
+  }
 }

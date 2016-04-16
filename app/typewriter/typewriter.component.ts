@@ -64,7 +64,9 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit() {
-    this.lesson = this._lessonService.get(parseInt(this._routeParams.get("id")));
+    this._lessonService.get(parseInt(this._routeParams.get("id"))).subscribe( (lesson) => {
+      this.lesson = lesson;
+    });
     this.typedText = "";
     this.correctPresses = 0;
     this.incorrectPresses = 0;

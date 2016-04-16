@@ -13,9 +13,11 @@ export class WaypointService {
   private _waypoints: Waypoint[] = new Array<Waypoint>();
 
   constructor( @Inject(LessonService) private _lessonService: LessonService) {
-    this._lessonService.lessons.subscribe(lesson => {
-      let waypoint = this.createWaypointFromLesson(lesson);
-      this._waypoints.push(waypoint);
+    this._lessonService.lessons.subscribe((lessons) => {
+      lessons.forEach((lesson) => {
+        let waypoint = this.createWaypointFromLesson(lesson);
+        this._waypoints.push(waypoint);
+      }); 
     });
   }
 

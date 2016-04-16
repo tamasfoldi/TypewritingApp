@@ -1,6 +1,6 @@
 import { Injectable, Inject } from "angular2/core";
 import { AuthHttp } from "angular2-jwt/angular2-jwt";
-import { Headers, RequestOptions } from "angular2/http";
+import { RequestOptions } from "angular2/http";
 
 export interface AuthUser {
   email: string;
