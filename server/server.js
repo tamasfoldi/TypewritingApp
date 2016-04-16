@@ -69,7 +69,7 @@ System.register(["express", "path", "express-jwt", "mongodb", "body-parser"], fu
                     if (err) {
                         throw err;
                     }
-                    db.collection("lessons").find().toArray().then(function (result) {
+                    db.collection("lessons").find({}).toArray().then(function (result) {
                         res.status(200).send(result);
                         db.close();
                     });

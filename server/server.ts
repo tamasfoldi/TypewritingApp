@@ -58,7 +58,7 @@ app.get("/api/lessons", (req, res) => {
        if (err) {
            throw err;
        } 
-       db.collection("lessons").find().toArray().then( (result) => {
+       db.collection("lessons").find({}).toArray().then( (result) => {
            res.status(200).send(result);
            db.close();
        })

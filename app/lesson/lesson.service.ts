@@ -24,11 +24,15 @@ export class LessonService {
       .map(result => result.json());
     this._$lessons.subscribe((lessons) => {
       this._lessons = lessons;
-    })
+    });
   }
 
   get lessons(): Observable<Lesson[]> {
-    return this._$lessons;
+    if (this._lessons) {
+      return Observable.of(this._lessons);
+    } else {
+      return this._$lessons;
+    }
   }
 
   get(id: number): Observable<Lesson> {
