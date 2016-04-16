@@ -3,8 +3,6 @@ import { Http, Headers, Response } from "angular2/http";
 import { Observable } from "rxjs/Rx";
 import { AuthUser as User, UserService } from "../user/user.service";
 
-declare let Auth0Lock;
-
 export class Auth0Response {
   id_token: string;
   access_token: string;
