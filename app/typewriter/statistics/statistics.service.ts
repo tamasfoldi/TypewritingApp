@@ -1,10 +1,17 @@
 import { Injectable } from "angular2/core";
 
 export class Statistics {
-  private _numberOfCorrectKeypresses: number = 0;
-  private _numberOfIncorrectKeypresses: number = 0;
-  private _startTime: number = 0;
-  private _stopTime: number = 0;
+  private _numberOfCorrectKeypresses: number;
+  private _numberOfIncorrectKeypresses: number;
+  private _startTime: number;
+  private _stopTime: number;
+  
+  constructor() {
+    this._numberOfCorrectKeypresses = 0;
+    this._numberOfIncorrectKeypresses = 0;
+    this._startTime = 0;
+    this._stopTime = 0;
+  }
 
   get numberOfCorrectKeypresses(): number {
     return this._numberOfCorrectKeypresses;
