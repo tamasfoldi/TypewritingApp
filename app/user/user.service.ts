@@ -66,7 +66,6 @@ export class UserService {
     if (lessonId > this.user.lastCompletedLessonId) {
       this.user.lastCompletedLessonId = lessonId;
       this._authHttp.put("/api/user/" + this.user.email, JSON.stringify({ "lastCompletedLessonId": this.user.lastCompletedLessonId }), { headers: this._requestOptions.headers })
-        .map(response => response.json())
         .subscribe(data => { return; });
     }
   }

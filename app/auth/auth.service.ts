@@ -48,5 +48,6 @@ export class AuthService {
   handleSuccessLogin(data: any, loginWith: User): void {
     localStorage.setItem("id_token", data.id_token);
     this._userService.setUser(loginWith.email);
+    console.log(this._userService.user);
   }
 }

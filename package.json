@@ -2,8 +2,8 @@
   "name": "typewritingapp",
   "version": "1.0.0",
   "scripts": {
-    "start": "npm run tsc:w",
-    "tsc": "tsc",
+    "start": "npm run tsc",
+    "tsc": "tsc -p tsconfig.json",
     "tsc:w": "tsc -w",
     "lite": "lite-server",
     "typings": "typings",

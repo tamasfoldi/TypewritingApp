@@ -5,87 +5,68 @@ export interface Lesson {
   id: number;
   name: string;
   text: string;
-  solved: boolean;
 }
 
 @Injectable()
 export class LessonService {
 
-  lessons: Lesson[];
+  private _lessons: Lesson[];
 
   constructor() {
-    this.lessons = [
+    this._lessons = [
       {
         "id": 0,
         "name": "Lesson 1",
-        "text": "Lesson one text",
-        "solved": false
+        "text": "Lesson one text"
       },
       {
         "id": 1,
         "name": "Lesson 2",
-        "text": "Lesson two text",
-        "solved": false
+        "text": "Lesson two text"
       },
       {
         "id": 2,
         "name": "Lesson 3",
-        "text": "Lesson three text",
-        "solved": false
+        "text": "Lesson three text"
       },
       {
         "id": 3,
         "name": "Lesson 4",
-        "text": "Lesson four text",
-        "solved": false
+        "text": "Lesson four text"
       },
       {
         "id": 4,
         "name": "Lesson 5",
-        "text": "Lesson five text",
-        "solved": false
+        "text": "Lesson five text"
       },
       {
         "id": 5,
         "name": "Lesson 6",
-        "text": "Lesson six text",
-        "solved": false
+        "text": "Lesson six text"
       },
       {
         "id": 6,
         "name": "Lesson 7",
-        "text": "Lesson seven text",
-        "solved": false
+        "text": "Lesson seven text"
       },
       {
         "id": 7,
         "name": "Lesson 8",
-        "text": "Lesson eight text",
-        "solved": false
+        "text": "Lesson eight text"
       },
       {
         "id": 8,
         "name": "Lesson 9",
-        "text": "Lesson nine text",
-        "solved": false
+        "text": "Lesson nine text"
       }
     ];
   }
 
-  getAll(): Observable<Lesson> {
-    return Observable.fromArray(this.lessons);
+  get lessons(): Observable<Lesson> {
+    return Observable.fromArray(this._lessons);
   }
 
   get(id: number) {
-    return this.lessons[id];
-  }
-
-  getLastUnsolvedId(): number {
-    return this.lessons.findIndex(l => { return l.solved === false; });
-  }
-
-  setAsSolved(lessonId: number): void {
-    this.lessons[lessonId].solved = true;
-  }
-
+    return this._lessons[id];
+  } 
 }

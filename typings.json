@@ -1,13 +1,17 @@
 {
     "ambientDependencies": {
         "es6-shim": "github:DefinitelyTyped/DefinitelyTyped/es6-shim/es6-shim.d.ts#684bb45932fc225b5a42926c78f1c2a2845d248f",
-        "jasmine": "github:DefinitelyTyped/DefinitelyTyped/jasmine/jasmine.d.ts#684bb45932fc225b5a42926c78f1c2a2845d248f",               
+        "jasmine": "github:DefinitelyTyped/DefinitelyTyped/jasmine/jasmine.d.ts#684bb45932fc225b5a42926c78f1c2a2845d248f", 
+        "node": "github:DefinitelyTyped/DefinitelyTyped/node/node.d.ts#684bb45932fc225b5a42926c78f1c2a2845d248f",                                     
         "express": "github:DefinitelyTyped/DefinitelyTyped/express/express.d.ts#684bb45932fc225b5a42926c78f1c2a2845d248f",               
+        "express-jwt": "github:DefinitelyTyped/DefinitelyTyped/express-jwt/express-jwt.d.ts#684bb45932fc225b5a42926c78f1c2a2845d248f",               
         "express-unless": "github:DefinitelyTyped/DefinitelyTyped/express-unless/express-unless.d.ts#684bb45932fc225b5a42926c78f1c2a2845d248f",               
         "serve-static": "github:DefinitelyTyped/DefinitelyTyped/serve-static/serve-static.d.ts#684bb45932fc225b5a42926c78f1c2a2845d248f",               
         "express-serve-static-core": "github:DefinitelyTyped/DefinitelyTyped/express-serve-static-core/express-serve-static-core.d.ts#684bb45932fc225b5a42926c78f1c2a2845d248f",               
         "mime": "github:DefinitelyTyped/DefinitelyTyped/mime/mime.d.ts#684bb45932fc225b5a42926c78f1c2a2845d248f",               
         "auth0": "github:DefinitelyTyped/DefinitelyTyped/auth0/auth0.d.ts#684bb45932fc225b5a42926c78f1c2a2845d248f",               
-        "auth0.lock": "github:DefinitelyTyped/DefinitelyTyped/auth0.lock/auth0.lock.d.ts#684bb45932fc225b5a42926c78f1c2a2845d248f"               
+        "auth0.lock": "github:DefinitelyTyped/DefinitelyTyped/auth0.lock/auth0.lock.d.ts#684bb45932fc225b5a42926c78f1c2a2845d248f",
+        "mongodb": "github:DefinitelyTyped/DefinitelyTyped/mongodb/mongodb.d.ts#684bb45932fc225b5a42926c78f1c2a2845d248f",                                      
+        "body-parser": "github:DefinitelyTyped/DefinitelyTyped/body-parser/body-parser.d.ts#684bb45932fc225b5a42926c78f1c2a2845d248f"                                      
     }
 }
