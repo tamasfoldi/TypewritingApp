@@ -29,11 +29,7 @@ export class AppComponent implements OnInit {
       this._http.post("https://tamasfo.eu.auth0.com/tokeninfo", JSON.stringify(tokenInfo))
         .map(response => response.json())
         .subscribe(_result => {
-          this._authHttp.get("/api/user/" + _result.email)
-            .map(response => response.json())
-            .subscribe((user: any) => {
-              this._userService.user = user;
-            });
+          this._userService.setUser(_result.email);
         });
     }
   }

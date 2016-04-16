@@ -56,7 +56,7 @@ export class UserService {
 
   setUser(email: string) {
     if (!this._user) {
-      this._authHttp.get("/api/user/" + email, { headers: this._requestOptions.headers })
+      this._authHttp.get("/api/users/" + email, { headers: this._requestOptions.headers })
         .map(response => response.json())
         .subscribe((user: any) => { this._user = user; });
     }
@@ -65,7 +65,7 @@ export class UserService {
   updateLastCompletedLesson(lessonId: number) {
     if (lessonId > this.user.lastCompletedLessonId) {
       this.user.lastCompletedLessonId = lessonId;
-      this._authHttp.put("/api/user/" + this.user.email, JSON.stringify({ "lastCompletedLessonId": this.user.lastCompletedLessonId }), { headers: this._requestOptions.headers })
+      this._authHttp.put("/api/users/" + this.user.email, JSON.stringify({ "lastCompletedLessonId": this.user.lastCompletedLessonId }), { headers: this._requestOptions.headers })
         .subscribe(data => { return; });
     }
   }
