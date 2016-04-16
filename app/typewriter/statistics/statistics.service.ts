@@ -12,8 +12,6 @@ export interface Statistics {
 @Injectable()
 export class StatisticsService {
 
-  constructor() { }
-
   calculateStatisticsForLesson(correctKeypresses: number, incorrectKeypresses: number, secondsToCompleteLesson: number): Statistics {
     let calculatedStatistics: Statistics = {
       numberOfTotalKeypresses: 0,

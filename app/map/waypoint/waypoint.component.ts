@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output, EventEmitter } from "angular2/core";
+import { Component, Input, Output, EventEmitter } from "angular2/core";
 import { Router } from "angular2/router";
 import { Waypoint } from "./waypoint.service";
 import { UserService } from "../../user/user.service";
@@ -7,12 +7,12 @@ import { UserService } from "../../user/user.service";
   selector: "tpw-waypoint",
   templateUrl: "app/map/waypoint/waypoint.component.html",
 })
-export class WaypointComponent implements OnInit {
+export class WaypointComponent {
   @Input()
   waypoint: Waypoint;
 
   constructor(
-    private _router: Router, 
+    private _router: Router,
     private _userService: UserService
   ) { }
 
@@ -21,6 +21,4 @@ export class WaypointComponent implements OnInit {
       this._router.navigate(["Typewriter", {id: this.waypoint.id}]);
     }
   }
-
-  ngOnInit() { }
 }

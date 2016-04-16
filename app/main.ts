@@ -15,7 +15,7 @@ class MyHeader extends BaseRequestOptions {
 
   constructor() {
     super();
-    this.headers.append('Content-Type', 'application/json');
+    this.headers.append("Content-Type", "application/json");
   }
 }
 
@@ -41,7 +41,7 @@ let authHttp = injector.get(AuthHttp);
 let userService: UserService = injector.get(UserService);
 let tokenInfo = {
   "id_token": localStorage.getItem("id_token")
-}
+};
 http.post("https://tamasfo.eu.auth0.com/tokeninfo", JSON.stringify(tokenInfo))
   .map(response => response.json())
   .subscribe(_result => {

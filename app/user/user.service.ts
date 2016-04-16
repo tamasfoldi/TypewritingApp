@@ -1,5 +1,5 @@
 import { Injectable, Inject } from "angular2/core";
-import { AuthHttp } from "angular2-jwt/angular2-jwt"
+import { AuthHttp } from "angular2-jwt/angular2-jwt";
 import { Headers, RequestOptions } from "angular2/http";
 
 export interface AuthUser {
@@ -48,7 +48,7 @@ export class UserService {
   get user(): User {
     return this._user;
   }
-  
+
   set user(user: User) {
     this._user = user;
     this._user.lastCompletedLessonId = user.lastCompletedLessonId;
@@ -56,18 +56,18 @@ export class UserService {
 
   setUser(email: string) {
     if (!this._user) {
-      this._authHttp.get("/api/user/" + email, {headers: this._requestOptions.headers})
+      this._authHttp.get("/api/user/" + email, { headers: this._requestOptions.headers })
         .map(response => response.json())
-        .subscribe((user: any) => { this._user = user });
+        .subscribe((user: any) => { this._user = user; });
     }
   }
 
   updateLastCompletedLesson(lessonId: number) {
     if (lessonId > this.user.lastCompletedLessonId) {
       this.user.lastCompletedLessonId = lessonId;
-      this._authHttp.put("/api/user/" + this.user.email, JSON.stringify({"lastCompletedLessonId": this.user.lastCompletedLessonId}), {headers: this._requestOptions.headers})
+      this._authHttp.put("/api/user/" + this.user.email, JSON.stringify({ "lastCompletedLessonId": this.user.lastCompletedLessonId }), { headers: this._requestOptions.headers })
         .map(response => response.json())
-        .subscribe(data => { });
+        .subscribe(data => { return; });
     }
   }
 }

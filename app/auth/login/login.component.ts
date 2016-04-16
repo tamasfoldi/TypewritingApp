@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   loginForm: ControlGroup;
 
   responseError: string;
-  
+
   constructor(
     private _formBuilder: FormBuilder,
     private _authService: AuthService,
@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
     let user: User = {
       email: this.email.value,
       password: this.password.value
-    }
+    };
     this._authService.login(user).subscribe((data: any) => { // ✔ error handling  @done ( April 13th 2016, 9:19:25 pm )
       this._authService.handleSuccessLogin(data, user);
       this._router.parent.navigate(["../Game"]);

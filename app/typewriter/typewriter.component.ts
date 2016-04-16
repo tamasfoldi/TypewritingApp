@@ -6,7 +6,7 @@ import { Statistics, StatisticsService } from "./statistics/statistics.service";
 import { StatisticsComponent } from "./statistics/statistics.component";
 import { BlinkingCursorComponent } from "../util/blinking-cursor/blinking-cursor.component";
 import { appInjector } from "../app-injector";
-import { UserService } from "../user/user.service"
+import { UserService } from "../user/user.service";
 
 @Pipe({ name: "lessonTextCut" })
 export class LessonTextCutPipe implements PipeTransform {

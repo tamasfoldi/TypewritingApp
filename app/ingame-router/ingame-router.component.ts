@@ -1,4 +1,4 @@
-import { Component, OnInit, Injector } from "angular2/core";
+import { Component, Injector } from "angular2/core";
 import { RouteConfig, Router, ROUTER_DIRECTIVES, CanActivate, ComponentInstruction } from "angular2/router";
 import { TypewriterComponent } from "../typewriter/typewriter.component";
 import { MapComponent } from "../map/map.component";
@@ -27,9 +27,4 @@ import { JwtHelper, tokenNotExpired } from "angular2-jwt/angular2-jwt";
     }
   });
 })
-export class IngameRouterComponent implements OnInit {
-  constructor() { }
-
-  ngOnInit() { }
-
-}
+export class IngameRouterComponent { }
