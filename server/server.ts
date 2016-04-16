@@ -75,7 +75,6 @@ app.get("/api/lessons/:id", (req, res) => {
                 throw err;
             }
             let lesson = result[0];
-            console.log(result);
             res.status(200).send(lesson);
             db.close();
         });

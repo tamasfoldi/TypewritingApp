@@ -1,4 +1,4 @@
 <tpw-waypoint *ngFor="#waypoint of _waypointService.waypoints | async; #i = index" [waypoint]="waypoint">
-    <tpw-figure *ngIf="i == _userService.user.lastCompletedLessonId" [posX]="waypoint.posX" [posY]="waypoint.posY"></tpw-figure>
+    <tpw-figure *ngIf="i == _userService.user?.lastCompletedLessonId" [posX]="waypoint.posX" [posY]="waypoint.posY"></tpw-figure>
 </tpw-waypoint>
 <canvas #mapCanvas></canvas>

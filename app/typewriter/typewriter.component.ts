@@ -11,7 +11,11 @@ import { UserService } from "../user/user.service";
 @Pipe({ name: "lessonTextCut" })
 export class LessonTextCutPipe implements PipeTransform {
   transform(baseText: string, [textToBeCut]): string {
-    return baseText.substr(textToBeCut.length, baseText.length);
+    if(baseText) {
+      return baseText.substr(textToBeCut.length, baseText.length);
+    } else {
+      return baseText;
+    }
   }
 }
 
@@ -61,12 +65,14 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
     private _userService: UserService,
     private _router: Router,
     private _routeParams: RouteParams
-  ) { }
-
-  ngOnInit() {
-    this._lessonService.get(parseInt(this._routeParams.get("id"))).subscribe( (lesson) => {
+  ) {
+    this._lessonService.get(parseInt(this._routeParams.get("id"))).subscribe((lesson) => {
       this.lesson = lesson;
     });
+  }
+
+  ngOnInit() {
+
     this.typedText = "";
     this.correctPresses = 0;
     this.incorrectPresses = 0;
@@ -105,7 +111,7 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
   }
 
   hasReachedTheEnd(): boolean {
-    return this.typedText === this.lesson.text;
+    return(this.lesson && this.typedText === this.lesson.text);
   }
 
   wasTheFirstPress(c: string): boolean {

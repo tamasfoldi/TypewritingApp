@@ -85,7 +85,6 @@ System.register(["express", "path", "express-jwt", "mongodb", "body-parser"], fu
                             throw err;
                         }
                         var lesson = result[0];
-                        console.log(result);
                         res.status(200).send(lesson);
                         db.close();
                     });
