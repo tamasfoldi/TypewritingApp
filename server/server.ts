@@ -9,8 +9,8 @@ import { lessonRouter } from "./routes/lessons.routes";
 import { userRouter } from "./routes/users.routes";
 
 let jwtCheck = jwt({
-    secret: new Buffer("1Jl2avFWtDPzXN3uJc9WOeXNKUiTNuTHHGWevec-8F6QcyIyZI3-VpdbGXzi-1M9", "base64"),
-    audience: "nAG6Yz8t5KQu07YukjV83Wh94hOYiR4T"
+  secret: new Buffer("1Jl2avFWtDPzXN3uJc9WOeXNKUiTNuTHHGWevec-8F6QcyIyZI3-VpdbGXzi-1M9", "base64"),
+  audience: "nAG6Yz8t5KQu07YukjV83Wh94hOYiR4T"
 });
 
 app.use("/app", express.static(path.resolve(__dirname, "../app")));
@@ -24,10 +24,10 @@ app.use("/api/lessons", lessonRouter);
 
 
 let renderIndex = (req, res) => {
-    res.sendFile(path.resolve(__dirname, "../index.html"));
+  res.sendFile(path.resolve(__dirname, "../index.html"));
 };
-app.get("/*", renderIndex); 
+app.get("/*", renderIndex);
 
 app.listen(3000, function () {
-    console.log("Example app listening on port 3000!");
+  console.log("Example app listening on port 3000!");
 });
