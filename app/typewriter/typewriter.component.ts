@@ -11,7 +11,7 @@ import { UserService } from "../user/user.service";
 @Pipe({ name: "lessonTextCut" })
 export class LessonTextCutPipe implements PipeTransform {
   transform(baseText: string, [textToBeCut]): string {
-    if(baseText) {
+    if (baseText) {
       return baseText.substr(textToBeCut.length, baseText.length);
     } else {
       return baseText;
@@ -82,28 +82,36 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
     this.focus.nativeElement.focus();
   }
 
-  keypress($event: KeyboardEvent) {
-    let char = String.fromCharCode($event.which);
+  keypressEventHendler($event: KeyboardEvent) {
     if (!this.hasReachedTheEnd()) {
-      if (this.wasItCorrectChar(char)) {
-        this.typedText = this.typedText + char;
-        this.correctPresses++;
-        if (this.wasTheFirstPress(char)) {
-          this.timer = Date.now();
-        }
-      } else {
-        this.incorrectPresses++;
-      }
+      let intputChar = String.fromCharCode($event.which);
+      this.handleInputChar(intputChar);
     }
     if (this.hasReachedTheEnd()) {
-      this.focus.nativeElement.blur();
-      this.timer = (Date.now() - this.timer) / 1000;
-      this.statistics = this._statisticsService.calculateStatisticsForLesson(this.correctPresses, this.incorrectPresses, this.timer);
-      this._userService.updateLastCompletedLesson(this.lesson.id);
-      setTimeout(() => {
-        this._router.navigate(["Map"]);
-      }, 1000);
+      this.handleLessonEnd();
     }
+  }
+
+  handleInputChar(char: string) {
+    if (this.wasItCorrectChar(char)) {
+      this.typedText = this.typedText + char;
+      this.correctPresses++;
+      if (this.wasTheFirstPress(char)) {
+        this.timer = Date.now();
+      }
+    } else {
+      this.incorrectPresses++;
+    }
+  }
+
+  handleLessonEnd() {
+    this.focus.nativeElement.blur();
+    this.timer = (Date.now() - this.timer) / 1000;
+    this.statistics = this._statisticsService.calculateStatisticsForLesson(this.correctPresses, this.incorrectPresses, this.timer);
+    this._userService.updateLastCompletedLesson(this.lesson.id);
+    setTimeout(() => {
+      this._router.navigate(["Map"]);
+    }, 1000);
   }
 
   wasItCorrectChar(c: string): boolean {
@@ -111,7 +119,7 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
   }
 
   hasReachedTheEnd(): boolean {
-    return(this.lesson && this.typedText === this.lesson.text);
+    return (this.lesson && this.typedText === this.lesson.text);
   }
 
   wasTheFirstPress(c: string): boolean {
