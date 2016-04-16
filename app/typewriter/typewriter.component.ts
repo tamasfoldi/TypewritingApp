@@ -39,11 +39,11 @@ export class SpaceToUnderscorePipe implements PipeTransform {
   let _router: Router = injector.get(Router);
 
   return new Promise((resolve) => {
-    if (true) { // _userService.user.lastCompletedLessonId + 1 >= parseInt(next.params["id"])
+    if (_userService.user && _userService.user.lastCompletedLessonId + 1 >= parseInt(next.params["id"])) { // 
       resolve(true);
     } else {
-     // _router.navigate(["Game"]);
-     // resolve(false);
+      _router.navigate(["Game"]);
+      resolve(false);
     }
   });
 })
@@ -53,10 +53,7 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
 
   lesson: Lesson;
   typedText: string;
-  correctPresses: number;
-  incorrectPresses: number;
-  timer: number;
-  statistics: Statistics = new Statistics();
+  statistics: Statistics;
 
   constructor(
     private _lessonService: LessonService,
@@ -70,8 +67,7 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
       this.lesson = lesson;
     });
     this.typedText = "";
-    this.correctPresses = 0;
-    this.incorrectPresses = 0;
+    this.statistics = new Statistics();
   }
 
   ngAfterViewInit() {
