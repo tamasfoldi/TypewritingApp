@@ -86,11 +86,11 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
 
   handleInputChar(char: string) {
     if (this.wasItCorrectChar(char)) {
-      this.typedText = this.typedText + char;
-      this.statistics.numberOfCorrectKeypresses++;
       if (this.wasTheFirstPress(char)) {
         this.statistics.startTime = Date.now();
       }
+      this.typedText = this.typedText + char;
+      this.statistics.numberOfCorrectKeypresses++; 
     } else {
       this.statistics.numberOfIncorrectKeypresses++;
     }

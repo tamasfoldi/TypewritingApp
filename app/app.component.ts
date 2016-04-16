@@ -17,20 +17,24 @@ import { IngameRouterComponent } from "./ingame-router/ingame-router.component";
 ])
 export class AppComponent implements OnInit {
   constructor(
-    private _http: Http, 
-    private _authHttp: AuthHttp, 
+    private _http: Http,
+    private _authHttp: AuthHttp,
     private _userService: UserService) { }
 
   ngOnInit() {
     if (localStorage.getItem("id_token") && tokenNotExpired()) {
-      let tokenInfo = {
-        id_token: localStorage.getItem("id_token")
-      };
-      this._http.post("https://tamasfo.eu.auth0.com/tokeninfo", JSON.stringify(tokenInfo))
-        .map(response => response.json())
-        .subscribe(_result => {
-          this._userService.setUser(_result.email);
-        });
+      this.setCurrentUser();
     }
+  }
+
+  setCurrentUser() {
+    let tokenInfo = {
+      id_token: localStorage.getItem("id_token")
+    };
+    this._http.post("https://tamasfo.eu.auth0.com/tokeninfo", JSON.stringify(tokenInfo))
+      .map(response => response.json())
+      .subscribe(_result => {
+        this._userService.setUser(_result.email);
+      });
   }
 }
