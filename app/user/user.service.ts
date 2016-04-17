@@ -20,8 +20,9 @@ export class User implements AuthUser {
     this._email = user.email;
     this._username = user.username;
     this._password = user.password;
-    this._lastCompletedLessonId = user.lastCompletedLessonId;
-    this._statistics = new Map<number, Statistics>();
+    this._lastCompletedLessonId = user.lastCompletedLessonId; 
+    this._statistics = (user.statistics) ? this.setStatisticsFromArray(<any>user.statistics) : new Map<number, Statistics>();
+    console.log(this.statistics);
   }
 
   get username(): string {
@@ -57,6 +58,14 @@ export class User implements AuthUser {
   }
   setLessonStatistic(id: number, statistic: Statistics) {
     this._statistics.set(id, statistic);
+  }
+  
+  setStatisticsFromArray(statistics: Array<Statistics>): Map<number, Statistics> {
+    let stats = new Map<number, Statistics>();
+    statistics.forEach((statistic, i) => {
+      stats.set(i, statistic);
+    });
+    return stats;
   }
 }
 

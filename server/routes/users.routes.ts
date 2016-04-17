@@ -17,7 +17,7 @@ userRouter.get("/:email", (req, res) => {
       if (!user.lastCompletedLessonId && user.lastCompletedLessonId !== 0) {
         user.lastCompletedLessonId = -1;
       }
-      res.status(200).send({ "username": user.username, "email": user.email, "password": user.password, "lastCompletedLessonId": user.lastCompletedLessonId });
+      res.status(200).send(user);
       db.close();
     });
   });
@@ -40,8 +40,8 @@ userRouter.put("/:email/stats/:id", (req, res) => {
     if (err) {
       throw err;
     }
-    db.collection("users").findOneAndUpdate({ email: req.params.email }, { $pull: { lessonStats: { _lessonId: { $eq: parseInt(req.params.id) } } } });
-    db.collection("users").findOneAndUpdate({ email: req.params.email }, { $push: { lessonStats: { $each: [req.body], $position: parseInt(req.params.id) } } }, (result) => {
+    db.collection("users").findOneAndUpdate({ email: req.params.email }, { $pull: { statistics: { _lessonId: { $eq: parseInt(req.params.id) } } } });
+    db.collection("users").findOneAndUpdate({ email: req.params.email }, { $push: { statistics: { $each: [req.body], $position: parseInt(req.params.id) } } }, (result) => {
       res.status(200).send(result);
       db.close();
     });
