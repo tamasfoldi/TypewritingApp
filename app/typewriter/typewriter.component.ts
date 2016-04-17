@@ -67,7 +67,7 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
       this.lesson = lesson;
     });
     this.typedText = "";
-    this.statistics = new Statistics();
+    this.statistics = new Statistics(this.lesson.id);
   }
 
   ngAfterViewInit() {
@@ -103,6 +103,7 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
     setTimeout(() => {
       this._router.navigate(["Map"]);
     }, 1000);
+    console.log(this.statistics.star);
   }
 
   wasItCorrectChar(c: string): boolean {

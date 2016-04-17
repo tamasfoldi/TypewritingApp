@@ -5,8 +5,8 @@ export class Statistics {
   private _numberOfIncorrectKeypresses: number;
   private _startTime: number;
   private _stopTime: number;
-  
-  constructor() {
+   
+  constructor(private _lessonId: number) { // later the star will be calculated based lesson properties
     this._numberOfCorrectKeypresses = 0;
     this._numberOfIncorrectKeypresses = 0;
     this._startTime = 0;
@@ -55,6 +55,11 @@ export class Statistics {
 
   get accuracy(): number {
     return this.numberOfCorrectKeypresses / this.numberOfTotalKeypresses;
+  }
+  
+  get star(): number {
+    let i = Math.random() * 5;
+    return Math.round(i);
   }
 
 }
