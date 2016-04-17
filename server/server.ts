@@ -23,6 +23,7 @@ app.use("/api/users", userRouter);
 app.use("/api/lessons", lessonRouter);
 
 
+
 let renderIndex = (req, res) => {
   res.sendFile(path.resolve(__dirname, "../index.html"));
 };

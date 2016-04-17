@@ -34,3 +34,16 @@ userRouter.put("/:email", (req, res) => {
     });
   });
 });
+
+userRouter.put("/:email/stats/:id", (req, res) => {
+  MongoClient.connect(dbConn, (err, db) => {
+    if (err) {
+      throw err;
+    }
+    db.collection("users").findOneAndUpdate({ email: req.params.email }, { $pull: { lessonStats: { _lessonId: { $eq: parseInt(req.params.id) } } } });
+    db.collection("users").findOneAndUpdate({ email: req.params.email }, { $push: { lessonStats: { $each: [req.body], $position: parseInt(req.params.id) } } }, (result) => {
+      res.status(200).send(result);
+      db.close();
+    });
+  });
+})
