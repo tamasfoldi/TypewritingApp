@@ -14,15 +14,14 @@ export class User implements AuthUser {
   private _username: string;
   private _password: string;
   private _lastCompletedLessonId: number;
-  private _statistics: Map<number, Statistics>;
+  private _lessonStatistics: Map<number, Statistics>;
 
   constructor(user: User) {
     this._email = user.email;
     this._username = user.username;
     this._password = user.password;
     this._lastCompletedLessonId = user.lastCompletedLessonId; 
-    this._statistics = (user.statistics) ? this.setStatisticsFromArray(<any>user.statistics) : new Map<number, Statistics>();
-    console.log(this.statistics);
+    this._lessonStatistics = (user.lessonStatistics) ? this.setStatisticsFromArray(<any>user.lessonStatistics) : new Map<number, Statistics>();
   }
 
   get username(): string {
@@ -46,18 +45,18 @@ export class User implements AuthUser {
     this._lastCompletedLessonId = lessonId;
   }
 
-  get statistics(): Map<number, Statistics> {
-    return this._statistics;
+  get lessonStatistics(): Map<number, Statistics> {
+    return this._lessonStatistics;
   }
-  set statistics(statistics: Map<number, Statistics>) {
-    this._statistics = statistics;
+  set lessonStatistics(statistics: Map<number, Statistics>) {
+    this._lessonStatistics = statistics;
   }
 
   getLessonStatistic(id: number): Statistics {
-    return this._statistics.get(id);
+    return this._lessonStatistics.get(id);
   }
   setLessonStatistic(id: number, statistic: Statistics) {
-    this._statistics.set(id, statistic);
+    this._lessonStatistics.set(id, statistic);
   }
   
   setStatisticsFromArray(statistics: Array<Statistics>): Map<number, Statistics> {
@@ -107,8 +106,9 @@ export class UserService {
 
   saveLessonStatistic(lessonId: number, stat: Statistics) {
     this._authHttp.put("/api/users/" + this.user.email + "/stats/" + lessonId, JSON.stringify(stat), { headers: this._requestOptions.headers })
-      .subscribe(() => {
-        this.user.statistics.set(lessonId, stat);
+      .map( data => data.json())
+      .subscribe((statWithStar) => {
+        this.user.lessonStatistics.set(lessonId, statWithStar);
       });
   }
 }

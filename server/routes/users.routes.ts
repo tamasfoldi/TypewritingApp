@@ -40,9 +40,12 @@ userRouter.put("/:email/stats/:id", (req, res) => {
     if (err) {
       throw err;
     }
-    db.collection("users").findOneAndUpdate({ email: req.params.email }, { $pull: { statistics: { _lessonId: { $eq: parseInt(req.params.id) } } } });
-    db.collection("users").findOneAndUpdate({ email: req.params.email }, { $push: { statistics: { $each: [req.body], $position: parseInt(req.params.id) } } }, (result) => {
-      res.status(200).send(result);
+    let star = Math.floor((Math.random() * 5) + 1);
+    let stat = req.body;
+    stat._star = star;
+    db.collection("users").findOneAndUpdate({ email: req.params.email }, { $pull: { lessonStatistics: { _lessonId: { $eq: parseInt(req.params.id) } } } });
+    db.collection("users").findOneAndUpdate({ email: req.params.email }, { $push: { lessonStatistics: { $each: [stat], $position: parseInt(req.params.id) } } }, (result) => {
+      res.status(200).send(stat);
       db.close();
     });
   });
