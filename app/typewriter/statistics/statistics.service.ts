@@ -1,16 +1,13 @@
 import { Injectable } from "angular2/core";
 
 export class Statistics {
-  private _numberOfCorrectKeypresses: number;
-  private _numberOfIncorrectKeypresses: number;
-  private _startTime: number;
-  private _stopTime: number;
+  private _numberOfCorrectKeypresses: number = 0;
+  private _numberOfIncorrectKeypresses: number = 0;
+  private _startTime: number = 0;
+  private _stopTime: number = 0;
+  private _star: number = 0;
    
-  constructor(private _lessonId: number) { // later the star will be calculated based lesson properties
-    this._numberOfCorrectKeypresses = 0;
-    this._numberOfIncorrectKeypresses = 0;
-    this._startTime = 0;
-    this._stopTime = 0;
+  constructor(private _lessonId?: number) { // later the star will be calculated based lesson properties
   }
 
   get numberOfCorrectKeypresses(): number {
@@ -58,8 +55,7 @@ export class Statistics {
   }
   
   get star(): number {
-    let i = Math.random() * 5;
-    return Math.round(i);
+    return this._star;
   }
 
 }
