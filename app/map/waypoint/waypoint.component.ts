@@ -10,6 +10,9 @@ import { UserService } from "../../user/user.service";
 export class WaypointComponent {
   @Input()
   waypoint: Waypoint;
+  
+  @Input()
+  star: number;
 
   constructor(
     private _router: Router,
