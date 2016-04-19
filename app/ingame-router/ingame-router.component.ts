@@ -1,9 +1,8 @@
-import { Component, Injector } from "angular2/core";
-import { RouteConfig, Router, ROUTER_DIRECTIVES, CanActivate, ComponentInstruction } from "angular2/router";
+import { Component } from "angular2/core";
+import { RouteConfig, Router, ROUTER_DIRECTIVES, CanActivate } from "angular2/router";
 import { TypewriterComponent } from "../typewriter/typewriter.component";
 import { MapComponent } from "../map/map.component";
-import { appInjector } from "../app-injector";
-import { JwtHelper, tokenNotExpired } from "angular2-jwt/angular2-jwt";
+import { hasLoggedInUser } from "../util/can-activate";
 
 @Component({
   selector: "tpw-ingame-router",
@@ -14,17 +13,7 @@ import { JwtHelper, tokenNotExpired } from "angular2-jwt/angular2-jwt";
   { path: "/map", as: "Map", component: MapComponent, useAsDefault: true },
   { path: "/lesson/:id", as: "Typewriter", component: TypewriterComponent }
 ])
-@CanActivate((next: ComponentInstruction, prev: ComponentInstruction) => {
-  let injector: Injector = appInjector();
-  let _router: Router = injector.get(Router);
-
-  return new Promise((resolve) => {
-    if (tokenNotExpired()) {
-      resolve(true);
-    } else {
-      _router.navigate(["Auth"]);
-      resolve(false);
-    }
-  });
+@CanActivate((next, prev) => {
+  return hasLoggedInUser(next, prev);
 })
 export class IngameRouterComponent { }
