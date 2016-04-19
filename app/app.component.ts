@@ -1,5 +1,5 @@
 import { Component, OnInit } from "angular2/core";
-import { RouteConfig, ROUTER_DIRECTIVES } from "angular2/router";
+import { RouteConfig, ROUTER_DIRECTIVES, Router } from "angular2/router";
 import { AuthComponent } from "./auth/auth.component";
 import { AuthHttp, tokenNotExpired } from "angular2-jwt/angular2-jwt";
 import { UserService } from "./user/user.service";
@@ -21,7 +21,9 @@ export class AppComponent implements OnInit {
   constructor(
     private _http: Http,
     private _authHttp: AuthHttp,
-    private _userService: UserService) { }
+    private _userService: UserService,
+    private _router: Router 
+  ) { }
 
   ngOnInit() {
     if (localStorage.getItem("id_token") && tokenNotExpired()) {
@@ -42,5 +44,10 @@ export class AppComponent implements OnInit {
   
   hasLoggedInUser() {
     return tokenNotExpired();
+  }
+  
+  logout() {
+    localStorage.removeItem("id_token");
+    this._router.navigate(["Auth"]);
   }
 }
