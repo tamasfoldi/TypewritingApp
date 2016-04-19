@@ -2,6 +2,7 @@ import { Component, OnInit } from "angular2/core";
 import { UserService, User } from "./user.service";
 import { CanActivate } from "angular2/router";
 import { hasLoggedInUser } from "../util/can-activate";
+import { Observable } from "rxjs/Rx";
 
 @Component({
   selector: "tpw-user",
@@ -11,13 +12,8 @@ import { hasLoggedInUser } from "../util/can-activate";
   return hasLoggedInUser(next, prev);
 })
 export class UserComponent implements OnInit {
-  private user: User;
-  
+  user: User;
   constructor(private _userService: UserService) { }
 
-  ngOnInit() { 
-    this.user = this._userService.user;
-  
-  }
-
+  ngOnInit() { } 
 }

@@ -39,4 +39,8 @@ export class AppComponent implements OnInit {
         this._userService.setUser(_result.email);
       });
   }
+  
+  hasLoggedInUser() {
+    return tokenNotExpired();
+  }
 }
