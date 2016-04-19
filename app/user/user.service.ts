@@ -99,7 +99,7 @@ export class UserService {
   updateLastCompletedLesson(lessonId: number) {
     if (lessonId > this.user.lastCompletedLessonId) {
       this.user.lastCompletedLessonId = lessonId;
-      this._authHttp.put("/api/users/last-compoleted-lesson/" + this.user.email, JSON.stringify({ "lastCompletedLessonId": this.user.lastCompletedLessonId }), { headers: this._requestOptions.headers })
+      this._authHttp.put("/api/users/last-completed-lesson/" + this.user.email, JSON.stringify({ "lastCompletedLessonId": this.user.lastCompletedLessonId }), { headers: this._requestOptions.headers })
         .subscribe(data => { return; });
     }
   }

@@ -8,11 +8,13 @@ userRouter.get("/:email", (req, res) => {
   MongoClient.connect(dbConn, (err, db) => {
     if (err) {
       res.status(501).send("Internal Server Error")
+      db.close();
       return;
     }
     db.collection("users").find({ email: req.params.email }).limit(1).toArray((err, result) => {
       if (err) {
         res.status(404).send("User not found");
+        db.close();
         return;
       }
       var user = result[0];
@@ -25,10 +27,11 @@ userRouter.get("/:email", (req, res) => {
   });
 });
 
-userRouter.put("/last-compoleted-lesson/:email", (req, res) => {
+userRouter.put("/last-completed-lesson/:email", (req, res) => {
   MongoClient.connect(dbConn, (err, db) => {
     if (err) {
       res.status(501).send("Internal Server Error")
+      db.close();
       return;
     }
     db.collection("users").findOneAndUpdate({ email: req.params.email }, { $set: { lastCompletedLessonId: req.body.lastCompletedLessonId } }, (result) => {
@@ -36,6 +39,7 @@ userRouter.put("/last-compoleted-lesson/:email", (req, res) => {
       db.close();
     }, () => {
       res.status(401).send("Bad request");
+      db.close();
       return;
     });
   });
@@ -45,6 +49,8 @@ userRouter.put("/:email/stats/:id", (req, res) => {
   MongoClient.connect(dbConn, (err, db) => {
     if (err) {
       res.status(501).send("Internal Server Error")
+      db.close();
+      return;
     }
     let star = Math.floor((Math.random() * 5) + 1);
     let stat = req.body;
@@ -54,12 +60,14 @@ userRouter.put("/:email/stats/:id", (req, res) => {
     db.collection("users").find({ email: req.params.email }).limit(1).toArray((err, result) => {
       if (err) {
         res.status(404).send("User not found");
+        db.close();
         return;
       }
       user = result[0];
 
       db.collection("statistics").insertOne({ user: user._id, stat }).then(() => { }, () => {
         res.status(401).send("Bad request");
+        db.close();
         return;
       });
       if (!user.lessonStatistics) {
@@ -67,12 +75,13 @@ userRouter.put("/:email/stats/:id", (req, res) => {
       }
       if (!user.lessonStatistics[idParam] || user.lessonStatistics[idParam]._star < star) {
         user.lessonStatistics[idParam] = stat;
-        db.collection("users").updateOne({ email: req.params.email }, user).then(() => {
-
+        db.collection("users").updateOne({ email: req.params.email }, user).then(() => { 
           res.status(200).send(stat);
+          db.close();
         });
       } else {
         res.status(200).send(user.lessonStatistics[idParam]);
+        db.close();
       }
     });
   });
