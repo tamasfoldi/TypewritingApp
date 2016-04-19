@@ -12,6 +12,8 @@
         "auth0": "github:DefinitelyTyped/DefinitelyTyped/auth0/auth0.d.ts#684bb45932fc225b5a42926c78f1c2a2845d248f",               
         "auth0.lock": "github:DefinitelyTyped/DefinitelyTyped/auth0.lock/auth0.lock.d.ts#684bb45932fc225b5a42926c78f1c2a2845d248f",
         "mongodb": "github:DefinitelyTyped/DefinitelyTyped/mongodb/mongodb.d.ts#684bb45932fc225b5a42926c78f1c2a2845d248f",                                      
-        "body-parser": "github:DefinitelyTyped/DefinitelyTyped/body-parser/body-parser.d.ts#684bb45932fc225b5a42926c78f1c2a2845d248f"                                      
+        "body-parser": "github:DefinitelyTyped/DefinitelyTyped/body-parser/body-parser.d.ts#684bb45932fc225b5a42926c78f1c2a2845d248f",
+        "chart": "github:DefinitelyTyped/DefinitelyTyped/chartjs/chart.d.ts#9f28e020a04c0b726a5e21c5cf0d1fc91f0de626",
+        "primeui": "github:primefaces/primeui/primeui.d.ts#7640bc59a3634e501634655217fdd413bed6d003"                                      
     }
 }

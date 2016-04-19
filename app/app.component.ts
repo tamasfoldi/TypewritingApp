@@ -7,6 +7,7 @@ import { UserComponent } from "./user/user.component";
 import { Http } from "angular2/http";
 import { IngameRouterComponent } from "./ingame-router/ingame-router.component";
 
+
 @Component({
   selector: "tpw-app",
   templateUrl: "app/app.component.html",
@@ -22,8 +23,9 @@ export class AppComponent implements OnInit {
     private _http: Http,
     private _authHttp: AuthHttp,
     private _userService: UserService,
-    private _router: Router 
-  ) { }
+    private _router: Router
+  ) {
+  }
 
   ngOnInit() {
     if (localStorage.getItem("id_token") && tokenNotExpired()) {
@@ -41,13 +43,14 @@ export class AppComponent implements OnInit {
         this._userService.setUser(_result.email);
       });
   }
-  
+
   hasLoggedInUser() {
     return tokenNotExpired();
   }
-  
+
   logout() {
     localStorage.removeItem("id_token");
     this._router.navigate(["Auth"]);
   }
+  
 }
