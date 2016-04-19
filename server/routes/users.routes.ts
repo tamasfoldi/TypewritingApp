@@ -50,6 +50,11 @@ userRouter.put("/:email/stats/:id", (req, res) => {
         throw err;
       }
       user = result[0];
+      
+      db.collection("statistics").insertOne({ user: user._id, stat });
+      if(!user.lessonStatistics) {
+        user.lessonStatistics = [];
+      }
       if (!user.lessonStatistics[idParam] || user.lessonStatistics[idParam]._star < star) {
         user.lessonStatistics[idParam] = stat;
         db.collection("users").updateOne({ email: req.params.email }, user).then(() => {
@@ -59,6 +64,5 @@ userRouter.put("/:email/stats/:id", (req, res) => {
         res.status(200).send(user.lessonStatistics[idParam]);
       }
     });
-    db.close();
   });
 })
