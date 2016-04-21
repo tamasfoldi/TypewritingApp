@@ -2,6 +2,7 @@ import { Injectable, Inject } from "angular2/core";
 import { UserService } from "../../user/user.service";
 import { RequestOptions } from "angular2/http";
 import { AuthHttp } from "angular2-jwt/angular2-jwt";
+import { Observable } from "rxjs/Rx"
 
 export class Statistics {
   private _numberOfCorrectKeypresses: number = 0;
@@ -73,7 +74,7 @@ export type Correctness = {
 export class StatisticsService {
 
   private userId: string;
-  private _correctness: Correctness;
+  private _correctness: Observable<Correctness>;
 
   constructor(
     @Inject(UserService) private _userService: UserService,
@@ -82,15 +83,9 @@ export class StatisticsService {
 
   ) { }
 
-  getCorrectness(userId: string): Correctness {
-    if(!this._correctness && userId) {
-      this._authHttp.get("/api/statistics/" + userId, { headers: this._requestOptions.headers })
-        .map(result => result.json())
-        .subscribe(data => {
-          this._correctness = data;
-        })
-    }
-    return this._correctness;
+  getCorrectness(userId: string): Observable<Correctness> {
+      return this._authHttp.get("/api/statistics/" + userId, { headers: this._requestOptions.headers })
+        .map(result => result.json());
   }
 
 }
