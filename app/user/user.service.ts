@@ -10,6 +10,7 @@ export interface AuthUser {
 }
 
 export class User implements AuthUser {
+  private _id: string;
   private _email: string;
   private _username: string;
   private _password: string;
@@ -22,6 +23,11 @@ export class User implements AuthUser {
     this._password = user.password;
     this._lastCompletedLessonId = user.lastCompletedLessonId; 
     this._lessonStatistics = (user.lessonStatistics) ? this.setStatisticsFromArray(<any>user.lessonStatistics) : new Map<number, Statistics>();
+    this._id = user.id;
+  }
+  
+  get id(): string {
+    return this._id;
   }
 
   get username(): string {
@@ -90,6 +96,7 @@ export class UserService {
       this._authHttp.get("/api/users/" + email, { headers: this._requestOptions.headers })
         .map(response => response.json())
         .subscribe((user: any) => {
+          user.id = user._id;
           this.user = user;
         });
     }

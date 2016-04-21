@@ -1,4 +1,7 @@
-import { Injectable } from "angular2/core";
+import { Injectable, Inject } from "angular2/core";
+import { UserService } from "../../user/user.service";
+import { RequestOptions } from "angular2/http";
+import { AuthHttp } from "angular2-jwt/angular2-jwt";
 
 export class Statistics {
   private _numberOfCorrectKeypresses: number = 0;
@@ -6,7 +9,7 @@ export class Statistics {
   private _startTime: number = 0;
   private _stopTime: number = 0;
   private _star: number = 0;
-   
+
   constructor(private _lessonId?: number) { // later the star will be calculated based lesson properties
   }
 
@@ -30,14 +33,14 @@ export class Statistics {
   set startTime(val: number) {
     this._startTime = val;
   }
-  
+
   get stopTime(): number {
     return this._stopTime;
   }
   set stopTime(val: number) {
     this._stopTime = val;
   }
-  
+
   get secondsToCompleteLesson(): number {
     return (this.stopTime - this.startTime) / 1000;
   }
@@ -53,9 +56,41 @@ export class Statistics {
   get accuracy(): number {
     return this.numberOfCorrectKeypresses / this.numberOfTotalKeypresses;
   }
-  
+
   get star(): number {
     return this._star;
+  }
+
+}
+
+export type Correctness = {
+  id: string,
+  numberOfCorrectKeypresses: number,
+  numberOfIncorrectKeypresses: number
+};
+
+@Injectable()
+export class StatisticsService {
+
+  private userId: string;
+  private _correctness: Correctness;
+
+  constructor(
+    @Inject(UserService) private _userService: UserService,
+    @Inject(AuthHttp) private _authHttp: AuthHttp,
+    private _requestOptions: RequestOptions
+
+  ) { }
+
+  getCorrectness(userId: string): Correctness {
+    if(!this._correctness && userId) {
+      this._authHttp.get("/api/statistics/" + userId, { headers: this._requestOptions.headers })
+        .map(result => result.json())
+        .subscribe(data => {
+          this._correctness = data;
+        })
+    }
+    return this._correctness;
   }
 
 }

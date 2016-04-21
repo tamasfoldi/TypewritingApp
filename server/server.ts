@@ -4,6 +4,7 @@ import * as jwt from "express-jwt";
 import * as bodyParser from "body-parser";
 import { lessonRouter } from "./routes/lessons.routes";
 import { userRouter } from "./routes/users.routes";
+import { statisticsRouter } from "./routes/statistics.routes";
 
 let app = express();
 let jwtCheck = jwt({
@@ -19,6 +20,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/api", jwtCheck);
 app.use("/api/users", userRouter);
 app.use("/api/lessons", lessonRouter);
+app.use("/api/statistics", statisticsRouter);
 
 
 

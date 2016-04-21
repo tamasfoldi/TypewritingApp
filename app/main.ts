@@ -5,6 +5,7 @@ import { AuthHttp, AuthConfig } from "angular2-jwt/angular2-jwt";
 import { ROUTER_PROVIDERS } from "angular2/router";
 import { AppComponent } from "./app.component";
 import { UserService } from "./user/user.service";
+import { StatisticsService } from "./typewriter/statistics/statistics.service";
 import { AuthService } from "./auth/auth.service";
 import { WaypointService } from "./map/waypoint/waypoint.service";
 import { LessonService } from "./lesson/lesson.service";
@@ -38,6 +39,7 @@ bootstrap(AppComponent, [
     deps: [Http]
   }),
   UserService,
+  StatisticsService,
   provide(RequestOptions, { useClass: MyHeader })
 ]).then((appRef: ComponentRef) => {
   appInjector(appRef.injector);

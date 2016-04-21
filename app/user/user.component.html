@@ -1,2 +1,2 @@
 <h1>{{_userService.user?.username}}</h1>
-<p-lineChart [value]="data" width="640" height="320"></p-lineChart>
+<p-pieChart [value]="_statisticsService.getCorrectness(_userService.user?.id) | correctnessPie" width="300" height="300"></p-pieChart>
