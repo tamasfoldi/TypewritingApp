@@ -1,2 +1,2 @@
 <h1>{{_userService.user?.username}}</h1>
-<p-pieChart [value]="_statisticsService.getCorrectness(_userService.user?.id) | async | correctnessPie" width="300" height="300"></p-pieChart>
+<p-pieChart *ngIf="_userService.user" [value]="data | correctnessPie" width="300" height="300"></p-pieChart>

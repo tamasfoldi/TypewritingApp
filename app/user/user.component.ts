@@ -14,12 +14,12 @@ export class CorrectnessPipe implements PipeTransform {
   transform(value: Correctness): any {
     if (value) {
       return [{
-        value: parseInt(<any>value.numberOfCorrectKeypresses),
+        value: value.numberOfCorrectKeypresses,
         color: '#00FF00',
         label: "Correct"
       },
         {
-          value: parseInt(<any>value.numberOfIncorrectKeypresses),
+          value: value.numberOfIncorrectKeypresses,
           color: '#FF0000',
           label: "Incorrect"
         }]
@@ -44,6 +44,10 @@ export class UserComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this._statisticsService.getCorrectness(this._userService.user.id)
+      .subscribe(data => {
+        this.data = data
+      });
   }
 }
 
