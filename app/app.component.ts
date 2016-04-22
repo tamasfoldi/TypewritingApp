@@ -18,30 +18,12 @@ import { IngameRouterComponent } from "./ingame-router/ingame-router.component";
   { path: "/game/...", as: "Game", component: IngameRouterComponent, useAsDefault: true },
   { path: '/user', as: 'User', component: UserComponent }
 ])
-export class AppComponent implements OnInit {
+export class AppComponent {
   constructor(
     private _http: Http,
     private _authHttp: AuthHttp,
-    private _userService: UserService,
     private _router: Router
   ) {
-  }
-
-  ngOnInit() {
-    if (localStorage.getItem("id_token") && tokenNotExpired()) {
-      this.setCurrentUser();
-    }
-  }
-
-  setCurrentUser() {
-    let tokenInfo = {
-      id_token: localStorage.getItem("id_token")
-    };
-    this._http.post("https://tamasfo.eu.auth0.com/tokeninfo", JSON.stringify(tokenInfo))
-      .map(response => response.json())
-      .subscribe(_result => {
-        this._userService.setUser(_result.email);
-      });
   }
 
   hasLoggedInUser() {

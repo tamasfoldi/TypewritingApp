@@ -86,7 +86,7 @@ export class StatisticsService {
   getCorrectness(userId: string): Observable<Correctness> {
     if(userId){
       return this._authHttp.get("/api/statistics/" + userId, { headers: this._requestOptions.headers })
-        .map(result => {console.log(result.json()); return result.json();});
+        .map(result => result.json());
     }
   }
 

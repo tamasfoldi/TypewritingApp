@@ -80,7 +80,7 @@ export class UserService {
 
   constructor(
     @Inject(AuthHttp) private _authHttp: AuthHttp,
-    private _requestOptions: RequestOptions
+    @Inject(RequestOptions) private _requestOptions: RequestOptions
   ) { }
 
   get user(): User {
@@ -99,8 +99,7 @@ export class UserService {
           user.id = user._id;
           this.user = user;
         });
-    }
-
+    } 
   }
 
   updateLastCompletedLesson(lessonId: number) {
