@@ -92,6 +92,7 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
   handleInputChar(char: string) {
     if (this.wasItCorrectChar(char)) {
       if (this.wasTheFirstPress(char)) {
+        console.log("first");
         this.snaphotCreater = setInterval(() => {
           let snapshot: StatisticSnapshot = {
             createdAt: Date.now(),
@@ -153,7 +154,7 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
   }
 
   wasTheFirstPress(c: string): boolean {
-    return this.typedText.length === 1;
+    return this.typedText.length === 0;
   }
 
 }
