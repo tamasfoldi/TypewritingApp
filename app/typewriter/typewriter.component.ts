@@ -92,7 +92,6 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
   handleInputChar(char: string) {
     if (this.wasItCorrectChar(char)) {
       if (this.wasTheFirstPress(char)) {
-        console.log("first");
         this.snaphotCreater = setInterval(() => {
           let snapshot: StatisticSnapshot = {
             createdAt: Date.now(),
@@ -100,7 +99,6 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
             numberOfIncorrectKeypresses: this.statistics.numberOfIncorrectKeypresses,
             typingSeed: this.statistics.numberOfCorrectKeypresses / ((Date.now() - this.statistics.startTime) / 1000)
           }
-          console.log(snapshot);
           this.snapshots.push(snapshot);
         }, 100);
         this.statistics.startTime = Date.now();
@@ -120,7 +118,6 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
       labels.push(index * 100);
       data.push(snapshot.typingSeed);
     });
-    console.log("asdf");
     this.data = {
       labels: labels,
       datasets: [
