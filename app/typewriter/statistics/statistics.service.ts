@@ -4,6 +4,13 @@ import { RequestOptions } from "angular2/http";
 import { AuthHttp } from "angular2-jwt/angular2-jwt";
 import { Observable } from "rxjs/Rx"
 
+export type StatisticSnapshot = {
+  typingSeed: number,
+  numberOfCorrectKeypresses: number,
+  numberOfIncorrectKeypresses: number,
+  createdAt: number
+}
+
 export class Statistics {
   private _numberOfCorrectKeypresses: number = 0;
   private _numberOfIncorrectKeypresses: number = 0;

@@ -4,4 +4,7 @@
   {{typedText}}
   <blinking-cursor *ngIf="!hasReachedTheEnd()"></blinking-cursor>
 </div>
-<tpw-lesson-statistics *ngIf="hasReachedTheEnd()" [statistics]="statistics"></tpw-lesson-statistics>
+<div *ngIf="hasReachedTheEnd()">
+  <tpw-lesson-statistics [statistics]="statistics"></tpw-lesson-statistics>
+  <p-lineChart [value]="data" width="640" height="320"></p-lineChart>
+</div>

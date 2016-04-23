@@ -2,11 +2,12 @@ import { Component, OnInit, Injector, Input, Output, EventEmitter, ElementRef, V
 import { LessonService, Lesson } from "../lesson/lesson.service";
 import { Pipe, PipeTransform } from "angular2/core";
 import { RouteParams, Router, CanActivate, ComponentInstruction } from "angular2/router";
-import { Statistics } from "./statistics/statistics.service";
+import { Statistics, StatisticSnapshot } from "./statistics/statistics.service";
 import { StatisticsComponent } from "./statistics/statistics.component";
 import { BlinkingCursorComponent } from "../util/blinking-cursor/blinking-cursor.component";
 import { appInjector } from "../app-injector";
 import { UserService } from "../user/user.service";
+import { LineChart } from "primeng/primeng";
 
 @Pipe({ name: "lessonTextCut" })
 export class LessonTextCutPipe implements PipeTransform {
@@ -31,7 +32,7 @@ export class SpaceToUnderscorePipe implements PipeTransform {
   templateUrl: "app/typewriter/typewriter.component.html",
   styleUrls: ["app/typewriter/typewriter.component.css"],
   pipes: [LessonTextCutPipe, SpaceToUnderscorePipe],
-  directives: [StatisticsComponent, BlinkingCursorComponent]
+  directives: [StatisticsComponent, BlinkingCursorComponent, LineChart]
 })
 @CanActivate((next: ComponentInstruction, prev: ComponentInstruction) => {
   let injector: Injector = appInjector();
@@ -54,6 +55,10 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
   lesson: Lesson;
   typedText: string;
   statistics: Statistics;
+
+  snapshots: StatisticSnapshot[] = new Array<StatisticSnapshot>();
+  data: any;
+  private snaphotCreater: NodeJS.Timer;
 
   constructor(
     private _lessonService: LessonService,
@@ -87,23 +92,56 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
   handleInputChar(char: string) {
     if (this.wasItCorrectChar(char)) {
       if (this.wasTheFirstPress(char)) {
+        this.snaphotCreater = setInterval(() => {
+          let snapshot: StatisticSnapshot = {
+            createdAt: Date.now(),
+            numberOfCorrectKeypresses: this.statistics.numberOfCorrectKeypresses,
+            numberOfIncorrectKeypresses: this.statistics.numberOfIncorrectKeypresses,
+            typingSeed: this.statistics.numberOfCorrectKeypresses / ((Date.now() - this.statistics.startTime) / 1000)
+          }
+          console.log(snapshot);
+          this.snapshots.push(snapshot);
+        }, 100);
         this.statistics.startTime = Date.now();
       }
       this.typedText = this.typedText + char;
-      this.statistics.numberOfCorrectKeypresses++; 
+      this.statistics.numberOfCorrectKeypresses++;
     } else {
       this.statistics.numberOfIncorrectKeypresses++;
     }
   }
 
   handleLessonEnd() {
+    clearInterval(this.snaphotCreater);
+    let labels = new Array<number>();
+    let data = new Array<number>();
+    this.snapshots.forEach((snapshot, index) => {
+      labels.push(index * 100);
+      data.push(snapshot.typingSeed);
+    });
+    console.log("asdf");
+    this.data = {
+      labels: labels,
+      datasets: [
+        {
+          label: "Typing speed",
+          fillColor: "rgba(220,220,220,0.2)",
+          strokeColor: "rgba(220,220,220,1)",
+          pointColor: "rgba(220,220,220,1)",
+          pointStrokeColor: "#fff",
+          pointHighlightFill: "#fff",
+          pointHighlightStroke: "rgba(220,220,220,1)",
+          data: data
+        }
+      ]
+    };
     this.focus.nativeElement.blur();
     this.statistics.stopTime = Date.now();
     this._userService.updateLastCompletedLesson(this.lesson.id);
-    this._userService.saveLessonStatistic(this.lesson.id, this.statistics);    
+    this._userService.saveLessonStatistic(this.lesson.id, this.statistics);
     setTimeout(() => {
       this._router.navigate(["Map"]);
-    }, 1000);  
+    }, 5000);
   }
 
   wasItCorrectChar(c: string): boolean {
