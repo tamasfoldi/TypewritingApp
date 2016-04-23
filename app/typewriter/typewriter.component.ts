@@ -50,14 +50,14 @@ export class SpaceToUnderscorePipe implements PipeTransform {
 })
 export class TypewriterComponent implements OnInit, AfterViewInit {
   @ViewChild("focus")
-  focus: ElementRef;
+  private focus: ElementRef;
 
-  lesson: Lesson;
-  typedText: string;
-  statistics: Statistics;
+  private lesson: Lesson;
+  private typedText: string;
+  private statistics: Statistics;
 
-  snapshots: StatisticSnapshot[] = new Array<StatisticSnapshot>();
-  data: any;
+  private snapshots: StatisticSnapshot[] = new Array<StatisticSnapshot>();
+  private lineChartData: any;
   private snaphotCreater: NodeJS.Timer;
 
   constructor(
@@ -112,13 +112,24 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
 
   handleLessonEnd() {
     clearInterval(this.snaphotCreater);
+    this.setLineChartDatas();
+    this.focus.nativeElement.blur();
+    this.statistics.stopTime = Date.now();
+    this._userService.updateLastCompletedLesson(this.lesson.id);
+    this._userService.saveLessonStatistic(this.lesson.id, this.statistics);
+    setTimeout(() => {
+      this._router.navigate(["Map"]);
+    }, 10000);
+  }
+
+  setLineChartDatas() {
     let labels = new Array<number>();
     let data = new Array<number>();
     this.snapshots.forEach((snapshot, index) => {
       labels.push(index * 100);
       data.push(snapshot.typingSeed);
     });
-    this.data = {
+    this.lineChartData = {
       labels: labels,
       datasets: [
         {
@@ -133,13 +144,6 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
         }
       ]
     };
-    this.focus.nativeElement.blur();
-    this.statistics.stopTime = Date.now();
-    this._userService.updateLastCompletedLesson(this.lesson.id);
-    this._userService.saveLessonStatistic(this.lesson.id, this.statistics);
-    setTimeout(() => {
-      this._router.navigate(["Map"]);
-    }, 5000);
   }
 
   wasItCorrectChar(c: string): boolean {
