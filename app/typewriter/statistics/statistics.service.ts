@@ -6,6 +6,7 @@ import { Observable } from "rxjs/Rx"
 
 export type StatisticSnapshot = {
   typingSeed: number,
+  accuracy: number,
   numberOfCorrectKeypresses: number,
   numberOfIncorrectKeypresses: number,
   createdAt: number
