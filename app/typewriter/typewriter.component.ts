@@ -11,10 +11,10 @@ import { LineChart } from "primeng/primeng";
 
 @Pipe({ name: "lessonTextCut" })
 export class LessonTextCutPipe implements PipeTransform {
-  transform(baseText: string, [textToBeCut]): string {
-    if (baseText) {
+  transform(baseText: string, textToBeCut: string): string {
+    if (baseText && textToBeCut) {
       return baseText.substr(textToBeCut.length, baseText.length);
-    } else {
+    } else {      
       return baseText;
     }
   }
@@ -23,7 +23,9 @@ export class LessonTextCutPipe implements PipeTransform {
 @Pipe({ name: "spaceToUnderscore" })
 export class SpaceToUnderscorePipe implements PipeTransform {
   transform(baseText: string): string {
-    return baseText.replace(/( )/g, "_");
+    if (baseText) {
+      return baseText.replace(/( )/g, "_");
+    }
   }
 }
 
@@ -70,9 +72,10 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this._lessonService.get(parseInt(this._routeParams.get("id"))).subscribe((lesson) => {
       this.lesson = lesson;
+      this.statistics = new Statistics(this.lesson.id);
     });
     this.typedText = "";
-    this.statistics = new Statistics(this.lesson.id);
+
   }
 
   ngAfterViewInit() {
@@ -130,7 +133,7 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
     this.snapshots.forEach((snapshot, index) => {
       labels.push(index * 100);
       speeds.push(snapshot.typingSeed);
-      accuracys.push(snapshot.accuracy*100);
+      accuracys.push(snapshot.accuracy * 100);
     });
     this.lineChartData = {
       labels: labels,
@@ -154,7 +157,7 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
           pointHighlightFill: "#fff",
           pointHighlightStroke: "rgba(220,220,220,1)",
           data: accuracys
-        }, 
+        },
       ]
     };
   }
