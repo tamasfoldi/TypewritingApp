@@ -13,31 +13,29 @@ export interface Lesson {
 @Injectable()
 export class LessonService {
 
-  private _$lessons: Observable<Lesson[]>;
-  private _lessons: Lesson[];
+  private _lessons:  Observable<Lesson[]>;
 
   constructor(
     @Inject(AuthHttp) private _authHttp: AuthHttp,
     private _requestOptions: RequestOptions
   ) {
-    this._$lessons = this._authHttp.get("/api/lessons", { headers: this._requestOptions.headers })
-      .map(result => result.json());
-    this._$lessons.subscribe((lessons) => {
-      this._lessons = lessons;
-    });
   }
 
   get lessons(): Observable<Lesson[]> {
-    if (this._lessons) {
-      return Observable.of(this._lessons);
-    } else {
-      return this._$lessons;
-    }
+    if (!this._lessons) {
+      this._lessons = this._authHttp.get("/api/lessons", { headers: this._requestOptions.headers })
+      .map(result => result.json())
+      .publishReplay(1)
+      .refCount();
+    } 
+    return this._lessons;
   }
 
   get(id: number): Observable<Lesson> {
     if (this._lessons) {
-      return Observable.of(this._lessons[id]);
+      return this._lessons.map( lessons => {
+        return lessons[id];
+      });
     } else {
       return this._authHttp.get("/api/lessons/" + id, { headers: this._requestOptions.headers })
         .map(result => result.json());
