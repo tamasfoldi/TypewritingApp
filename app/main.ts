@@ -1,5 +1,5 @@
 import { bootstrap } from "angular2/platform/browser";
-import { ComponentRef, provide, Injector } from "angular2/core";
+import { ComponentRef, provide, ReflectiveInjector } from "angular2/core";
 import { HTTP_PROVIDERS, Http, BaseRequestOptions, Headers, RequestOptions } from "angular2/http";
 import { AuthHttp, AuthConfig, tokenNotExpired } from "angular2-jwt/angular2-jwt";
 import { ROUTER_PROVIDERS } from "angular2/router";
@@ -20,7 +20,7 @@ class MyHeader extends BaseRequestOptions {
   }
 }
 
-let injector = Injector.resolveAndCreate([
+let injector = ReflectiveInjector.resolveAndCreate([
   HTTP_PROVIDERS,
   provide(AuthHttp, {
     useFactory: (http) => {
