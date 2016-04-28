@@ -22,7 +22,7 @@ export class LessonService {
 
   get lessons(): Observable<Lesson[]> {
     if (!this._lessons) {
-      this._lessons = this._authHttp.get("/api/lessons", { headers: this._requestOptions.headers })
+      this._lessons = this._authHttp.get("/api/lessons", this._requestOptions)
       .map(result => result.json())
       .publishReplay(1)
       .refCount();
@@ -36,7 +36,7 @@ export class LessonService {
         return lessons[id];
       });
     } else {
-      return this._authHttp.get("/api/lessons/" + id, { headers: this._requestOptions.headers })
+      return this._authHttp.get("/api/lessons/" + id, this._requestOptions)
         .map(result => result.json());
     }
   }

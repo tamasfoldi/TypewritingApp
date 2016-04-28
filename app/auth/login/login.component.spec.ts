@@ -17,7 +17,7 @@ class ResponseError extends Error {
   _body;
 }
 
-describe('RegisterComponent specs', () => {
+describe('LoginComponent specs', () => {
   let tcb: TestComponentBuilder,
     authService: AuthService,
     mockBackend: MockBackend,
