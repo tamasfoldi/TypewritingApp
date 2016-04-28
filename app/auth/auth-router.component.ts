@@ -10,13 +10,13 @@ import { tokenNotExpired } from "angular2-jwt/angular2-jwt";
 
 @Component({
   selector: "tpw-auth",
-  templateUrl: "app/auth/auth.component.html",
+  templateUrl: "app/auth/auth-router.component.html",
   directives: [ROUTER_DIRECTIVES]
 })
 @RouteConfig([
-  { path: "/login", as: "Login", component: LoginComponent, useAsDefault: true },
-  { path: "/register", as: "Register", component: RegisterComponent },
-  { path: "...", as: "Game", component: IngameRouterComponent }
+  { path: "/login", name: "Login", component: LoginComponent, useAsDefault: true },
+  { path: "/register", name: "Register", component: RegisterComponent },
+  { path: "...", name: "Game", component: IngameRouterComponent }
 ])
 @CanActivate((next, prev) => {
   if(!tokenNotExpired()) {

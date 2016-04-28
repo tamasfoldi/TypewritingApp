@@ -34,7 +34,8 @@ module.exports = function () {
 
       System.config({
         map: {
-          "angular2-jwt": "node_modules/angular2-jwt"
+          "angular2-jwt": "node_modules/angular2-jwt",
+          "primeng": "node_modules/primeng"
         },
         packages: {
           app: {
@@ -46,6 +47,9 @@ module.exports = function () {
             }
           },
           "angular2-jwt": {
+            defaultExtension: "js"
+          },
+          "primeng": {
             defaultExtension: "js"
           }
         }

@@ -1,7 +1,7 @@
 import {BlinkingCursorComponent} from './blinking-cursor.component';
 import {beforeEach, beforeEachProviders, inject, TestComponentBuilder} from "angular2/testing";
 
-describe('Greeter: component', () => {
+describe('BlinkingCursorComponent specs', () => {
   let tcb: TestComponentBuilder;
 
   //setup

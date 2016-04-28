@@ -14,9 +14,9 @@ import { IngameRouterComponent } from "./ingame-router/ingame-router.component";
   directives: [ROUTER_DIRECTIVES]
 })
 @RouteConfig([
-  { path: "/auth/...", as: "Auth", component: AuthRouterComponent },
-  { path: "/game/...", as: "Game", component: IngameRouterComponent, useAsDefault: true },
-  { path: '/user', as: 'User', component: UserComponent }
+  { path: "/auth/...", name: "Auth", component: AuthRouterComponent },
+  { path: "/game/...", name: "Game", component: IngameRouterComponent, useAsDefault: true },
+  { path: '/user', name: 'User', component: UserComponent }
 ])
 export class AppComponent {
   constructor(

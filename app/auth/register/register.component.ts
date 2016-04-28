@@ -27,9 +27,9 @@ export class RegisterComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.username = this._formBuilder.control("test", Validators.required);
-    this.email = this._formBuilder.control("test@test.com", Validators.compose([Validators.required, this.isValidEmail]));
-    this.password = this._formBuilder.control("test12345", Validators.required);
+    this.username = this._formBuilder.control("", Validators.required);
+    this.email = this._formBuilder.control("", Validators.compose([Validators.required, this.isValidEmail]));
+    this.password = this._formBuilder.control("", Validators.required);
     this.registerForm = this._formBuilder.group({
       username: this.username,
       email: this.email,
@@ -45,7 +45,7 @@ export class RegisterComponent implements OnInit {
     this._authService.register(user)
       .map(rsp => rsp.json())
       .subscribe((response) => { // ✔ error handling @done ( April 13th 2016, 8:44:57 pm )
-        this._router.parent.navigate(["Login"]); // ✔ auto login @done ( April 13th 2016, 8:53:27 pm )
+        this._router.navigate(["Login"]);
       }, (error) => {
         this.responseError = JSON.parse(error._body).message;  // ✔ modify error handling. @done ( April 14th 2016, 8:23:21 am )
       }, () => {
@@ -53,7 +53,7 @@ export class RegisterComponent implements OnInit {
           .map(rsp => rsp.json())
           .subscribe((data: any) => { // ✔ first capitalizer pipe @done ( April 14th 2016, 8:25:50 am )
             this._authService.handleSuccessLogin(data, user);
-            this._router.parent.navigate(["../Game"]);
+            this._router.navigate(["Game"]);
           });
       });
 
@@ -65,7 +65,7 @@ export class RegisterComponent implements OnInit {
     this.password.updateValue("");
   }
 
-  isValidEmail(control: Control) {
+  isValidEmail(control: Control): {invalidEmail: boolean} {
     let emailRegexp = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
     return emailRegexp.test(control.value) ? null : { invalidEmail: true };
   }

@@ -10,8 +10,8 @@ import { hasLoggedInUser } from "../util/can-activate";
   directives: [ROUTER_DIRECTIVES]
 })
 @RouteConfig([
-  { path: "/map", as: "Map", component: MapComponent, useAsDefault: true },
-  { path: "/lesson/:id", as: "Typewriter", component: TypewriterComponent }
+  { path: "/map", name: "Map", component: MapComponent, useAsDefault: true },
+  { path: "/lesson/:id", name: "Typewriter", component: TypewriterComponent }
 ])
 @CanActivate((next, prev) => {
   return hasLoggedInUser(next, prev);

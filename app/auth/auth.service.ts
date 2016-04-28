@@ -46,7 +46,7 @@ export class AuthService {
     if (!(user instanceof User)) {      
       throw makeTypeError("user is not assignable to type User");
     }
-    
+    console.log("asdf", user);
     let loginBody = {
       "client_id": this.clientId,
       "username": user.username,
