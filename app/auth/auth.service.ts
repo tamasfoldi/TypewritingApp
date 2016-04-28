@@ -1,7 +1,7 @@
 import { Injectable, Inject } from "angular2/core";
 import { Http, Headers, Response } from "angular2/http";
 import { Observable } from "rxjs/Rx";
-import { User, UserService } from "../user/user.service";
+import { User, AuthUser, UserService } from "../user/user.service";
 import {makeTypeError, BaseException} from 'angular2/src/facade/exceptions';
 
 export class Auth0Response {
@@ -21,12 +21,14 @@ export class AuthService {
   ) { }
 
   login(user: User): Observable<Response> {
-    if (!user) {
+    if (!user) {      
       throw new BaseException("user is required");
     }
-    if (!(user instanceof User)) {
+    
+    if (!(user instanceof User)) {     
       throw makeTypeError("user is not assignable to type User");
     }
+    
     let loginBody = {
       "client_id": this.clientId,
       "username": user.email,
@@ -38,12 +40,13 @@ export class AuthService {
     return this._http.post("https://tamasfo.eu.auth0.com/oauth/ro", JSON.stringify(loginBody));
   }
   register(user: User): Observable<Response> {
-    if (!user) {
+    if (!user) {   
       throw new BaseException("user is required");
     }
-    if (!(user instanceof User)) {
+    if (!(user instanceof User)) {      
       throw makeTypeError("user is not assignable to type User");
     }
+    
     let loginBody = {
       "client_id": this.clientId,
       "username": user.username,
