@@ -3,7 +3,6 @@ import { Observable } from "rxjs/Rx";
 import { AuthHttp } from "angular2-jwt/angular2-jwt";
 import { RequestOptions } from "angular2/http";
 
-
 export interface Lesson {
   id: number;
   name: string;

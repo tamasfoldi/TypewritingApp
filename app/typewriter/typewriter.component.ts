@@ -8,13 +8,21 @@ import { BlinkingCursorComponent } from "../util/blinking-cursor/blinking-cursor
 import { appInjector } from "../app-injector";
 import { UserService } from "../user/user.service";
 import { LineChart } from "primeng/primeng";
+import {isString, isPresent, isBlank} from "angular2/src/facade/lang";
+import {BaseException} from "angular2/src/facade/exceptions";
 
 @Pipe({ name: "lessonTextCut" })
 export class LessonTextCutPipe implements PipeTransform {
   transform(baseText: string, textToBeCut: string): string {
-    if (baseText && textToBeCut) {
+    if (isPresent(baseText) && !isString(baseText)) {
+      throw new BaseException("BaseText must be a string");
+    }
+    if (isPresent(textToBeCut) && !isString(textToBeCut)) {
+      throw new BaseException("TextToBeCut must be a string");
+    }
+    if (!isBlank(textToBeCut) && baseText && textToBeCut) {
       return baseText.substr(textToBeCut.length, baseText.length);
-    } else {      
+    } else {
       return baseText;
     }
   }
@@ -23,6 +31,9 @@ export class LessonTextCutPipe implements PipeTransform {
 @Pipe({ name: "spaceToUnderscore" })
 export class SpaceToUnderscorePipe implements PipeTransform {
   transform(baseText: string): string {
+    if (isPresent(baseText) && !isString(baseText)) {
+      throw new BaseException("BaseText must be a string!");
+    }
     if (baseText) {
       return baseText.replace(/( )/g, "_");
     }
@@ -42,7 +53,7 @@ export class SpaceToUnderscorePipe implements PipeTransform {
   let _router: Router = injector.get(Router);
 
   return new Promise((resolve) => {
-    if (_userService.user && _userService.user.lastCompletedLessonId + 1 >= parseInt(next.params["id"])) { // 
+    if (_userService.user && _userService.user.lastCompletedLessonId + 1 >= parseInt(next.params["id"])) { //
       resolve(true);
     } else {
       _router.navigate(["Game"]);

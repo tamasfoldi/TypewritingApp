@@ -37,7 +37,9 @@ export class LoginComponent implements OnInit {
       email: this.email.value,
       password: this.password.value
     };
-    this._authService.login(user).subscribe((data: any) => { // ✔ error handling  @done ( April 13th 2016, 9:19:25 pm )
+    this._authService.login(user)
+    .map(rsp => rsp.json())
+    .subscribe((data: any) => { // ✔ error handling  @done ( April 13th 2016, 9:19:25 pm )
       this._authService.handleSuccessLogin(data, user);
       this._router.parent.navigate(["../Game"]);
     }, (error) => {

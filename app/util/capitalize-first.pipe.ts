@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from "angular2/core";
-import { isString } from "angular2/src/facade/lang";
+import { isString, isType } from "angular2/src/facade/lang";
 import {BaseException} from 'angular2/src/facade/exceptions';
 
 @Pipe({

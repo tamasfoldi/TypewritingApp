@@ -10,8 +10,7 @@ import { UserService } from "../user/user.service";
   directives: [WaypointComponent, FigureComponent]
 })
 export class MapComponent {
-  waypoints: Waypoint[] = new Array<Waypoint>();
-
+  
   constructor(
     private _waypointService: WaypointService,
     private _userService: UserService

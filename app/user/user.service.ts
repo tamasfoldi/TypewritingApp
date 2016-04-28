@@ -18,14 +18,16 @@ export class User implements AuthUser {
   private _lessonStatistics: Map<number, Statistics>;
 
   constructor(user: User) {
-    this._email = user.email;
-    this._username = user.username;
-    this._password = user.password;
-    this._lastCompletedLessonId = user.lastCompletedLessonId; 
-    this._lessonStatistics = (user.lessonStatistics) ? this.setStatisticsFromArray(<any>user.lessonStatistics) : new Map<number, Statistics>();
-    this._id = user.id;
+    if (user) {
+      this._email = user.email;
+      this._username = user.username;
+      this._password = user.password;
+      this._lastCompletedLessonId = user.lastCompletedLessonId;
+      this._lessonStatistics = (user.lessonStatistics) ? this.setStatisticsFromArray(<any>user.lessonStatistics) : new Map<number, Statistics>();
+      this._id = user.id;
+    } 
   }
-  
+
   get id(): string {
     return this._id;
   }
@@ -64,7 +66,7 @@ export class User implements AuthUser {
   setLessonStatistic(id: number, statistic: Statistics) {
     this._lessonStatistics.set(id, statistic);
   }
-  
+
   setStatisticsFromArray(statistics: Array<Statistics>): Map<number, Statistics> {
     let stats = new Map<number, Statistics>();
     statistics.forEach((statistic, i) => {
@@ -99,7 +101,7 @@ export class UserService {
           user.id = user._id;
           this.user = user;
         });
-    } 
+    }
   }
 
   updateLastCompletedLesson(lessonId: number) {
@@ -112,7 +114,7 @@ export class UserService {
 
   saveLessonStatistic(lessonId: number, stat: Statistics) {
     this._authHttp.put("/api/users/" + this.user.email + "/stats/" + lessonId, JSON.stringify(stat), { headers: this._requestOptions.headers })
-      .map( data => data.json())
+      .map(data => data.json())
       .subscribe((statWithStar) => {
         this.user.lessonStatistics.set(lessonId, statWithStar);
       });
