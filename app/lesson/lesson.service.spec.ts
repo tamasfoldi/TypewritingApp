@@ -7,7 +7,7 @@ import {LessonService} from "./lesson.service";
 import {BaseException} from 'angular2/src/facade/exceptions';
 
 
-describe('AuthService', () => {
+describe('LessonService specs', () => {
   let mockbackend: MockBackend,
     lessonService: LessonService,
     authHttp: AuthHttp;
@@ -27,47 +27,45 @@ describe('AuthService', () => {
     mockbackend = _mockbackend;
     lessonService = _lessonService;
     authHttp = _authHttp;
-    spyOn(authHttp, "get").and.callThrough();    
+    spyOn(authHttp, "get").and.callThrough();
   }))
 
-  describe('LessonService specs', () => {
-    it('should return with lessons array', (done) => {
-      mockbackend.connections.subscribe((connection: MockConnection) => {
-        connection.mockRespond(new Response(new ResponseOptions({ status: 200, body: [{ "lesson": "one" }, { "lesson": "two" }] })));
-      });
-      lessonService.lessons.subscribe(lessons => {
-        expect(lessons.length).toEqual(2);
-        expect(authHttp.get).toHaveBeenCalled();
-        expect(lessons).toEqual([{ lesson: "one" }, { lesson: "two" }]);
-      })
-      done();
+  it('should return with lessons array', (done) => {
+    mockbackend.connections.subscribe((connection: MockConnection) => {
+      connection.mockRespond(new Response(new ResponseOptions({ status: 200, body: [{ "lesson": "one" }, { "lesson": "two" }] })));
     });
-
-    it('should return with one lesson when there is only get(id)', (done) => {
-      mockbackend.connections.subscribe((connection: MockConnection) => {
-        connection.mockRespond(new Response(new ResponseOptions({ status: 200, body: { "lesson": "two" } })));
-      });
-      lessonService.get(0).subscribe(lesson => {
-        expect(authHttp.get).toHaveBeenCalled();
-        expect(lesson).toEqual({ lesson: "two" });
-      })
-      done();
-    });
-
-    it('should call cache the lessons', (done) => {
-      mockbackend.connections.subscribe((connection: MockConnection) => {
-        connection.mockRespond(new Response(new ResponseOptions({ status: 200, body: [{ "lesson": "one" }, { "lesson": "two" }] })));
-      });
-      lessonService.lessons.subscribe(lessons => {
-        expect(lessons.length).toEqual(2);
-        expect(lessons).toEqual([{ lesson: "one" }, { lesson: "two" }]);
-      })
-      lessonService.get(0).subscribe(lesson => {
-        expect(lesson).toEqual({ lesson: "one" });
-        expect(authHttp.get).toHaveBeenCalledTimes(1);
-      })
-      done();
-    });
-
+    lessonService.lessons.subscribe(lessons => {
+      expect(lessons.length).toEqual(2);
+      expect(authHttp.get).toHaveBeenCalled();
+      expect(lessons).toEqual([{ lesson: "one" }, { lesson: "two" }]);
+    })
+    done();
   });
+
+  it('should return with one lesson when there is only get(id)', (done) => {
+    mockbackend.connections.subscribe((connection: MockConnection) => {
+      connection.mockRespond(new Response(new ResponseOptions({ status: 200, body: { "lesson": "two" } })));
+    });
+    lessonService.get(0).subscribe(lesson => {
+      expect(authHttp.get).toHaveBeenCalled();
+      expect(lesson).toEqual({ lesson: "two" });
+    })
+    done();
+  });
+
+  it('should call cache the lessons', (done) => {
+    mockbackend.connections.subscribe((connection: MockConnection) => {
+      connection.mockRespond(new Response(new ResponseOptions({ status: 200, body: [{ "lesson": "one" }, { "lesson": "two" }] })));
+    });
+    lessonService.lessons.subscribe(lessons => {
+      expect(lessons.length).toEqual(2);
+      expect(lessons).toEqual([{ lesson: "one" }, { lesson: "two" }]);
+    })
+    lessonService.get(0).subscribe(lesson => {
+      expect(lesson).toEqual({ lesson: "one" });
+      expect(authHttp.get).toHaveBeenCalledTimes(1);
+    })
+    done();
+  });
+
 });

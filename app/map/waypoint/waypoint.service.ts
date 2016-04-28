@@ -12,16 +12,17 @@ export interface Waypoint {
 export class WaypointService {
   private _waypoints: Waypoint[] = new Array<Waypoint>();
 
-  constructor( @Inject(LessonService) private _lessonService: LessonService) {
-    this._lessonService.lessons.subscribe((lessons) => {
-      lessons.forEach((lesson) => {
-        let waypoint = this.createWaypointFromLesson(lesson);
-        this._waypoints.push(waypoint);
-      }); 
-    });
-  }
+  constructor( @Inject(LessonService) private _lessonService: LessonService) { }
 
   get waypoints(): Observable<Waypoint[]> {
+    if (this._waypoints.length === 0) {
+      this._lessonService.lessons.subscribe((lessons) => {
+        lessons.forEach((lesson) => {
+          let waypoint = this.createWaypointFromLesson(lesson);
+          this._waypoints.push(waypoint);
+        });
+      });
+    }
     return Observable.of(this._waypoints);
   }
 
