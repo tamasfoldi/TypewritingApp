@@ -1,6 +1,6 @@
 import { Component, OnInit } from "angular2/core";
 import { RouteConfig, ROUTER_DIRECTIVES, Router } from "angular2/router";
-import { AuthComponent } from "./auth/auth.component";
+import { AuthRouterComponent } from "./auth/auth-router.component";
 import { AuthHttp, tokenNotExpired } from "angular2-jwt/angular2-jwt";
 import { UserService } from "./user/user.service";
 import { UserComponent } from "./user/user.component";
@@ -14,7 +14,7 @@ import { IngameRouterComponent } from "./ingame-router/ingame-router.component";
   directives: [ROUTER_DIRECTIVES]
 })
 @RouteConfig([
-  { path: "/auth/...", as: "Auth", component: AuthComponent },
+  { path: "/auth/...", as: "Auth", component: AuthRouterComponent },
   { path: "/game/...", as: "Game", component: IngameRouterComponent, useAsDefault: true },
   { path: '/user', as: 'User', component: UserComponent }
 ])

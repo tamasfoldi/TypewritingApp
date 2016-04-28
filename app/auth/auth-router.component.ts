@@ -26,4 +26,4 @@ import { tokenNotExpired } from "angular2-jwt/angular2-jwt";
     return false;
   }
 })
-export class AuthComponent { }
+export class AuthRouterComponent { }

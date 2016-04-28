@@ -17,7 +17,7 @@ export class User implements AuthUser {
   private _lastCompletedLessonId: number;
   private _lessonStatistics: Map<number, Statistics>;
 
-  constructor(user: User) {
+  constructor(user?: User) {
     if (user) {
       this._email = user.email;
       this._username = user.username;
