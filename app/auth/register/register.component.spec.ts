@@ -19,6 +19,10 @@ class FakeUserService {
   }
 }
 
+class ResponseError extends Error {
+  _body;
+}
+
 describe('RegisterComponent specs', () => {
   let tcb: TestComponentBuilder,
     authService: AuthService,
@@ -30,7 +34,7 @@ describe('RegisterComponent specs', () => {
     TestComponentBuilder,
     RegisterComponent,
     RouteRegistry,
-    Location,
+    Location,    Location,
     provide(Router, { useClass: RootRouter }),
     provide(ROUTER_PRIMARY_COMPONENT, { useValue: AuthRouterComponent }),
     provide(UserService, { useClass: FakeUserService }),
@@ -139,6 +143,27 @@ describe('RegisterComponent specs', () => {
       expect(registerComponent.username.value).toBe("");
       expect(registerComponent.password.value).toBe("");
 
+      done();
+    });
+  });
+
+  it('should reset all the values in the components', done => {
+    tcb.createAsync(RegisterComponent).then(fixture => {
+      let registerComponent: RegisterComponent = fixture.componentInstance;
+      spyOn(registerComponent, "register").and.callThrough();
+      spyOn(authService, "register").and.callThrough();
+      spyOn(authService, "handleSuccessLogin").and.returnValue(true);
+      fixture.detectChanges(); //trigger change detection
+
+      mockBackend.connections.subscribe((connection: MockConnection) => {
+        let resErr = new ResponseError();
+        resErr._body = JSON.stringify({
+          message: "Fail"
+        });
+        connection.mockError(resErr);
+      });
+      registerComponent.register();      
+      expect(registerComponent.responseError).toBe("Fail");
       done();
     });
   });
