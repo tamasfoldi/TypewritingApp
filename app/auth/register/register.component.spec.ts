@@ -8,16 +8,10 @@ import { AuthService } from "../auth.service";
 import { AuthRouterComponent } from "../auth-router.component";
 import { Location } from "angular2/platform/common";
 import { User, UserService } from "../../user/user.service";
-import { Response, BaseResponseOptions, BaseRequestOptions, ResponseOptions, Http } from "angular2/http";
+import { Response, BaseRequestOptions, Http } from "angular2/http";
 import {MockBackend, MockConnection} from "angular2/http/testing";
 
 import { Observable } from "rxjs/Rx";
-
-class FakeUserService {
-  setUser(email: string) {
-    return;
-  }
-}
 
 class ResponseError extends Error {
   _body;
@@ -26,18 +20,17 @@ class ResponseError extends Error {
 describe('RegisterComponent specs', () => {
   let tcb: TestComponentBuilder,
     authService: AuthService,
-    mockBackend: MockBackend,
-    loc: Location;
+    mockBackend: MockBackend;
 
   //setup
   beforeEachProviders(() => [
     TestComponentBuilder,
     RegisterComponent,
     RouteRegistry,
-    Location,    Location,
+    provide(Location, {useClass: SpyLocation}),
     provide(Router, { useClass: RootRouter }),
     provide(ROUTER_PRIMARY_COMPONENT, { useValue: AuthRouterComponent }),
-    provide(UserService, { useClass: FakeUserService }),
+    provide(UserService, { useFactory: () => {} }),
     AuthService,
     BaseRequestOptions,
     MockBackend,
@@ -47,11 +40,10 @@ describe('RegisterComponent specs', () => {
     })
   ]);
 
-  beforeEach(inject([TestComponentBuilder, AuthService, MockBackend, Location], (_tcb, _authService, _mockBackend, _location) => {
+  beforeEach(inject([TestComponentBuilder, AuthService, MockBackend], (_tcb, _authService, _mockBackend) => {
     authService = _authService;
     tcb = _tcb;
     mockBackend = _mockBackend;
-    loc = _location;
   }));
 
   // specs
@@ -147,12 +139,11 @@ describe('RegisterComponent specs', () => {
     });
   });
 
-  it('should reset all the values in the components', done => {
+  it('should set the error message if there was a problem', done => {
     tcb.createAsync(RegisterComponent).then(fixture => {
       let registerComponent: RegisterComponent = fixture.componentInstance;
       spyOn(registerComponent, "register").and.callThrough();
       spyOn(authService, "register").and.callThrough();
-      spyOn(authService, "handleSuccessLogin").and.returnValue(true);
       fixture.detectChanges(); //trigger change detection
 
       mockBackend.connections.subscribe((connection: MockConnection) => {

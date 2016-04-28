@@ -13,10 +13,8 @@ import {MockBackend, MockConnection} from "angular2/http/testing";
 
 import { Observable } from "rxjs/Rx";
 
-class FakeUserService {
-  setUser(email: string) {
-    return;
-  }
+class ResponseError extends Error {
+  _body;
 }
 
 describe('RegisterComponent specs', () => {
@@ -30,10 +28,10 @@ describe('RegisterComponent specs', () => {
     TestComponentBuilder,
     LoginComponent,
     RouteRegistry,
-    Location,
+    provide(Location, {useClass: SpyLocation}),
     provide(Router, { useClass: RootRouter }),
     provide(ROUTER_PRIMARY_COMPONENT, { useValue: AuthRouterComponent }),
-    provide(UserService, { useClass: FakeUserService }),
+    provide(UserService, { useFactory: () => {} }),
     AuthService,
     BaseRequestOptions,
     MockBackend,
@@ -107,6 +105,26 @@ describe('RegisterComponent specs', () => {
       expect(loginComponent.email.value).toBe("");
       expect(loginComponent.password.value).toBe("");
 
+      done();
+    });
+  });
+
+  it('should set the error message if there was a problem', done => {
+    tcb.createAsync(LoginComponent).then(fixture => {
+      let loginComponent: LoginComponent = fixture.componentInstance;
+      spyOn(loginComponent, "login").and.callThrough();
+      spyOn(authService, "login").and.callThrough();
+      fixture.detectChanges(); //trigger change detection
+
+      mockBackend.connections.subscribe((connection: MockConnection) => {
+        let resErr = new ResponseError();
+        resErr._body = JSON.stringify({
+          error_description: "Fail"
+        });
+        connection.mockError(resErr);
+      });
+      loginComponent.login();
+      expect(loginComponent.responseError).toBe("Fail");
       done();
     });
   });
