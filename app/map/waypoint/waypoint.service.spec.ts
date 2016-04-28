@@ -35,14 +35,24 @@ describe('WaypointService', () => {
   }));
 
   it('should return with waypoints array', (done) => {
-    spyOn(waypointService, "createWaypointFromLesson").and.returnValue({ id: 1, posX: 1, posY: 1 });
+    spyOn(waypointService, "createWaypointFromLesson").and.callThrough();
     mockbackend.connections.subscribe((connection: MockConnection) => {
-      connection.mockRespond(new Response(new ResponseOptions({ status: 200, body: [{ "lesson": "one" }, { "lesson": "two" }] })));
+      connection.mockRespond(new Response(new ResponseOptions({ status: 200, body: [{ id: 0, name: "One", text: "One" }, { id: 1, name: "Two", text: "Two" }] })));
     });
     waypointService.waypoints.subscribe(waypoints => {
-      expect(waypoints).toEqual([{ id: 1, posX: 1, posY: 1 }, { id: 1, posX: 1, posY: 1 }]);
+      expect(waypoints).toEqual([{ id: 0, posX: 0, posY: 0 }, { id: 1, posX: 10, posY: 10 }]);
       expect(waypoints.length).toEqual(2);
     });
+    done();
+  });
+
+  it('should throw an error when http fails', (done) => {
+    mockbackend.connections.subscribe((connection: MockConnection) => {
+      connection.mockError(new Error("Failed"));
+    });
+    expect(() => waypointService.waypoints).toThrow()
+    expect(() => waypointService.waypoints).toThrowError("Failed");
+    expect(() => waypointService.waypoints).toThrowError(BaseException);   
     done();
   });
 
