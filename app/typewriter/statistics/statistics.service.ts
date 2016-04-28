@@ -93,8 +93,13 @@ export class StatisticsService {
 
   getCorrectness(userId: string): Observable<Correctness> {
     if(userId){
-      return this._authHttp.get("/api/statistics/" + userId, { headers: this._requestOptions.headers })
-        .map(result => result.json());
+      if(!this._correctness) {
+        this._correctness = this._authHttp.get("/api/statistics/" + userId, { headers: this._requestOptions.headers })
+          .map(result => result.json())
+          .publishReplay(1)
+          .refCount();
+      }
+      return this._correctness;
     }
   }
 
