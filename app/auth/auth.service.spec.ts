@@ -14,12 +14,12 @@ class FakeUserService {
 }
 
 describe('AuthService', () => {
-  let mockbackend: MockBackend, 
-   service: AuthService, 
-   fakeUser: User, 
-   fakeUserService: FakeUserService,
-   invalidFakeUser: User,
-   fakeData;
+  let mockbackend: MockBackend,
+    service: AuthService,
+    fakeUser: User,
+    fakeUserService: FakeUserService,
+    invalidFakeUser: User,
+    fakeData;
 
   beforeEachProviders(() => [
     provide(UserService, { useClass: FakeUserService }),
@@ -115,17 +115,21 @@ describe('AuthService', () => {
         done();
       });
     });
-     
+
   });
-  
-  it('should set the localstorage', () => { 
-    service.handleSuccessLogin(fakeData, fakeUser);
-    expect(localStorage.getItem("id_token")).toBe("fakeToken");
+
+
+  describe('HandleSuccessLogin specs', () => {
+    it('should set the localstorage', () => {
+      service.handleSuccessLogin(fakeData, fakeUser);
+      expect(localStorage.getItem("id_token")).toBe("fakeToken");
+    });
+
+    it('should call the setUser function', () => {
+      spyOn(fakeUserService, "setUser").and.callThrough();
+      service.handleSuccessLogin(fakeData, fakeUser);
+      expect(fakeUserService.setUser).toHaveBeenCalled();
+    });
   });
-  
-  it('should call the setUser function', () => { 
-    spyOn(fakeUserService, "setUser").and.callThrough();
-    service.handleSuccessLogin(fakeData, fakeUser);
-    expect(fakeUserService.setUser).toHaveBeenCalled();
-  });
+
 })
