@@ -5,7 +5,7 @@ import {provide} from "angular2/core"
 import {AuthHttp, AuthConfig} from "angular2-jwt/angular2-jwt";
 import {LessonService} from "./lesson.service";
 import {BaseException} from 'angular2/src/facade/exceptions';
-
+import "rxjs/Rx";
 
 describe('LessonService specs', () => {
   let mockbackend: MockBackend,
