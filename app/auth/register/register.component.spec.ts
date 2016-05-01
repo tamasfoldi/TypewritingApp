@@ -2,7 +2,7 @@ import {RegisterComponent} from './register.component';
 import {provide} from "angular2/core"
 import {Router, RouteRegistry, ROUTER_PRIMARY_COMPONENT} from "angular2/router";
 import { RootRouter } from 'angular2/src/router/router';
-import { SpyLocation } from 'angular2/src/mock/location_mock'
+import { SpyLocation } from 'angular2/src/mock/location_mock';
 import {beforeEach, beforeEachProviders, inject, TestComponentBuilder} from "angular2/testing";
 import { AuthService } from "../auth.service";
 import { AuthRouterComponent } from "../auth-router.component";
