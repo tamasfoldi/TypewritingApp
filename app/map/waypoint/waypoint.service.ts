@@ -11,23 +11,22 @@ export interface Waypoint {
 
 @Injectable()
 export class WaypointService {
-  private _waypoints: Waypoint[];
+  private _waypoints: Observable<Waypoint[]>;
 
   constructor( @Inject(LessonService) private _lessonService: LessonService) { }
 
   get waypoints(): Observable<Waypoint[]> {
     if (!this._waypoints) {
-      this._waypoints =  new Array<Waypoint>();
-      this._lessonService.lessons.subscribe((lessons) => {
+      this._waypoints = this._lessonService.lessons.map((lessons) => {
+        let waypoints = new Array<Waypoint>();
         lessons.forEach((lesson) => {
           let waypoint = this.createWaypointFromLesson(lesson);
-          this._waypoints.push(waypoint);
+          waypoints.push(waypoint);
         });
-      }, (error) => {
-        throw new BaseException(error.message);
+        return waypoints;
       });
     }
-    return Observable.of(this._waypoints);
+    return this._waypoints;
   }
 
   private createWaypointFromLesson(lesson: Lesson): Waypoint {

@@ -10,6 +10,7 @@ import { AuthService } from "./auth/auth.service";
 import { WaypointService } from "./map/waypoint/waypoint.service";
 import { LessonService } from "./lesson/lesson.service";
 import { appInjector } from "./app-injector";
+import 'rxjs/Rx';
 
 class MyHeader extends BaseRequestOptions {
   headers: Headers = new Headers();
