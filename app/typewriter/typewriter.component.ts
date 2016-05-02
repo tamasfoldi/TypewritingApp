@@ -8,9 +8,9 @@ import { BlinkingCursorComponent } from "../util/blinking-cursor/blinking-cursor
 import { appInjector } from "../app-injector";
 import { UserService } from "../user/user.service";
 import { LineChart } from "primeng/primeng";
-import { LessonTextCutPipe } from "./lesson-text-cut.pipe"; 
-import { SpaceToUnderscorePipe } from "./space-to-underscore.pipe"; 
- 
+import { LessonTextCutPipe } from "./lesson-text-cut.pipe";
+import { SpaceToUnderscorePipe } from "./space-to-underscore.pipe";
+
 @Component({
   selector: "tpw-typewriter",
   templateUrl: "app/typewriter/typewriter.component.html",
@@ -20,7 +20,7 @@ import { SpaceToUnderscorePipe } from "./space-to-underscore.pipe";
 })
 @CanActivate((next: ComponentInstruction, prev: ComponentInstruction) => {
   let injector: Injector = appInjector();
-  let _router: Router = appInjector().get(Router);  
+  let _router: Router = appInjector().get(Router);
   let _userService: UserService = appInjector().get(UserService);
 
   return new Promise((resolve) => {
@@ -37,8 +37,8 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
   private focus: ElementRef;
 
   private lesson: Lesson;
-  private typedText: string;
-  private statistics: Statistics;
+  private _typedText: string;
+  private _statistics: Statistics;
 
   private snapshots: StatisticSnapshot[] = new Array<StatisticSnapshot>();
   private lineChartData: any;
@@ -54,9 +54,9 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this._lessonService.get(parseInt(this._routeParams.get("id"))).subscribe((lesson) => {
       this.lesson = lesson;
-      this.statistics = new Statistics(this.lesson.id);
+      this._statistics = new Statistics(this.lesson.id);
     });
-    this.typedText = "";
+    this._typedText = "";
 
   }
 
@@ -64,7 +64,7 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
     this.focus.nativeElement.focus();
   }
 
-  keypressEventHendler($event: KeyboardEvent) {
+  keypressEventHandler($event: KeyboardEvent) {
     if (!this.hasReachedTheEnd()) {
       let intputChar = String.fromCharCode($event.which);
       this.handleInputChar(intputChar);
@@ -74,41 +74,43 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
     }
   }
 
-  handleInputChar(char: string) {
+  private handleInputChar(char: string) {
     if (this.wasItCorrectChar(char)) {
       if (this.wasTheFirstPress(char)) {
         this.snaphotCreater = setInterval(() => {
           let snapshot: StatisticSnapshot = {
             createdAt: Date.now(),
-            numberOfCorrectKeypresses: this.statistics.numberOfCorrectKeypresses,
-            numberOfIncorrectKeypresses: this.statistics.numberOfIncorrectKeypresses,
-            typingSeed: this.statistics.numberOfCorrectKeypresses / ((Date.now() - this.statistics.startTime) / 1000),
-            accuracy: this.statistics.accuracy
+            numberOfCorrectKeypresses: this._statistics.numberOfCorrectKeypresses,
+            numberOfIncorrectKeypresses: this._statistics.numberOfIncorrectKeypresses,
+            typingSeed: this._statistics.numberOfCorrectKeypresses / ((Date.now() - this._statistics.startTime) / 1000),
+            accuracy: this._statistics.accuracy
           }
           this.snapshots.push(snapshot);
         }, 100);
-        this.statistics.startTime = Date.now();
+        this._statistics.startTime = Date.now();
       }
-      this.typedText = this.typedText + char;
-      this.statistics.numberOfCorrectKeypresses++;
+      this._typedText = this._typedText + char;
+      this._statistics.numberOfCorrectKeypresses++;
     } else {
-      this.statistics.numberOfIncorrectKeypresses++;
+      if (!this.wasTheFirstPress(char)) {
+        this._statistics.numberOfIncorrectKeypresses++;
+      }
     }
   }
 
-  handleLessonEnd() {
+  private handleLessonEnd() {
     clearInterval(this.snaphotCreater);
     this.setLineChartDatas();
     this.focus.nativeElement.blur();
-    this.statistics.stopTime = Date.now();
+    this._statistics.stopTime = Date.now();
     this._userService.updateLastCompletedLesson(this.lesson.id);
-    this._userService.saveLessonStatistic(this.lesson.id, this.statistics);
+    this._userService.saveLessonStatistic(this.lesson.id, this._statistics);
     setTimeout(() => {
       this._router.navigate(["Map"]);
     }, 10000);
   }
 
-  setLineChartDatas() {
+  private setLineChartDatas() {
     let labels = new Array<number>();
     let speeds = new Array<number>();
     let accuracys = new Array<number>();
@@ -144,16 +146,24 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
     };
   }
 
-  wasItCorrectChar(c: string): boolean {
-    return this.typedText + c === this.lesson.text.substr(0, this.typedText.length + 1);
+  private wasItCorrectChar(c: string): boolean {
+    return this._typedText + c === this.lesson.text.substr(0, this._typedText.length + 1);
   }
 
-  hasReachedTheEnd(): boolean {
-    return (this.lesson && this.typedText === this.lesson.text);
+  private hasReachedTheEnd(): boolean {
+    return (this.lesson && this._typedText === this.lesson.text);
   }
 
-  wasTheFirstPress(c: string): boolean {
-    return this.typedText.length === 0;
+  private wasTheFirstPress(c: string): boolean {
+    return this._typedText.length === 0;
+  }
+
+  get typedText() {
+    return this._typedText;
+  }
+
+  get statistics() {
+    return this._statistics;
   }
 
 }
