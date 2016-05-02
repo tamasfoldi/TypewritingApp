@@ -10,7 +10,7 @@ import { Location } from "angular2/platform/common";
 import { User, UserService } from "../../user/user.service";
 import { Response, BaseResponseOptions, BaseRequestOptions, ResponseOptions, Http } from "angular2/http";
 import {MockBackend, MockConnection} from "angular2/http/testing";
-
+import * as Rx from 'rxjs/Rx'
 import { Observable } from "rxjs/Rx";
 
 class ResponseError extends Error {
@@ -21,17 +21,18 @@ describe('LoginComponent specs', () => {
   let tcb: TestComponentBuilder,
     authService: AuthService,
     mockBackend: MockBackend,
-    loc: Location;
+    loc: Location,
+    router: Router;
 
   //setup
   beforeEachProviders(() => [
     TestComponentBuilder,
     LoginComponent,
     RouteRegistry,
-    provide(Location, {useClass: SpyLocation}),
+    provide(Location, { useClass: SpyLocation }),
     provide(Router, { useClass: RootRouter }),
     provide(ROUTER_PRIMARY_COMPONENT, { useValue: AuthRouterComponent }),
-    provide(UserService, { useFactory: () => {} }),
+    provide(UserService, { useFactory: () => { } }),
     AuthService,
     BaseRequestOptions,
     MockBackend,
@@ -41,11 +42,12 @@ describe('LoginComponent specs', () => {
     })
   ]);
 
-  beforeEach(inject([TestComponentBuilder, AuthService, MockBackend, Location], (_tcb, _authService, _mockBackend, _location) => {
+  beforeEach(inject([TestComponentBuilder, AuthService, MockBackend, Location, Router], (_tcb, _authService, _mockBackend, _location, _router) => {
     authService = _authService;
     tcb = _tcb;
     mockBackend = _mockBackend;
-    loc = _location;
+    loc = _location,
+    router = _router;  
   }));
 
   // specs
@@ -125,6 +127,32 @@ describe('LoginComponent specs', () => {
       });
       loginComponent.login();
       expect(loginComponent.responseError).toBe("Fail");
+      done();
+    });
+  });
+
+  it('should navigate and handle success login on succ', done => {
+    tcb.createAsync(LoginComponent).then(fixture => {
+      let user = new User();
+      user.email = "test@mail.com";
+      user.password = "password";
+      let loginComponent: LoginComponent = fixture.componentInstance;
+      spyOn(loginComponent, "login").and.callThrough();
+      spyOn(authService, "login").and.callFake((user) => {
+         return Observable.of(new Response(new ResponseOptions({ status: 200, body: { "test": "test" } })));
+      });
+      spyOn(authService, "handleSuccessLogin");
+      spyOn(router, "navigate");
+      fixture.detectChanges(); //trigger change detection
+      loginComponent.email.updateValue("test@mail.com");
+      loginComponent.password.updateValue("password");
+      fixture.detectChanges(); //trigger change detection
+      
+      loginComponent.login();
+      expect(authService.handleSuccessLogin).toHaveBeenCalled();
+      expect(authService.handleSuccessLogin).toHaveBeenCalledWith({test: "test"}, user);
+      expect(router.navigate).toHaveBeenCalled();
+      expect(router.navigate).toHaveBeenCalledWith(["Game"]);
       done();
     });
   });
