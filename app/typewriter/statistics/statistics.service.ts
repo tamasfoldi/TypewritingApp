@@ -85,22 +85,19 @@ export class StatisticsService {
   private _correctness: Observable<Correctness>;
 
   constructor(
-    @Inject(UserService) private _userService: UserService,
     @Inject(AuthHttp) private _authHttp: AuthHttp,
     private _requestOptions: RequestOptions
 
   ) { }
 
   getCorrectness(userId: string): Observable<Correctness> {
-    if(userId){
-      if(!this._correctness) {
-        this._correctness = this._authHttp.get("/api/statistics/" + userId, { headers: this._requestOptions.headers })
-          .map(result => result.json())
-          .publishReplay(1)
-          .refCount();
-      }
-      return this._correctness;
+    if (!this._correctness && userId) {
+      this._correctness = this._authHttp.get("/api/statistics/" + userId,  this._requestOptions)
+        .map(result => result.json())
+        .publishReplay(1)
+        .refCount();
     }
+    return this._correctness;
   }
 
 }
