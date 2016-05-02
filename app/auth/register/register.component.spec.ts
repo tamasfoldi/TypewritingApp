@@ -8,7 +8,7 @@ import { AuthService } from "../auth.service";
 import { AuthRouterComponent } from "../auth-router.component";
 import { Location } from "angular2/platform/common";
 import { User, UserService } from "../../user/user.service";
-import { Response, BaseRequestOptions, Http } from "angular2/http";
+import { Response, ResponseOptions, BaseRequestOptions, Http } from "angular2/http";
 import {MockBackend, MockConnection} from "angular2/http/testing";
 
 import { Observable } from "rxjs/Rx";
@@ -20,17 +20,18 @@ class ResponseError extends Error {
 describe('RegisterComponent specs', () => {
   let tcb: TestComponentBuilder,
     authService: AuthService,
-    mockBackend: MockBackend;
+    mockBackend: MockBackend,
+    router: Router;
 
   //setup
   beforeEachProviders(() => [
     TestComponentBuilder,
     RegisterComponent,
     RouteRegistry,
-    provide(Location, {useClass: SpyLocation}),
+    provide(Location, { useClass: SpyLocation }),
     provide(Router, { useClass: RootRouter }),
     provide(ROUTER_PRIMARY_COMPONENT, { useValue: AuthRouterComponent }),
-    provide(UserService, { useFactory: () => {} }),
+    provide(UserService, { useFactory: () => { } }),
     AuthService,
     BaseRequestOptions,
     MockBackend,
@@ -40,10 +41,11 @@ describe('RegisterComponent specs', () => {
     })
   ]);
 
-  beforeEach(inject([TestComponentBuilder, AuthService, MockBackend], (_tcb, _authService, _mockBackend) => {
+  beforeEach(inject([TestComponentBuilder, AuthService, MockBackend, Router], (_tcb, _authService, _mockBackend, _router) => {
     authService = _authService;
     tcb = _tcb;
     mockBackend = _mockBackend;
+    router = _router;
   }));
 
   // specs
@@ -153,8 +155,42 @@ describe('RegisterComponent specs', () => {
         });
         connection.mockError(resErr);
       });
-      registerComponent.register();      
+      registerComponent.register();
       expect(registerComponent.responseError).toBe("Fail");
+      done();
+    });
+  });
+
+  it('should handle the success register with login', done => {
+    tcb.createAsync(RegisterComponent).then(fixture => {
+      let user = new User();
+      user.email = "email";
+      user.password = "password";
+      user.username = "username";
+      let registerComponent: RegisterComponent = fixture.componentInstance;
+      spyOn(registerComponent, "register").and.callThrough();
+      spyOn(router, "navigate");
+      spyOn(authService, "handleSuccessLogin").and.callFake((user, data) => {
+        return true
+      })
+      spyOn(authService, "register").and.callFake((user) => {
+        return Observable.of(new Response(new ResponseOptions({ status: 200, body: { "test": "test" } })));
+      });
+      spyOn(authService, "login").and.callFake((user) => {
+        return Observable.of(new Response(new ResponseOptions({ status: 200, body: { "test": "test" } })));
+      });
+      fixture.detectChanges(); //trigger change detection
+      registerComponent.email.updateValue("email");
+      registerComponent.username.updateValue("username");
+      registerComponent.password.updateValue("password");
+      fixture.detectChanges(); //trigger change detection      
+      registerComponent.register();
+
+      expect(router.navigate).toHaveBeenCalled();
+      expect(router.navigate).toHaveBeenCalledWith(["Login"]);
+      expect(authService.handleSuccessLogin).toHaveBeenCalled();
+      expect(authService.handleSuccessLogin).toHaveBeenCalledWith({test: "test"}, user);
+      expect(router.navigate).toHaveBeenCalledWith(["Game"]);      
       done();
     });
   });
