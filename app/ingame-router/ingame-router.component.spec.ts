@@ -1,6 +1,4 @@
 import {beforeEachProviders, beforeEach, inject, TestComponentBuilder, ComponentFixture} from "angular2/testing";
-import { WaypointService } from "./waypoint/waypoint.service";
-import { MapComponent } from "./map.component";
 import { UserService } from "../user/user.service";
 import {provide} from "angular2/core"
 import {Router, RouteRegistry, ROUTER_PRIMARY_COMPONENT} from "angular2/router";
