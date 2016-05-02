@@ -32,9 +32,13 @@ describe('Pipe: LessonTextCutPipe', () => {
   });
 
   it('should cut off the second parameter from the first', () => {
-    expect(pipe.transform('wow', 'w')).toEqual('ow');
+    expect(pipe.transform('wow', 'su')).toEqual('w');
   });
 
+  it('should return with an empty string if the second is longer', () => {
+    expect(pipe.transform('', 'wow')).toEqual('');
+  });
+  
   it('should work with empty strings', () => {
     expect(pipe.transform('', '')).toEqual('');
   });

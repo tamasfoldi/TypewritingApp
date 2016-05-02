@@ -10,6 +10,8 @@ export class SpaceToUnderscorePipe implements PipeTransform {
     }
     if (baseText) {
       return baseText.replace(/( )/g, "_");
+    } else {
+      return baseText;
     }
   }
 }
