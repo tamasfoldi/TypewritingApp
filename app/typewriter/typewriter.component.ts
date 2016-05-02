@@ -49,8 +49,8 @@ export class SpaceToUnderscorePipe implements PipeTransform {
 })
 @CanActivate((next: ComponentInstruction, prev: ComponentInstruction) => {
   let injector: Injector = appInjector();
-  let _userService: UserService = injector.get(UserService);
-  let _router: Router = injector.get(Router);
+  let _router: Router = appInjector().get(Router);  
+  let _userService: UserService = appInjector().get(UserService);
 
   return new Promise((resolve) => {
     if (_userService.user && _userService.user.lastCompletedLessonId + 1 >= parseInt(next.params["id"])) { //
