@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter } from "angular2/core";
 import { Router } from "angular2/router";
 import { Waypoint } from "./waypoint.service";
 import { UserService } from "../../user/user.service";
+import {BaseException} from 'angular2/src/facade/exceptions';
 
 @Component({
   selector: "tpw-waypoint",
@@ -22,6 +23,8 @@ export class WaypointComponent {
   gameStart() {
     if (this.waypoint.id <= this._userService.user.lastCompletedLessonId + 1) {
       this._router.navigate(["Typewriter", {id: this.waypoint.id}]);
+    } else {
+      throw new BaseException("You dont have permission to open this!");
     }
   }
 }

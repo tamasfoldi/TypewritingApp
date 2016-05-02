@@ -29,7 +29,7 @@ class FakeWaypointService {
   }
 }
 
-describe('MapComponrnt', () => {
+describe('MapComponent', () => {
   let waypointService: WaypointService,
     userService: UserService,
     tcb: TestComponentBuilder;
