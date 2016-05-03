@@ -59,7 +59,8 @@ module.exports = function () {
       // with test versions of the platform providers
       Promise.all([
         System.import('angular2/testing'),
-        System.import('angular2/platform/testing/browser')
+        System.import('angular2/platform/testing/browser'),
+        System.import('https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js')
       ])
         .then(function (results) {
           var testing = results[0];
