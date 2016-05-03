@@ -18,12 +18,13 @@ export class User implements AuthUser {
   private _lessonStatistics: Map<number, Statistics>;
 
   constructor(user?: User) {
+    console.log(user);
     if (user) {
-      this._email = user.email;
-      this._username = user.username;
-      this._password = user.password;
-      this._lastCompletedLessonId = user.lastCompletedLessonId;
-      this._lessonStatistics = (user.lessonStatistics) ? this.setStatisticsFromArray(<any>user.lessonStatistics) : new Map<number, Statistics>();
+      this.email = user.email;
+      this.username = user.username;
+      this.password = user.password;
+      this.lastCompletedLessonId = user.lastCompletedLessonId;
+      this.lessonStatistics = (user.lessonStatistics) ? this.setStatisticsFromArray(<any>user.lessonStatistics) : new Map<number, Statistics>();
       this._id = user.id;
     } 
   }
@@ -55,10 +56,12 @@ export class User implements AuthUser {
 
 
   get lastCompletedLessonId(): number {
+    console.log(this._lastCompletedLessonId);
     return this._lastCompletedLessonId;
   }
   set lastCompletedLessonId(lessonId: number) {
     this._lastCompletedLessonId = lessonId;
+    console.log(this._lastCompletedLessonId);
   }
 
   get lessonStatistics(): Map<number, Statistics> {
@@ -66,13 +69,6 @@ export class User implements AuthUser {
   }
   set lessonStatistics(statistics: Map<number, Statistics>) {
     this._lessonStatistics = statistics;
-  }
-
-  getLessonStatistic(id: number): Statistics {
-    return this._lessonStatistics.get(id);
-  }
-  setLessonStatistic(id: number, statistic: Statistics) {
-    this._lessonStatistics.set(id, statistic);
   }
 
   setStatisticsFromArray(statistics: Array<Statistics>): Map<number, Statistics> {
@@ -97,31 +93,28 @@ export class UserService {
     return this._user;
   }
 
-  set user(user: User) {
-    this._user = new User(user);
-  }
-
   setUser(email: string) {
     if (!this._user) {
-      this._authHttp.get("/api/users/" + email, { headers: this._requestOptions.headers })
+      this._authHttp.get("/api/users/" + email, this._requestOptions)
         .map(response => response.json())
         .subscribe((user: any) => {
           user.id = user._id;
-          this.user = user;
+          console.log(user._lessonStatistics[0]);
+          this._user = new User(user);
         });
     }
   }
 
   updateLastCompletedLesson(lessonId: number) {
-    if (lessonId > this.user.lastCompletedLessonId) {
+    if (lessonId > this.user.lastCompletedLessonId || !this.user.lastCompletedLessonId) {
       this.user.lastCompletedLessonId = lessonId;
-      this._authHttp.put("/api/users/last-completed-lesson/" + this.user.email, JSON.stringify({ "lastCompletedLessonId": this.user.lastCompletedLessonId }), { headers: this._requestOptions.headers })
-        .subscribe(data => { return; });
+      this._authHttp.put("/api/users/last-completed-lesson/" + this.user.email, JSON.stringify({ "lastCompletedLessonId": this.user.lastCompletedLessonId }), this._requestOptions)
+        .subscribe();
     }
   }
 
   saveLessonStatistic(lessonId: number, stat: Statistics) {
-    this._authHttp.put("/api/users/" + this.user.email + "/stats/" + lessonId, JSON.stringify(stat), { headers: this._requestOptions.headers })
+    this._authHttp.put("/api/users/" + this.user.email + "/stats/" + lessonId, JSON.stringify(stat), this._requestOptions)
       .map(data => data.json())
       .subscribe((statWithStar) => {
         this.user.lessonStatistics.set(lessonId, statWithStar);
