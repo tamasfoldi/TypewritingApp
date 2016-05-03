@@ -18,7 +18,6 @@ export class User implements AuthUser {
   private _lessonStatistics: Map<number, Statistics>;
 
   constructor(user?: User) {
-    console.log(user);
     if (user) {
       this.email = user.email;
       this.username = user.username;
@@ -56,12 +55,10 @@ export class User implements AuthUser {
 
 
   get lastCompletedLessonId(): number {
-    console.log(this._lastCompletedLessonId);
     return this._lastCompletedLessonId;
   }
   set lastCompletedLessonId(lessonId: number) {
     this._lastCompletedLessonId = lessonId;
-    console.log(this._lastCompletedLessonId);
   }
 
   get lessonStatistics(): Map<number, Statistics> {
@@ -99,7 +96,6 @@ export class UserService {
         .map(response => response.json())
         .subscribe((user: any) => {
           user.id = user._id;
-          console.log(user._lessonStatistics[0]);
           this._user = new User(user);
         });
     }

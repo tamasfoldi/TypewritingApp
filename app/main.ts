@@ -52,7 +52,7 @@ http.post("https://tamasfo.eu.auth0.com/tokeninfo", JSON.stringify(tokenInfo))
       .map(_response => _response.json())
       .subscribe((user: any) => {
         user.id = user._id;
-        userService.user = user;
+        userService.setUser(user.email);
         bootstrap(AppComponent, [
           LessonService,
           AuthService,
