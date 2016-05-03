@@ -52,7 +52,9 @@ describe('UserService ', () => {
     expect(userService.user.email).toEqual(fakeUser.email);
     expect(userService.user.username).toEqual(fakeUser.username);
     expect(userService.user.password).toEqual(fakeUser.password);
+    expect(userService.user.lessonStatistics).toEqual(new Map<any, any>());    
     expect(userService.user.id).toEqual(fakeUser._id);
+    expect(userService.user.lessonStatistics.size).toBe(0); 
 
     done();
   });
@@ -81,6 +83,28 @@ describe('UserService ', () => {
     userService.saveLessonStatistic(0, <any>{ _numberOfCorrectKeypresses: 1, _numberOfIncorrectKeypresses: 2, _star: 3 });
     expect(userService.user.lessonStatistics.set).toHaveBeenCalled();
     expect(userService.user.lessonStatistics.set).toHaveBeenCalledWith(0, Object({ username: 'Fake User', email: 'test@test.com', password: 'password', lastCompletedLessonId: 1, _id: '0', lessonStatistics: null }));
+    done();
+  });
+
+  it('should set a user with lesson statistics', (done) => {
+    let stats = new Array<Statistics>();
+    stats.push(new Statistics());
+    fakeUser.lessonStatistics = stats;
+    mockbackend.connections.subscribe((connection: MockConnection) => {
+      connection.mockRespond(new Response(new ResponseOptions({ status: 200, body: JSON.stringify(fakeUser) })));
+    });
+
+    expect(userService.user).toBeUndefined();
+    userService.setUser("test@test.com");
+
+
+    expect(userService.user).not.toBeUndefined();
+    expect(userService.user).not.toBeNull();
+    expect(userService.user.email).toEqual(fakeUser.email);
+    expect(userService.user.username).toEqual(fakeUser.username);
+    expect(userService.user.password).toEqual(fakeUser.password);
+    expect(userService.user.id).toEqual(fakeUser._id);
+    expect(userService.user.lessonStatistics.size).not.toBe(0);
     done();
   });
 });
