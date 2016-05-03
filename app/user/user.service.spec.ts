@@ -12,14 +12,14 @@ describe('UserService ', () => {
   let mockbackend: MockBackend,
     userService: UserService,
     authHttp: AuthHttp;
-  let fakeUser: User = new User(<any>{
-    _username: "Fake User",
-    _email: "test@test.com",
-    _password: "password",
-    _lastCompletedLessonId: 1,
+  let fakeUser = {
+    username: "Fake User",
+    email: "test@test.com",
+    password: "password",
+    lastCompletedLessonId: 1,
     _id: "0",
-    _lessonStatistics: null
-  });
+    lessonStatistics: null
+  };
 
   beforeEachProviders(() => [
     BaseRequestOptions,
@@ -49,8 +49,10 @@ describe('UserService ', () => {
 
     expect(userService.user).not.toBeUndefined();
     expect(userService.user).not.toBeNull();
-    expect(userService.user).toEqual(fakeUser);
-    expect(userService.user.id).toEqual(fakeUser.id);
+    expect(userService.user.email).toEqual(fakeUser.email);
+    expect(userService.user.username).toEqual(fakeUser.username);
+    expect(userService.user.password).toEqual(fakeUser.password);
+    expect(userService.user.id).toEqual(fakeUser._id);
 
     done();
   });
@@ -78,7 +80,7 @@ describe('UserService ', () => {
     spyOn(userService.user.lessonStatistics, "set");
     userService.saveLessonStatistic(0, <any>{ _numberOfCorrectKeypresses: 1, _numberOfIncorrectKeypresses: 2, _star: 3 });
     expect(userService.user.lessonStatistics.set).toHaveBeenCalled();
-    expect(userService.user.lessonStatistics.set).toHaveBeenCalledWith(0, Object({ _lessonStatistics: Object({}) }));
+    expect(userService.user.lessonStatistics.set).toHaveBeenCalledWith(0, Object({ username: 'Fake User', email: 'test@test.com', password: 'password', lastCompletedLessonId: 1, _id: '0', lessonStatistics: null }));
     done();
   });
 });

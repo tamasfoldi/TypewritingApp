@@ -18,12 +18,13 @@ export class User implements AuthUser {
   private _lessonStatistics: Map<number, Statistics>;
 
   constructor(user?: User) {
+    console.log(user)
     if (user) {
       this.email = user.email;
       this.username = user.username;
       this.password = user.password;
       this.lastCompletedLessonId = user.lastCompletedLessonId;
-      this.lessonStatistics = (user.lessonStatistics) ? this.setStatisticsFromArray(<any>user.lessonStatistics) : new Map<number, Statistics>();
+      this.lessonStatistics = (user.lessonStatistics && user.lessonStatistics.size === 0) ? this.setStatisticsFromArray(<any>user.lessonStatistics) : new Map<number, Statistics>();
       this._id = user.id;
     } 
   }
@@ -95,6 +96,7 @@ export class UserService {
       this._authHttp.get("/api/users/" + email, this._requestOptions)
         .map(response => response.json())
         .subscribe((user: any) => {
+          console.log(user);
           user.id = user._id;
           this._user = new User(user);
         });
