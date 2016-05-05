@@ -1,8 +1,8 @@
-import { bootstrap } from "angular2/platform/browser";
-import { ComponentRef, provide, ReflectiveInjector } from "angular2/core";
-import { HTTP_PROVIDERS, Http, BaseRequestOptions, Headers, RequestOptions } from "angular2/http";
+import { bootstrap } from "@angular/platform-browser-dynamic";
+import { ComponentRef, provide, ReflectiveInjector } from "@angular/core";
+import { HTTP_PROVIDERS, Http, BaseRequestOptions, Headers, RequestOptions } from "@angular/http";
 import { AuthHttp, AuthConfig, tokenNotExpired } from "angular2-jwt/angular2-jwt";
-import { ROUTER_PROVIDERS } from "angular2/router";
+import { ROUTER_PROVIDERS } from "@angular/router";
 import { AppComponent } from "./app.component";
 import { UserService } from "./user/user.service";
 import { StatisticsService } from "./typewriter/statistics/statistics.service";
