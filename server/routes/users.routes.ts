@@ -64,11 +64,10 @@ userRouter.put("/:email/stats/:id", (req, res) => {
         return;
       }
       user = result[0];
-      if(idParam > user.lastCompletedLessonId && star > 1) {
+      if (idParam > user.lastCompletedLessonId && star > 1) {
         user.lastCompletedLessonId = idParam;
-        db.collection("users").findOneAndUpdate({email: req.params.email}, { $set: { lastCompletedLessonId: idParam } })
+        db.collection("users").findOneAndUpdate({ email: req.params.email }, { $set: { lastCompletedLessonId: idParam } })
       }
-      stat.lastCompletedLessonId = user.lastCompletedLessonId;
       db.collection("statistics").insertOne({ user: user._id, stat }).then(() => { }, () => {
         res.status(401).send("Bad request");
         db.close();
@@ -79,7 +78,8 @@ userRouter.put("/:email/stats/:id", (req, res) => {
       }
       if (!user.lessonStatistics[idParam] || user.lessonStatistics[idParam]._star < star) {
         user.lessonStatistics[idParam] = stat;
-        db.collection("users").updateOne({ email: req.params.email }, user).then(() => { 
+        db.collection("users").updateOne({ email: req.params.email }, user).then(() => {
+          stat.lastCompletedLessonId = user.lastCompletedLessonId;
           res.status(200).send(stat);
           db.close();
         });

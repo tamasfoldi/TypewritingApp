@@ -112,11 +112,9 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
   private setLineChartDatas() {
     let labels = new Array<number>();
     let speeds = new Array<number>();
-    let accuracys = new Array<number>();
     this.snapshots.forEach((snapshot, index) => {
-      labels.push(index * 100);
+      labels.push((index * 100));
       speeds.push(snapshot.typingSeed);
-      accuracys.push(snapshot.accuracy * 100);
     });
     this.lineChartData = {
       labels: labels,
@@ -130,17 +128,7 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
           pointHighlightFill: "#fff",
           pointHighlightStroke: "rgba(220,220,220,1)",
           data: speeds
-        },
-        {
-          label: "Typing accuarcy",
-          fillColor: "rgba(220,220,220,0.2)",
-          strokeColor: "rgba(220,220,220,1)",
-          pointColor: "rgba(220,220,220,1)",
-          pointStrokeColor: "#fff",
-          pointHighlightFill: "#fff",
-          pointHighlightStroke: "rgba(220,220,220,1)",
-          data: accuracys
-        },
+        }
       ]
     };
   }
