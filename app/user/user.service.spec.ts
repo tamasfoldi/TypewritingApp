@@ -25,7 +25,7 @@ describe('UserService ', () => {
     BaseRequestOptions,
     MockBackend,
     UserService,
-    provide(RequestOptions, { useFactory: () => { } }),
+    provide(RequestOptions, { useClass: BaseRequestOptions }),
     provide(AuthHttp, {
       useFactory: (backend, options) => new Http(backend, options),
       deps: [MockBackend, BaseRequestOptions]
