@@ -45,65 +45,68 @@ let requestOptions = injector.get(RequestOptions);
 let tokenInfo = {
   id_token: localStorage.getItem("id_token")
 };
-http.post("https://tamasfo.eu.auth0.com/tokeninfo", JSON.stringify(tokenInfo))
-  .map(response => response.json())
-  .subscribe(_result => {
-    authHttp.get("/api/users/" + _result.email, { headers: requestOptions.headers })
-      .map(_response => _response.json())
-      .subscribe((user: any) => {
-        user.id = user._id;
-        userService.setUser(user.email);
-        bootstrap(AppComponent, [
-          LessonService,
-          AuthService,
-          WaypointService,
-          ROUTER_PROVIDERS,
-          HTTP_PROVIDERS,
-          provide(AuthHttp, {
-            useFactory: (http) => {
-              return new AuthHttp(new AuthConfig({
-                headerName: "Authorization",
-                headerPrefix: "Bearer",
-                tokenName: "id_token",
-                tokenGetter: (() => localStorage.getItem("id_token")),
-                noJwtError: true
-              }), http);
-            },
-            deps: [Http]
-          }),
-          provide(UserService, { useValue: userService }),
-          StatisticsService,
-          provide(RequestOptions, { useClass: MyHeader })
-        ]).then((appRef: ComponentRef) => {
-          appInjector(appRef.injector);
+if (localStorage.getItem("id_token") && tokenNotExpired) {
+  http.post("https://tamasfo.eu.auth0.com/tokeninfo", JSON.stringify(tokenInfo))
+    .map(response => response.json())
+    .subscribe(_result => {
+      authHttp.get("/api/users/" + _result.email, { headers: requestOptions.headers })
+        .map(_response => _response.json())
+        .subscribe((user: any) => {
+          user.id = user._id;
+          userService.setUser(user.email).then(() => {
+            bootstrap(AppComponent, [
+              LessonService,
+              AuthService,
+              WaypointService,
+              ROUTER_PROVIDERS,
+              HTTP_PROVIDERS,
+              provide(AuthHttp, {
+                useFactory: (http) => {
+                  return new AuthHttp(new AuthConfig({
+                    headerName: "Authorization",
+                    headerPrefix: "Bearer",
+                    tokenName: "id_token",
+                    tokenGetter: (() => localStorage.getItem("id_token")),
+                    noJwtError: true
+                  }), http);
+                },
+                deps: [Http]
+              }),
+              provide(UserService, { useValue: userService }),
+              StatisticsService,
+              provide(RequestOptions, { useClass: MyHeader })
+            ]).then((appRef: ComponentRef) => {
+              appInjector(appRef.injector);
+            });
+          });
         });
-      });
-  }, () => {
-    bootstrap(AppComponent, [
-      LessonService,
-      AuthService,
-      WaypointService,
-      ROUTER_PROVIDERS,
-      HTTP_PROVIDERS,
-      provide(AuthHttp, {
-        useFactory: (http) => {
-          return new AuthHttp(new AuthConfig({
-            headerName: "Authorization",
-            headerPrefix: "Bearer",
-            tokenName: "id_token",
-            tokenGetter: (() => localStorage.getItem("id_token")),
-            noJwtError: true
-          }), http);
-        },
-        deps: [Http]
-      }),
-      UserService,
-      StatisticsService,
-      provide(RequestOptions, { useClass: MyHeader })
-    ]).then((appRef: ComponentRef) => {
-      appInjector(appRef.injector);
     });
+} else {
+  bootstrap(AppComponent, [
+    LessonService,
+    AuthService,
+    WaypointService,
+    ROUTER_PROVIDERS,
+    HTTP_PROVIDERS,
+    provide(AuthHttp, {
+      useFactory: (http) => {
+        return new AuthHttp(new AuthConfig({
+          headerName: "Authorization",
+          headerPrefix: "Bearer",
+          tokenName: "id_token",
+          tokenGetter: (() => localStorage.getItem("id_token")),
+          noJwtError: true
+        }), http);
+      },
+      deps: [Http]
+    }),
+    UserService,
+    StatisticsService,
+    provide(RequestOptions, { useClass: MyHeader })
+  ]).then((appRef: ComponentRef) => {
+    appInjector(appRef.injector);
   });
+}
 
 
 
