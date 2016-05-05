@@ -15,6 +15,8 @@ export class User implements AuthUser {
   private _username: string;
   private _password: string;
   private _lastCompletedLessonId: number;
+  private _level: number;
+  private _xp: number;
   private _lessonStatistics: Map<number, Statistics>;
 
   constructor(user?: User) {
@@ -22,6 +24,8 @@ export class User implements AuthUser {
       this.email = user.email;
       this.username = user.username;
       this.password = user.password;
+      this.level = user.level;
+      this.xp = user.xp;
       this.lastCompletedLessonId = user.lastCompletedLessonId;
       this.lessonStatistics = (user.lessonStatistics) ? this.setStatisticsFromArray(<any>user.lessonStatistics) : new Map<number, Statistics>();
       this._id = user.id;
@@ -45,7 +49,21 @@ export class User implements AuthUser {
   set password(password: string) {
     this._password = password;
   }
+  
+  get level(): number {
+    return this._level;
+  }
+  set level(level: number) {
+    this._level = level;
+  }
 
+  get xp(): number {
+    return this._xp;
+  }
+  set xp(xp: number) {
+    this._xp = xp;
+  }
+  
   get email(): string {
     return this._email;
   }
@@ -111,6 +129,8 @@ export class UserService {
         if (statWithStar.lastCompletedLessonId) {
           this.user.lastCompletedLessonId = statWithStar.lastCompletedLessonId;
         }
+        this.user.xp = statWithStar.xp;
+        this.user.level = statWithStar.level;
         this.user.lessonStatistics.set(lessonId, statWithStar);
       });
   }

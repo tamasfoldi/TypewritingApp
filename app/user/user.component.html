@@ -1,2 +1,4 @@
 <h1>{{_userService.user?.username}}</h1>
+<p>Level: {{_userService.user?.level}}</p>
+<p>Xp: {{_userService.user?.xp}}</p>
 <p-pieChart *ngIf="_userService.user" [value]="_statisticsService?.getCorrectness(_userService?.user.id) | async | correctnessPie" width="300" height="300"></p-pieChart>

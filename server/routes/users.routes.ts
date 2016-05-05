@@ -18,6 +18,14 @@ userRouter.get("/:email", (req, res) => {
         return;
       }
       var user = result[0];
+      if (!user.level) {
+        user.level = 1;
+      }
+      if (!user.xp) {
+        user.xp = 0;
+      }
+      db.collection("users").findOneAndUpdate({ email: req.params.email }, { $set: { xp: user.xp, level: user.level } })
+
       if (!user.lastCompletedLessonId && user.lastCompletedLessonId !== 0) {
         user.lastCompletedLessonId = -1;
       }
@@ -56,17 +64,21 @@ userRouter.put("/:email/stats/:id", (req, res) => {
     let stat = req.body;
     let idParam = parseInt(req.params.id);
     let user;
-    stat._star = star;
     db.collection("users").find({ email: req.params.email }).limit(1).toArray((err, result) => {
       if (err) {
         res.status(404).send("User not found");
         db.close();
         return;
       }
+
       user = result[0];
+      user = increaseUserXp(user, getLessonXp(user, idParam));
+      stat.xp = user.xp;
+      stat.level = user.level;
+      stat._star = Math.max(star, user.lessonStatistics[idParam]._star);
+
       if (idParam > user.lastCompletedLessonId && star > 1) {
         user.lastCompletedLessonId = idParam;
-        db.collection("users").findOneAndUpdate({ email: req.params.email }, { $set: { lastCompletedLessonId: idParam } })
       }
       db.collection("statistics").insertOne({ user: user._id, stat }).then(() => { }, () => {
         res.status(401).send("Bad request");
@@ -78,15 +90,25 @@ userRouter.put("/:email/stats/:id", (req, res) => {
       }
       if (!user.lessonStatistics[idParam] || user.lessonStatistics[idParam]._star < star) {
         user.lessonStatistics[idParam] = stat;
-        db.collection("users").updateOne({ email: req.params.email }, user).then(() => {
-          stat.lastCompletedLessonId = user.lastCompletedLessonId;
-          res.status(200).send(stat);
-          db.close();
-        });
-      } else {
-        res.status(200).send(user.lessonStatistics[idParam]);
-        db.close();
       }
+      db.collection("users").updateOne({ email: req.params.email }, user).then(() => {
+        stat.lastCompletedLessonId = user.lastCompletedLessonId; 
+        res.status(200).send(stat);
+        db.close();
+      });
     });
   });
-})
+});
+
+function getLessonXp(user, lessonId): number {
+  return 10;
+}
+
+function increaseUserXp(user, xp) {
+  user.xp += xp;
+  if (user.xp === 100) {
+    user.xp = 0;
+    user.level++;
+  }
+  return user;
+}
