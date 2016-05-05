@@ -37,18 +37,12 @@ export class CorrectnessPipe implements PipeTransform {
   return hasLoggedInUser(next, prev);
 })
 export class UserComponent implements OnInit {
-  private data: any;
   constructor(
     private _userService: UserService,
     private _statisticsService: StatisticsService
   ) { }
 
-  ngOnInit() {
-    this._statisticsService.getCorrectness(this._userService.user.id)
-      .subscribe(data => {
-        this.data = data
-      });
-  }
+  ngOnInit() { }
 }
 
 
