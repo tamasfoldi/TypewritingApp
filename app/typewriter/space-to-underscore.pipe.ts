@@ -1,6 +1,6 @@
-import { Pipe, PipeTransform } from "angular2/core";
-import {isString, isPresent} from "angular2/src/facade/lang";
-import {BaseException} from "angular2/src/facade/exceptions";
+import { Pipe, PipeTransform } from "@angular/core";
+import { isString, isPresent } from "@angular/core/src/facade/lang";
+import { BaseException } from "@angular/src/facade/exceptions";
 
 @Pipe({ name: "spaceToUnderscore" })
 export class SpaceToUnderscorePipe implements PipeTransform {

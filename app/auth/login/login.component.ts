@@ -1,13 +1,14 @@
-import { Component, OnInit } from "angular2/core";
-import { RouterLink, Router } from "angular2/router";
+import { Component, OnInit } from "@angular/core";
+import { ROUTER_DIRECTIVES, Router } from "@angular/router";
 import { AuthService, Auth0Response } from "../auth.service";
 import { User } from "../../user/user.service";
-import { FormBuilder, ControlGroup, Control, Validators } from "angular2/common";
+import { FormBuilder, ControlGroup, Control, Validators } from "@angular/common";
 
 @Component({
+  moduleId: module.id,
   selector: "tpw-login",
-  templateUrl: "app/auth/login/login.component.html",
-  directives: [RouterLink]
+  templateUrl: "login.component.html",
+  directives: [ROUTER_DIRECTIVES]
 })
 export class LoginComponent implements OnInit {
 

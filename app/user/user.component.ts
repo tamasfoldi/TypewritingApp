@@ -1,11 +1,11 @@
-import { Component, OnInit } from "angular2/core";
+import { Component, OnInit } from "@angular/core";
 import { UserService, User } from "./user.service";
 import { StatisticsService, Correctness } from "../typewriter/statistics/statistics.service";
-import { CanActivate } from "angular2/router";
+import {  } from "@angular/router";
 import { hasLoggedInUser } from "../util/can-activate";
 import { Observable } from "rxjs/Rx";
 import { PieChart } from "primeng/primeng";
-import { Pipe, PipeTransform } from "angular2/core";
+import { Pipe, PipeTransform } from "@angular/core";
 
 @Pipe({
   name: "correctnessPie"
@@ -28,13 +28,11 @@ export class CorrectnessPipe implements PipeTransform {
 }
 
 @Component({
+  moduleId: module.id,
   selector: "tpw-user",
-  templateUrl: "app/user/user.component.html",
+  templateUrl: "user.component.html",
   directives: [PieChart],
   pipes: [CorrectnessPipe]
-})
-@CanActivate((next, prev) => {
-  return hasLoggedInUser(next, prev);
 })
 export class UserComponent implements OnInit {
   private data: any;

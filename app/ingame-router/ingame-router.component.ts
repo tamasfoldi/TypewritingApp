@@ -1,19 +1,17 @@
-import { Component } from "angular2/core";
-import { RouteConfig, Router, ROUTER_DIRECTIVES, CanActivate } from "angular2/router";
+import { Component } from "@angular/core";
+import { Routes, Router, ROUTER_DIRECTIVES } from "@angular/router";
 import { TypewriterComponent } from "../typewriter/typewriter.component";
 import { MapComponent } from "../map/map.component";
 import { hasLoggedInUser } from "../util/can-activate";
 
 @Component({
+  moduleId: module.id,
   selector: "tpw-ingame-router",
-  templateUrl: "app/ingame-router/ingame-router.component.html",
+  templateUrl: "ingame-router.component.html",
   directives: [ROUTER_DIRECTIVES]
 })
-@RouteConfig([
-  { path: "/map", name: "Map", component: MapComponent, useAsDefault: true },
-  { path: "/lesson/:id", name: "Typewriter", component: TypewriterComponent }
+@Routes([
+  { path: "/map", component: MapComponent },
+  { path: "/lesson/:id", component: TypewriterComponent }
 ])
-@CanActivate((next, prev) => {
-  return hasLoggedInUser(next, prev);
-})
 export class IngameRouterComponent { }

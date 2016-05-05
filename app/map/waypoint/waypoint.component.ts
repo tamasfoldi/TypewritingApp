@@ -1,12 +1,13 @@
-import { Component, Input, Output, EventEmitter } from "angular2/core";
-import { Router } from "angular2/router";
+import { Component, Input, Output, EventEmitter } from "@angular/core";
+import { Router } from "@angular/router";
 import { Waypoint } from "./waypoint.service";
 import { UserService } from "../../user/user.service";
-import {BaseException} from 'angular2/src/facade/exceptions';
+import { BaseException } from '@angular/core/src/facade/exceptions';
 
 @Component({
+  moduleId: module.id,
   selector: "tpw-waypoint",
-  templateUrl: "app/map/waypoint/waypoint.component.html",
+  templateUrl: "waypoint.component.html",
 })
 export class WaypointComponent {
   @Input()

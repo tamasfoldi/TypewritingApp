@@ -1,7 +1,7 @@
-import { Component, OnInit, Injector, Input, Output, EventEmitter, ElementRef, ViewChild, ContentChild, AfterViewInit } from "angular2/core";
+import { Component, OnInit, Injector, Input, Output, EventEmitter, ElementRef, ViewChild, ContentChild, AfterViewInit } from "@angular/core";
 import { LessonService, Lesson } from "../lesson/lesson.service";
-import { Pipe, PipeTransform } from "angular2/core";
-import { RouteParams, Router, CanActivate, ComponentInstruction } from "angular2/router";
+import { Pipe, PipeTransform } from "@angular/core";
+import { Routes, Router } from "@angular/router";
 import { Statistics, StatisticSnapshot } from "./statistics/statistics.service";
 import { StatisticsComponent } from "./statistics/statistics.component";
 import { BlinkingCursorComponent } from "../util/blinking-cursor/blinking-cursor.component";
@@ -12,25 +12,12 @@ import { LessonTextCutPipe } from "./lesson-text-cut.pipe";
 import { SpaceToUnderscorePipe } from "./space-to-underscore.pipe";
 
 @Component({
+  moduleId: module.id,
   selector: "tpw-typewriter",
-  templateUrl: "app/typewriter/typewriter.component.html",
-  styleUrls: ["app/typewriter/typewriter.component.css"],
+  templateUrl: "typewriter.component.html",
+  styleUrls: ["typewriter.component.css"],
   pipes: [LessonTextCutPipe, SpaceToUnderscorePipe],
   directives: [StatisticsComponent, BlinkingCursorComponent, LineChart]
-})
-@CanActivate((next: ComponentInstruction, prev: ComponentInstruction) => {
-  let injector: Injector = appInjector();
-  let _router: Router = appInjector().get(Router);
-  let _userService: UserService = appInjector().get(UserService);
-
-  return new Promise((resolve) => {
-    if (_userService.user && _userService.user.lastCompletedLessonId + 1 >= parseInt(next.params["id"])) { //
-      resolve(true);
-    } else {
-      _router.navigate(["Game"]);
-      resolve(false);
-    }
-  });
 })
 export class TypewriterComponent implements OnInit, AfterViewInit {
   @ViewChild("focus")
@@ -48,7 +35,7 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
     private _lessonService: LessonService,
     private _userService: UserService,
     private _router: Router,
-    private _routeParams: RouteParams
+    private _routeParams: any
   ) { }
 
   ngOnInit() {
