@@ -1,9 +1,10 @@
-import { Component } from "angular2/core";
+import { Component } from "@angular/core";
 
 @Component({
+  moduleId: module.id,
   selector: "blinking-cursor",
-  templateUrl: "app/util/blinking-cursor/blinking-cursor.component.html",
-  styleUrls: ["app/util/blinking-cursor/blinking-cursor.component.css"]
+  templateUrl: "blinking-cursor.component.html",
+  styleUrls: ["blinking-cursor.component.css"]
 })
 export class BlinkingCursorComponent {
 }

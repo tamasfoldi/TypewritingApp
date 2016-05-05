@@ -9,8 +9,9 @@ import { IngameRouterComponent } from "./ingame-router/ingame-router.component";
 
 
 @Component({
+  moduleId: module.id,
   selector: "tpw-app",
-  templateUrl: "app/app.component.html",
+  templateUrl: "app.component.html",
   directives: [ROUTER_DIRECTIVES]
 })
 @Routes([

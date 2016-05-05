@@ -1,9 +1,9 @@
-import { Injector } from "angular2/core";
-import { Router, ComponentInstruction } from "angular2/router";
+import { Injector } from "@angular/core";
+import { Router } from "@angular/router";
 import { appInjector } from "../app-injector";
 import { tokenNotExpired } from "angular2-jwt/angular2-jwt";
 
-export function hasLoggedInUser(next: ComponentInstruction, prev: ComponentInstruction): Promise<boolean> {
+export function hasLoggedInUser(next: any, prev: any): Promise<boolean> {
   let injector: Injector = appInjector();
   let _router: Router = injector.get(Router);
 
