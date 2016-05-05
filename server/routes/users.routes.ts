@@ -73,9 +73,8 @@ userRouter.put("/:email/stats/:id", (req, res) => {
 
       user = result[0];
       user = increaseUserXp(user, getLessonXp(user, idParam));
-      stat.xp = user.xp;
-      stat.level = user.level;
-      stat._star = Math.max(star, user.lessonStatistics[idParam]._star);
+      stat._star = user.lessonStatistics[idParam] ? Math.max(star, user.lessonStatistics[idParam]._star) : star;
+
 
       if (idParam > user.lastCompletedLessonId && star > 1) {
         user.lastCompletedLessonId = idParam;
@@ -92,7 +91,9 @@ userRouter.put("/:email/stats/:id", (req, res) => {
         user.lessonStatistics[idParam] = stat;
       }
       db.collection("users").updateOne({ email: req.params.email }, user).then(() => {
-        stat.lastCompletedLessonId = user.lastCompletedLessonId; 
+        stat.lastCompletedLessonId = user.lastCompletedLessonId;
+        stat.xp = user.xp;
+        stat.level = user.level;
         res.status(200).send(stat);
         db.close();
       });
