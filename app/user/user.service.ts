@@ -91,16 +91,16 @@ export class UserService {
   }
 
   setUser(email: string): Promise<any> {
-    return new Promise<any>((resolve, reject) => {
-      if (!this._user) {
+    return new Promise<any>((resolve, reject) => { 
+      if (!this._user) { 
         this._authHttp.get("/api/users/" + email, this._requestOptions)
           .map(response => response.json())
-          .subscribe((user: any) => {
+          .subscribe((user: any) => { 
             user.id = user._id;
             this._user = new User(user);
+            resolve(); 
           });
       }
-      resolve();
     });
   }
 
@@ -108,7 +108,7 @@ export class UserService {
     this._authHttp.put("/api/users/" + this.user.email + "/stats/" + lessonId, JSON.stringify(stat), { headers: this._requestOptions.headers })
       .map(data => data.json())
       .subscribe((statWithStar) => {
-        if(statWithStar.lastCompletedLessonId) {
+        if (statWithStar.lastCompletedLessonId) {
           this.user.lastCompletedLessonId = statWithStar.lastCompletedLessonId;
         }
         this.user.lessonStatistics.set(lessonId, statWithStar);
