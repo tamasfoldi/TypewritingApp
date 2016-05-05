@@ -69,27 +69,34 @@ userRouter.put("/:email/stats/:id", (req, res) => {
         res.status(404).send("User not found");
         db.close();
         return;
-      }
-
+      } 
       user = result[0];
-      user = increaseUserXp(user, getLessonXp(user, idParam));
-      stat._star = user.lessonStatistics[idParam] ? Math.max(star, user.lessonStatistics[idParam]._star) : star;
 
-
-      if (idParam > user.lastCompletedLessonId && star > 1) {
-        user.lastCompletedLessonId = idParam;
-      }
       db.collection("statistics").insertOne({ user: user._id, stat }).then(() => { }, () => {
         res.status(401).send("Bad request");
         db.close();
         return;
       });
+
+      user = increaseUserXp(user, getLessonXp(user, idParam));
+
       if (!user.lessonStatistics) {
         user.lessonStatistics = [];
       }
+      if(!user.lastCompletedLessonId) {
+        user.lastCompletedLessonId = 0;
+      }
+      
       if (!user.lessonStatistics[idParam] || user.lessonStatistics[idParam]._star < star) {
         user.lessonStatistics[idParam] = stat;
       }
+      
+      if (idParam > user.lastCompletedLessonId && star > 1) {
+        user.lastCompletedLessonId = idParam;
+      }
+      
+      stat._star = user.lessonStatistics[idParam] ? Math.max(star, user.lessonStatistics[idParam]._star) : star;
+
       db.collection("users").updateOne({ email: req.params.email }, user).then(() => {
         stat.lastCompletedLessonId = user.lastCompletedLessonId;
         stat.xp = user.xp;
