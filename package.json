@@ -12,7 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "angular2": "2.0.0-beta.17",
-    "angular2-jwt": "0.1.9",
+    "angular2-jwt": "0.1.13",
     "body-parser": "1.15.0",
     "es6-promise": "3.0.2",
     "es6-shim": "0.35.0",

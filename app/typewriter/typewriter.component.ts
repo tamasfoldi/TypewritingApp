@@ -103,7 +103,6 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
     this.setLineChartDatas();
     this.focus.nativeElement.blur();
     this._statistics.stopTime = Date.now();
-    this._userService.updateLastCompletedLesson(this.lesson.id);
     this._userService.saveLessonStatistic(this.lesson.id, this._statistics);
     setTimeout(() => {
       this._router.navigate(["Map"]);

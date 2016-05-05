@@ -59,21 +59,6 @@ describe('UserService ', () => {
     done();
   });
 
-  it('should update the last completed lesson id', (done) => {
-    mockbackend.connections.subscribe((connection: MockConnection) => {
-      connection.mockRespond(new Response(new ResponseOptions({ status: 200, body: JSON.stringify(fakeUser) })));
-    });
-    userService.setUser("test@test.com");
-    userService.updateLastCompletedLesson(3);
-    expect(userService.user.lastCompletedLessonId).toBe(3);
-    userService.updateLastCompletedLesson(2);
-    expect(userService.user.lastCompletedLessonId).toBe(3);
-    userService.updateLastCompletedLesson(4);
-    expect(userService.user.lastCompletedLessonId).toBe(4);
-
-    done();
-  });
-
   it('should save the lesson statistics', (done) => {
     mockbackend.connections.subscribe((connection: MockConnection) => {
       connection.mockRespond(new Response(new ResponseOptions({ status: 200, body: JSON.stringify(fakeUser) })));

@@ -104,18 +104,11 @@ export class UserService {
     });
   }
 
-  updateLastCompletedLesson(lessonId: number) {
-    if (lessonId > this.user.lastCompletedLessonId || !this.user.lastCompletedLessonId) {
-      this.user.lastCompletedLessonId = lessonId;
-      this._authHttp.put("/api/users/last-completed-lesson/" + this.user.email, JSON.stringify({ "lastCompletedLessonId": this.user.lastCompletedLessonId }), this._requestOptions)
-        .subscribe();
-    }
-  }
-
   saveLessonStatistic(lessonId: number, stat: Statistics) {
     this._authHttp.put("/api/users/" + this.user.email + "/stats/" + lessonId, JSON.stringify(stat), { headers: this._requestOptions.headers })
       .map(data => data.json())
       .subscribe((statWithStar) => {
+        this.user.lastCompletedLessonId = statWithStar.lastCompletedLessonId
         this.user.lessonStatistics.set(lessonId, statWithStar);
       });
   }
