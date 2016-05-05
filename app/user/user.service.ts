@@ -2,6 +2,8 @@ import { Injectable, Inject } from "angular2/core";
 import { AuthHttp } from "angular2-jwt/angular2-jwt";
 import { RequestOptions } from "angular2/http";
 import {Statistics} from "../typewriter/statistics/statistics.service";
+import { isNumber, isType } from "angular2/src/facade/lang";
+
 
 export interface AuthUser {
   email: string;
@@ -126,7 +128,7 @@ export class UserService {
     this._authHttp.put("/api/users/" + this.user.email + "/stats/" + lessonId, JSON.stringify(stat), { headers: this._requestOptions.headers })
       .map(data => data.json())
       .subscribe((statWithStar) => {
-        if (statWithStar.lastCompletedLessonId) {
+        if (isNumber(statWithStar.lastCompletedLessonId)) {
           this.user.lastCompletedLessonId = statWithStar.lastCompletedLessonId;
         }
         this.user.xp = statWithStar.xp;
