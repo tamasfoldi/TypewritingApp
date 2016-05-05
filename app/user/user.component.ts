@@ -5,6 +5,7 @@ import { CanActivate } from "angular2/router";
 import { hasLoggedInUser } from "../util/can-activate";
 import { Observable } from "rxjs/Rx";
 import { PieChart } from "primeng/primeng";
+import { ProgressBar } from 'primeng/primeng';
 import { Pipe, PipeTransform } from "angular2/core";
 
 @Pipe({
@@ -30,7 +31,7 @@ export class CorrectnessPipe implements PipeTransform {
 @Component({
   selector: "tpw-user",
   templateUrl: "app/user/user.component.html",
-  directives: [PieChart],
+  directives: [PieChart, ProgressBar],
   pipes: [CorrectnessPipe]
 })
 @CanActivate((next, prev) => {
