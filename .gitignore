@@ -3,4 +3,5 @@
 /.vscode
 **/*.js
 !wallaby.js
+!*.config.js
 **/*.js.map
