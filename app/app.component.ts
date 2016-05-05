@@ -1,10 +1,10 @@
-import { Component, OnInit } from "angular2/core";
-import { RouteConfig, ROUTER_DIRECTIVES, Router } from "angular2/router";
+import { Component, OnInit } from "@angular/core";
+import { ROUTER_DIRECTIVES, Router, Routes } from "@angular/router";
 import { AuthRouterComponent } from "./auth/auth-router.component";
 import { AuthHttp, tokenNotExpired } from "angular2-jwt/angular2-jwt";
 import { UserService } from "./user/user.service";
 import { UserComponent } from "./user/user.component";
-import { Http } from "angular2/http";
+import { Http } from "@angular/http";
 import { IngameRouterComponent } from "./ingame-router/ingame-router.component";
 
 
@@ -13,10 +13,10 @@ import { IngameRouterComponent } from "./ingame-router/ingame-router.component";
   templateUrl: "app/app.component.html",
   directives: [ROUTER_DIRECTIVES]
 })
-@RouteConfig([
-  { path: "/auth/...", name: "Auth", component: AuthRouterComponent },
-  { path: "/game/...", name: "Game", component: IngameRouterComponent, useAsDefault: true },
-  { path: '/user', name: 'User', component: UserComponent }
+@Routes([
+  { path: "/auth/...", component: AuthRouterComponent },
+  { path: "/game/...", component: IngameRouterComponent },
+  { path: '/user', component: UserComponent }
 ])
 export class AppComponent {
   constructor(
@@ -34,5 +34,5 @@ export class AppComponent {
     localStorage.removeItem("id_token");
     this._router.navigate(["Auth"]);
   }
-  
+
 }
