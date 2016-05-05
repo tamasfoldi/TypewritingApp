@@ -77,17 +77,7 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
   private handleInputChar(char: string) {
     if (this.wasItCorrectChar(char)) {
       if (this.wasTheFirstPress(char)) {
-        this.snaphotCreater = setInterval(() => {
-          let snapshot: StatisticSnapshot = {
-            createdAt: Date.now(),
-            numberOfCorrectKeypresses: this._statistics.numberOfCorrectKeypresses,
-            numberOfIncorrectKeypresses: this._statistics.numberOfIncorrectKeypresses,
-            typingSeed: this._statistics.numberOfCorrectKeypresses / ((Date.now() - this._statistics.startTime) / 1000),
-            accuracy: this._statistics.accuracy
-          }
-          this.snapshots.push(snapshot);
-        }, 100);
-        this._statistics.startTime = Date.now();
+        this.handleFirsPress();
       }
       this._typedText = this._typedText + char;
       this._statistics.numberOfCorrectKeypresses++;
@@ -96,6 +86,20 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
         this._statistics.numberOfIncorrectKeypresses++;
       }
     }
+  }
+
+  private handleFirsPress() {
+    this.snaphotCreater = setInterval(() => {
+      let snapshot: StatisticSnapshot = {
+        createdAt: Date.now(),
+        numberOfCorrectKeypresses: this._statistics.numberOfCorrectKeypresses,
+        numberOfIncorrectKeypresses: this._statistics.numberOfIncorrectKeypresses,
+        typingSeed: this._statistics.numberOfCorrectKeypresses / ((Date.now() - this._statistics.startTime) / 1000),
+        accuracy: this._statistics.accuracy
+      }
+      this.snapshots.push(snapshot);
+    }, 100);
+    this._statistics.startTime = Date.now();
   }
 
   private handleLessonEnd() {
