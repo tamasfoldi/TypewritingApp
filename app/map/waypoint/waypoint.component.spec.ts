@@ -45,14 +45,13 @@ describe('WaypointComponent', () => {
   it('should throw an error if the lesson is not unlocked', done => {
     tcb.createAsync(WaypointComponent).then(fixture => {
       let waypointComponent: WaypointComponent = fixture.componentInstance;
+      spyOn(waypointComponent, "handleInvalidGameSelect").and.callThrough();
       waypointComponent.waypoint = { id: 10, posX: 0, posY: 10 };
       spyOn(waypointComponent, "gameStart").and.callThrough();
       let element = fixture.nativeElement;
       fixture.detectChanges(); //trigger change detection
-      expect(() => waypointComponent.gameStart()).toThrow();
-      expect(() => waypointComponent.gameStart()).toThrowError('You dont have permission to open this!');
-      expect(() => waypointComponent.gameStart()).toThrowError(BaseException);
-      expect(() => waypointComponent.gameStart()).toThrowError(BaseException, 'You dont have permission to open this!');
+      waypointComponent.gameStart();
+      expect(waypointComponent.handleInvalidGameSelect).toHaveBeenCalled();
       done();
     });
   });

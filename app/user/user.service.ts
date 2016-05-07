@@ -128,7 +128,7 @@ export class UserService {
     this._authHttp.put("/api/users/" + this.user.email + "/stats/" + lessonId, JSON.stringify(stat), { headers: this._requestOptions.headers })
       .map(data => data.json())
       .subscribe((statWithStar) => {
-        if (isNumber(statWithStar.lastCompletedLessonId)) {
+        if (isNumber(parseInt(statWithStar.lastCompletedLessonId))) {
           this.user.lastCompletedLessonId = statWithStar.lastCompletedLessonId;
         }
         this.user.xp = statWithStar.xp;

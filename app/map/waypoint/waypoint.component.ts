@@ -6,12 +6,20 @@ import {BaseException} from 'angular2/src/facade/exceptions';
 
 @Component({
   selector: "tpw-waypoint",
+  styles: [
+    `.waypoint {
+      width: 100px;
+      height: 100px;
+      background: red;
+      margin: 1px;
+    }`
+  ],
   templateUrl: "app/map/waypoint/waypoint.component.html",
 })
 export class WaypointComponent {
   @Input()
   waypoint: Waypoint;
-  
+
   @Input()
   star: number;
 
@@ -21,10 +29,15 @@ export class WaypointComponent {
   ) { }
 
   gameStart() {
+    console.log(this.waypoint.id <= this._userService.user.lastCompletedLessonId + 1);
     if (this.waypoint.id <= this._userService.user.lastCompletedLessonId + 1) {
-      this._router.navigate(["Typewriter", {id: this.waypoint.id}]);
+      this._router.navigate(["Typewriter", { id: this.waypoint.id }]);
     } else {
-      throw new BaseException("You dont have permission to open this!");
+      this.handleInvalidGameSelect()
     }
+  }
+  
+  handleInvalidGameSelect() {
+    
   }
 }

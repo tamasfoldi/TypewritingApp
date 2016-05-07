@@ -69,7 +69,7 @@ describe('MapComponent', () => {
       let element = fixture.nativeElement;
       fixture.detectChanges(); //trigger change detection
       
-      expect(element.querySelectorAll('tpw-waypoint')[0].children[1].tagName).toBe('TPW-FIGURE');
+      expect(element.querySelectorAll('.waypoint')[0].children[0].tagName).toBe('TPW-FIGURE');
       done();
     });
   });
