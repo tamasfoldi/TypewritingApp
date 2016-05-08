@@ -81,6 +81,7 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
       }
       this._typedText = this._typedText + char;
       this._statistics.numberOfCorrectKeypresses++;
+      console.log("sadf");
     } else {
       if (!this.wasTheFirstPress(char)) {
         this._statistics.numberOfIncorrectKeypresses++;
@@ -89,6 +90,7 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
   }
 
   private handleFirsPress() {
+    this._statistics.startTime = Date.now();
     this.snaphotCreater = setInterval(() => {
       let snapshot: StatisticSnapshot = {
         createdAt: Date.now(),
@@ -98,8 +100,7 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
         accuracy: this._statistics.accuracy
       }
       this.snapshots.push(snapshot);
-    }, 100);
-    this._statistics.startTime = Date.now();
+    }, 10);
   }
 
   private handleLessonEnd() {
@@ -116,10 +117,19 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
   private setLineChartDatas() {
     let labels = new Array<number>();
     let speeds = new Array<number>();
+    if (this.snapshots.length > 25) {
+      let tmp = Math.floor(this.snapshots.length / 25);
+      this.snapshots = this.snapshots.filter((v, i) => {
+        return i % tmp === 0 || i === 0 || i === this.snapshots.length - 1;
+      });
+    }
     this.snapshots.forEach((snapshot, index) => {
-      labels.push((index * 100));
-      speeds.push(snapshot.typingSeed);
+      if (index !== 0) {
+        labels.push(Math.floor((snapshot.createdAt - this._statistics.startTime) / 10) * 10);
+        speeds.push(snapshot.typingSeed);
+      }
     });
+
     this.lineChartData = {
       labels: labels,
       datasets: [
