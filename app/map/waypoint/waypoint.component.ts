@@ -29,7 +29,6 @@ export class WaypointComponent {
   ) { }
 
   gameStart() {
-    console.log(this.waypoint.id <= this._userService.user.lastCompletedLessonId + 1);
     if (this.waypoint.id <= this._userService.user.lastCompletedLessonId + 1) {
       this._router.navigate(["Typewriter", { id: this.waypoint.id }]);
     } else {

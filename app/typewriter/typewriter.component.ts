@@ -81,7 +81,6 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
       }
       this._typedText = this._typedText + char;
       this._statistics.numberOfCorrectKeypresses++;
-      console.log("sadf");
     } else {
       if (!this.wasTheFirstPress(char)) {
         this._statistics.numberOfIncorrectKeypresses++;
@@ -117,10 +116,10 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
   private setLineChartDatas() {
     let labels = new Array<number>();
     let speeds = new Array<number>();
-    if (this.snapshots.length > 25) {
-      let tmp = Math.floor(this.snapshots.length / 25);
+    if (this.snapshots.length > 50) {
+      let divider = Math.floor(this.snapshots.length / 50);
       this.snapshots = this.snapshots.filter((v, i) => {
-        return i % tmp === 0 || i === 0 || i === this.snapshots.length - 1;
+        return i % divider === 0 || i === 0 || i === this.snapshots.length - 1;
       });
     }
     this.snapshots.forEach((snapshot, index) => {
