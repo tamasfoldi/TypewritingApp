@@ -74,7 +74,7 @@ http.post("https://tamasfo.eu.auth0.com/tokeninfo", JSON.stringify(tokenInfo))
           provide(UserService, { useValue: userService }),
           StatisticsService,
           provide(RequestOptions, { useClass: MyHeader })
-        ]).then((appRef: ComponentRef) => {
+        ]).then((appRef: ComponentRef<any>) => {
           appInjector(appRef.injector);
         });
       });
@@ -100,16 +100,7 @@ http.post("https://tamasfo.eu.auth0.com/tokeninfo", JSON.stringify(tokenInfo))
       UserService,
       StatisticsService,
       provide(RequestOptions, { useClass: MyHeader })
-    ]).then((appRef: ComponentRef) => {
+    ]).then((appRef: ComponentRef<any>) => {
       appInjector(appRef.injector);
     });
   });
-
-// import { bootstrap }    from '@angular/platform-browser-dynamic';
-
-// import { AppComponent } from './app.component';
-
-// bootstrap(AppComponent);
-
-
-
