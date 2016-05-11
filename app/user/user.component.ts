@@ -4,7 +4,7 @@ import { StatisticsService, Correctness } from "../typewriter/statistics/statist
 import {  } from "@angular/router";
 import { hasLoggedInUser } from "../util/can-activate";
 import { Observable } from "rxjs/Rx";
-import { PieChart } from "primeng/primeng";
+// import { PieChart } from "primeng/primeng";
 import { Pipe, PipeTransform } from "@angular/core";
 
 @Pipe({
@@ -31,7 +31,7 @@ export class CorrectnessPipe implements PipeTransform {
   moduleId: module.id,
   selector: "tpw-user",
   templateUrl: "user.component.html",
-  directives: [PieChart],
+  directives: [], // PieChart
   pipes: [CorrectnessPipe]
 })
 export class UserComponent implements OnInit {
