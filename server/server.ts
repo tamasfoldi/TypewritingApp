@@ -27,6 +27,11 @@ app.use("/api/statistics", statisticsRouter);
 let renderIndex = (req, res) => {
   res.sendFile(path.resolve(__dirname, "../index.html"));
 };
+let renderSystemJsConf = (req, res) => {
+  res.sendFile(path.resolve(__dirname, "../systemjs.config.js"));
+};
+
+app.get("/systemjs.config.js", renderSystemJsConf);
 app.get("/*", renderIndex);
 
 app.listen(3000, function () {
