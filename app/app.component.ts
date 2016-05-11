@@ -17,7 +17,7 @@ import { IngameRouterComponent } from "./ingame-router/ingame-router.component";
 @Routes([
   { path: "auth", component: AuthRouterComponent },
   { path: "game", component: IngameRouterComponent },
-  { path: 'user', component: UserComponent }
+  { path: "user", component: UserComponent }
 ])
 export class AppComponent {
   constructor(
