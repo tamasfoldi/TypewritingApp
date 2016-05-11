@@ -10,7 +10,7 @@ import { AuthService } from "./auth/auth.service";
 import { WaypointService } from "./map/waypoint/waypoint.service";
 import { LessonService } from "./lesson/lesson.service";
 import { appInjector } from "./app-injector";
-import 'rxjs/Rx';
+import "rxjs/Rx";
 
 class MyHeader extends BaseRequestOptions {
   headers: Headers = new Headers();
@@ -45,62 +45,64 @@ let requestOptions = injector.get(RequestOptions);
 let tokenInfo = {
   id_token: localStorage.getItem("id_token")
 };
-http.post("https://tamasfo.eu.auth0.com/tokeninfo", JSON.stringify(tokenInfo))
-  .map(response => response.json())
-  .subscribe(_result => {
-    authHttp.get("/api/users/" + _result.email, { headers: requestOptions.headers })
-      .map(_response => _response.json())
-      .subscribe((user: any) => {
-        user.id = user._id;
-        userService.setUser(user.email);
-        bootstrap(AppComponent, [
-          LessonService,
-          AuthService,
-          WaypointService,
-          ROUTER_PROVIDERS,
-          HTTP_PROVIDERS,
-          provide(AuthHttp, {
-            useFactory: (http) => {
-              return new AuthHttp(new AuthConfig({
-                headerName: "Authorization",
-                headerPrefix: "Bearer",
-                tokenName: "id_token",
-                tokenGetter: (() => localStorage.getItem("id_token")),
-                noJwtError: true
-              }), http);
-            },
-            deps: [Http]
-          }),
-          provide(UserService, { useValue: userService }),
-          StatisticsService,
-          provide(RequestOptions, { useClass: MyHeader })
-        ]).then((appRef: ComponentRef<any>) => {
-          appInjector(appRef.injector);
+if (localStorage.getItem("id_toke") && tokenNotExpired()) {
+  http.post("https://tamasfo.eu.auth0.com/tokeninfo", JSON.stringify(tokenInfo))
+    .map(response => response.json())
+    .subscribe(_result => {
+      authHttp.get("/api/users/" + _result.email, { headers: requestOptions.headers })
+        .map(_response => _response.json())
+        .subscribe((user: any) => {
+          user.id = user._id;
+          userService.setUser(user.email);
+          bootstrap(AppComponent, [
+            LessonService,
+            AuthService,
+            WaypointService,
+            ROUTER_PROVIDERS,
+            HTTP_PROVIDERS,
+            provide(AuthHttp, {
+              useFactory: (http) => {
+                return new AuthHttp(new AuthConfig({
+                  headerName: "Authorization",
+                  headerPrefix: "Bearer",
+                  tokenName: "id_token",
+                  tokenGetter: (() => localStorage.getItem("id_token")),
+                  noJwtError: true
+                }), http);
+              },
+              deps: [Http]
+            }),
+            provide(UserService, { useValue: userService }),
+            StatisticsService,
+            provide(RequestOptions, { useClass: MyHeader })
+          ]).then((appRef: ComponentRef<any>) => {
+            appInjector(appRef.injector);
+          });
         });
-      });
-  }, () => {
-    bootstrap(AppComponent, [
-      LessonService,
-      AuthService,
-      WaypointService,
-      ROUTER_PROVIDERS,
-      HTTP_PROVIDERS,
-      provide(AuthHttp, {
-        useFactory: (http) => {
-          return new AuthHttp(new AuthConfig({
-            headerName: "Authorization",
-            headerPrefix: "Bearer",
-            tokenName: "id_token",
-            tokenGetter: (() => localStorage.getItem("id_token")),
-            noJwtError: true
-          }), http);
-        },
-        deps: [Http]
-      }),
-      UserService,
-      StatisticsService,
-      provide(RequestOptions, { useClass: MyHeader })
-    ]).then((appRef: ComponentRef<any>) => {
-      appInjector(appRef.injector);
     });
+} else {
+  bootstrap(AppComponent, [
+    LessonService,
+    AuthService,
+    WaypointService,
+    ROUTER_PROVIDERS,
+    HTTP_PROVIDERS,
+    provide(AuthHttp, {
+      useFactory: (http) => {
+        return new AuthHttp(new AuthConfig({
+          headerName: "Authorization",
+          headerPrefix: "Bearer",
+          tokenName: "id_token",
+          tokenGetter: (() => localStorage.getItem("id_token")),
+          noJwtError: true
+        }), http);
+      },
+      deps: [Http]
+    }),
+    UserService,
+    StatisticsService,
+    provide(RequestOptions, { useClass: MyHeader })
+  ]).then((appRef: ComponentRef<any>) => {
+    appInjector(appRef.injector);
   });
+}
