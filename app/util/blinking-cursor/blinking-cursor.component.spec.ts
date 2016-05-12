@@ -1,5 +1,6 @@
 import {BlinkingCursorComponent} from './blinking-cursor.component';
-import {beforeEach, beforeEachProviders, inject, TestComponentBuilder} from "angular2/testing";
+import {beforeEach, beforeEachProviders, inject} from "@angular/core/testing";
+import { TestComponentBuilder } from '@angular/compiler/testing';
 
 describe('BlinkingCursorComponent specs', () => {
   let tcb: TestComponentBuilder;

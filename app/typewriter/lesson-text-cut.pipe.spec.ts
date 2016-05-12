@@ -1,6 +1,6 @@
-import {beforeEachProviders, inject, beforeEach} from "angular2/testing";
+import {beforeEachProviders, inject, beforeEach} from "@angular/core/testing";
 import {LessonTextCutPipe} from "./lesson-text-cut.pipe";
-import {BaseException} from 'angular2/src/facade/exceptions';
+import {BaseException} from '@angular/core/src/facade/exceptions';
 
 describe('Pipe: LessonTextCutPipe', () => {
   let pipe: LessonTextCutPipe;

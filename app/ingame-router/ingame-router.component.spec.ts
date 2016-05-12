@@ -1,10 +1,10 @@
-import {beforeEachProviders, beforeEach, inject, TestComponentBuilder, ComponentFixture} from "angular2/testing";
+import {beforeEachProviders, beforeEach, inject} from "@angular/core/testing";
+import { TestComponentBuilder, ComponentFixture } from '@angular/compiler/testing';
 import { UserService } from "../user/user.service";
-import {provide} from "angular2/core"
-import {Router, RouteRegistry, ROUTER_PRIMARY_COMPONENT} from "angular2/router";
-import { RootRouter } from 'angular2/src/router/router';
-import { SpyLocation } from 'angular2/src/mock/location_mock';
-import { Location } from "angular2/platform/common";
+import {provide} from "@angular/core"
+import {Router, RouteRegistry, ROUTER_PRIMARY_COMPONENT} from "@angular/router-deprecated";
+import { SpyLocation } from '@angular/common/testing';
+import { Location } from "@angular/common";
 import { IngameRouterComponent } from "../ingame-router/ingame-router.component";
 
 describe('Router tests', () => {
@@ -14,7 +14,7 @@ describe('Router tests', () => {
   beforeEachProviders(() => [
     RouteRegistry,
     provide(Location, { useClass: SpyLocation }),
-    provide(Router, { useClass: RootRouter }),
+    provide(Router, { useFactory: () => {} }),
     provide(ROUTER_PRIMARY_COMPONENT, { useValue: IngameRouterComponent })
   ]);
 
