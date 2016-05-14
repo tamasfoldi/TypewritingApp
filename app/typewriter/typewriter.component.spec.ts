@@ -49,11 +49,10 @@ describe('TypewriterComponent ', () => {
     provide(RouteParams, { useClass: FakeRouteParams })
   ]);
 
-  beforeEach(inject([TestComponentBuilder, RouteParams, LessonService, UserService], (_tcb, _routeParams, _lessonService, _userService) => {
+  beforeEach(inject([TestComponentBuilder, LessonService, UserService], (_tcb, _lessonService, _userService) => {
     tcb = _tcb;
-    routeParams = _routeParams;
     lessonService = _lessonService,
-      userService = _userService;
+    userService = _userService;
   }));
 
   // specs
@@ -103,8 +102,6 @@ describe('TypewriterComponent ', () => {
     tcb.createAsync(TypewriterComponent).then(fixture => {
       let typewriterComponent: TypewriterComponent = fixture.componentInstance;
       let element = fixture.nativeElement;
-      spyOn(routeParams, "get").and.callThrough();
-      spyOn(lessonService, "get").and.callThrough();
       spyOn(userService, "updateLastCompletedLesson").and.callFake(() => { });
       spyOn(typewriterComponent, "handleLessonEnd").and.callThrough();
       spyOn(userService, "saveLessonStatistic").and.callFake(() => { });

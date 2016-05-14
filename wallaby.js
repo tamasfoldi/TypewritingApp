@@ -70,7 +70,8 @@ module.exports = function () {
 
       Promise.all([
         System.import('@angular/core/testing'),
-        System.import('@angular/platform-browser-dynamic/testing')
+        System.import('@angular/platform-browser-dynamic/testing'),
+        System.import('https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js')
       ])
       .then(function (providers) {
         var testing = providers[0];

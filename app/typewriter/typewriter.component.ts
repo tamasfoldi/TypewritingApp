@@ -112,10 +112,8 @@ export class TypewriterComponent implements OnActivate, OnInit, AfterViewInit {
       });
     }
     this.snapshots.forEach((snapshot, index) => {
-      if (index !== 0) {
         labels.push(Math.floor((snapshot.createdAt - this._statistics.startTime) / 10) * 10);
         speeds.push(snapshot.typingSeed);
-      }
     });
 
     this.lineChartData = {

@@ -1,6 +1,7 @@
 import {LoginComponent} from './login.component';
 import {provide} from "@angular/core"
-import {Router, RouteRegistry, ROUTER_PRIMARY_COMPONENT} from "@angular/router-deprecated";
+import { Router } from '@angular/router';
+import {ROUTER_FAKE_PROVIDERS} from "@angular/router/testing";
 import { SpyLocation } from '@angular/common/testing';
 import {beforeEach, beforeEachProviders, inject} from "@angular/core/testing";
 import { TestComponentBuilder } from '@angular/compiler/testing';
@@ -28,10 +29,8 @@ describe('LoginComponent specs', () => {
   beforeEachProviders(() => [
     TestComponentBuilder,
     LoginComponent,
-    RouteRegistry,
     provide(Location, { useClass: SpyLocation }),
-    provide(Router, { useFactory: () => {} }),
-    provide(ROUTER_PRIMARY_COMPONENT, { useValue: AuthRouterComponent }),
+    provide(Router, { useValue: ROUTER_FAKE_PROVIDERS }),
     provide(UserService, { useFactory: () => { } }),
     AuthService,
     BaseRequestOptions,
