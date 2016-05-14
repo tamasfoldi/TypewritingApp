@@ -1,7 +1,7 @@
 import { Component, OnInit, Injector, Input, Output, EventEmitter, ElementRef, ViewChild, ContentChild, AfterViewInit } from "@angular/core";
 import { LessonService, Lesson } from "../lesson/lesson.service";
 import { Pipe, PipeTransform } from "@angular/core";
-import { Routes, Router } from "@angular/router";
+import { Routes, Router, OnActivate, RouteSegment } from "@angular/router";
 import { Statistics, StatisticSnapshot } from "./statistics/statistics.service";
 import { StatisticsComponent } from "./statistics/statistics.component";
 import { BlinkingCursorComponent } from "../util/blinking-cursor/blinking-cursor.component";
@@ -19,7 +19,7 @@ import { SpaceToUnderscorePipe } from "./space-to-underscore.pipe";
   pipes: [LessonTextCutPipe, SpaceToUnderscorePipe],
   directives: [StatisticsComponent, BlinkingCursorComponent] // LineChart
 })
-export class TypewriterComponent implements OnInit, AfterViewInit {
+export class TypewriterComponent implements OnActivate, OnInit, AfterViewInit {
   @ViewChild("focus")
   private focus: ElementRef;
 
@@ -34,15 +34,19 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
   constructor(
     private _lessonService: LessonService,
     private _userService: UserService,
-    private _router: Router,
-    private _routeParams: any
+    private _router: Router 
   ) { }
 
-  ngOnInit() {
-    this._lessonService.get(parseInt(this._routeParams.get("id"))).subscribe((lesson) => {
+  routerOnActivate(curr: RouteSegment) {
+    let id = +curr.getParam('id');
+    this._lessonService.get(id).subscribe((lesson) => {
       this.lesson = lesson;
       this._statistics = new Statistics(this.lesson.id);
     });
+  }
+
+  ngOnInit() {
+    
     this._typedText = "";
 
   }

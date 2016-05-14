@@ -54,7 +54,7 @@ export class RegisterComponent implements OnInit {
           .map(rsp => rsp.json())
           .subscribe((data: any) => { // ✔ first capitalizer pipe @done ( April 14th 2016, 8:25:50 am )
             this._authService.handleSuccessLogin(data, user);
-            this._router.navigate(["Game"]);
+            this._router.navigate(["game"]);
           });
       });
 

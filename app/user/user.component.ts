@@ -41,10 +41,10 @@ export class UserComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this._statisticsService.getCorrectness(this._userService.user.id)
-      .subscribe(data => {
-        this.data = data
-      });
+    // this._statisticsService.getCorrectness(this._userService.user.id)
+    //   .subscribe(data => {
+    //     this.data = data
+    //   });
   }
 }
 

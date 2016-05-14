@@ -26,6 +26,14 @@ export class AppComponent {
     private _router: Router
   ) {
   }
+  
+  ngOnInit() {
+    if(localStorage.getItem("id_token") && tokenNotExpired()) {
+      this._router.navigate(["game"])
+    } else {
+      this._router.navigate(["auth/login"]);
+    }
+  }
 
   hasLoggedInUser() {
     return tokenNotExpired();

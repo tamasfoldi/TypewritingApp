@@ -10,7 +10,7 @@ import { MapComponent } from "../map/map.component";
   directives: [ROUTER_DIRECTIVES]
 })
 @Routes([
-  { path: "map", component: MapComponent },
-  { path: "lesson/:id", component: TypewriterComponent }
+  { path: "", component: MapComponent },
+  { path: "/:id", component: TypewriterComponent }
 ])
 export class IngameRouterComponent { }
