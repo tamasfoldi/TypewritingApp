@@ -1,8 +1,9 @@
-tpw-waypoint {
+.figure {
   width: 100px;
   height: 100px;
-  background: red;
+  background: blue;
   -moz-border-radius: 50px;
   -webkit-border-radius: 50px;
+  position: absolute;
   border-radius: 50px;
-}
+}`

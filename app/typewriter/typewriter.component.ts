@@ -15,7 +15,6 @@ import { LessonTextCutPipe } from "./lesson-text-cut.pipe";
   selector: "tpw-typewriter",
   templateUrl: "typewriter.component.html",
   styleUrls: ["typewriter.component.css"],
-  pipes: [LessonTextCutPipe],
   directives: [StatisticsComponent, BlinkingCursorComponent, LineChart]
 })
 export class TypewriterComponent implements OnActivate, OnInit, AfterViewInit {
