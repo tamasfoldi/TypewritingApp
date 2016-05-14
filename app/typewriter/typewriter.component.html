@@ -1,5 +1,5 @@
 <h1>{{lesson?.name}}</h1>
-<p><span>{{typedText | spaceToUnderscore}}</span>{{lesson?.text | lessonTextCut: typedText}}</p>
+<p><span>{{typedText | replace:replaceRegexp:"_"}}</span>{{lesson?.text | lessonTextCut: typedText}}</p>
 <div #focus id="inputElement" tabindex="1" (keypress)="keypressEventHandler($event)">
   {{typedText}}
   <blinking-cursor *ngIf="!hasReachedTheEnd()"></blinking-cursor>

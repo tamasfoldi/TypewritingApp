@@ -9,19 +9,20 @@ import { appInjector } from "../app-injector";
 import { UserService } from "../user/user.service";
 import { LineChart } from "primeng/primeng";
 import { LessonTextCutPipe } from "./lesson-text-cut.pipe";
-import { SpaceToUnderscorePipe } from "./space-to-underscore.pipe";
 
 @Component({
   moduleId: module.id,
   selector: "tpw-typewriter",
   templateUrl: "typewriter.component.html",
   styleUrls: ["typewriter.component.css"],
-  pipes: [LessonTextCutPipe, SpaceToUnderscorePipe],
+  pipes: [LessonTextCutPipe],
   directives: [StatisticsComponent, BlinkingCursorComponent, LineChart]
 })
 export class TypewriterComponent implements OnActivate, OnInit, AfterViewInit {
   @ViewChild("focus")
   private focus: ElementRef;
+  replaceRegexp: RegExp = new RegExp(" ", "g");
+  
 
   private lesson: Lesson;
   private _typedText: string;
@@ -46,9 +47,7 @@ export class TypewriterComponent implements OnActivate, OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    
-    this._typedText = "";
-
+    this._typedText = ""; 
   }
 
   ngAfterViewInit() {
@@ -100,7 +99,7 @@ export class TypewriterComponent implements OnActivate, OnInit, AfterViewInit {
     this._statistics.stopTime = Date.now();
     this._userService.saveLessonStatistic(this.lesson.id, this._statistics);
     setTimeout(() => {
-      this._router.navigate(["Map"]);
+      this._router.navigate(["game"]);
     }, 10000);
   }
 
