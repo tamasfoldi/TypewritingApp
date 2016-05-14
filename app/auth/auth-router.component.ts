@@ -15,8 +15,7 @@ import { tokenNotExpired } from "angular2-jwt/angular2-jwt";
   directives: [ROUTER_DIRECTIVES]
 })
 @Routes([
-  { path: "/login", component: LoginComponent },
-  { path: "/register", component: RegisterComponent },
-  { path: "...", component: IngameRouterComponent }
+  { path: "login", component: LoginComponent },
+  { path: "register", component: RegisterComponent }
 ])
 export class AuthRouterComponent { }

@@ -45,7 +45,7 @@ let requestOptions = injector.get(RequestOptions);
 let tokenInfo = {
   id_token: localStorage.getItem("id_token")
 };
-if (localStorage.getItem("id_toke") && tokenNotExpired()) {
+if (localStorage.getItem("id_token") && tokenNotExpired()) {
   http.post("https://tamasfo.eu.auth0.com/tokeninfo", JSON.stringify(tokenInfo))
     .map(response => response.json())
     .subscribe(_result => {

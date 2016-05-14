@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
       .map(rsp => rsp.json())
       .subscribe((data: any) => { // ✔ error handling  @done ( April 13th 2016, 9:19:25 pm )
         this._authService.handleSuccessLogin(data, user);
-        this._router.navigate(["Game"]);
+        this._router.navigate(["/game/map"]);
       }, (error) => {
         this.responseError = JSON.parse(error._body).error_description;
       });

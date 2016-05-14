@@ -2,7 +2,6 @@ import { Component } from "@angular/core";
 import { Routes, Router, ROUTER_DIRECTIVES } from "@angular/router";
 import { TypewriterComponent } from "../typewriter/typewriter.component";
 import { MapComponent } from "../map/map.component";
-import { hasLoggedInUser } from "../util/can-activate";
 
 @Component({
   moduleId: module.id,
@@ -11,7 +10,7 @@ import { hasLoggedInUser } from "../util/can-activate";
   directives: [ROUTER_DIRECTIVES]
 })
 @Routes([
-  { path: "/map", component: MapComponent },
-  { path: "/lesson/:id", component: TypewriterComponent }
+  { path: "map", component: MapComponent },
+  { path: "lesson/:id", component: TypewriterComponent }
 ])
 export class IngameRouterComponent { }

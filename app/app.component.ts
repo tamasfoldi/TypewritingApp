@@ -33,7 +33,7 @@ export class AppComponent {
 
   logout() {
     localStorage.removeItem("id_token");
-    this._router.navigate(["Auth"]);
+    this._router.navigate(["auth/login"]);
   }
 
 }

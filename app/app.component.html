@@ -1,7 +1,7 @@
 <nav>
   <div *ngIf="hasLoggedInUser()">
-    <a [routerLink]="['Game']">Game</a>
-    <a [routerLink]="['User']">User</a>
+    <a [routerLink]="['/game']">Game</a>
+    <a [routerLink]="['/user']">User</a>
     <a (click)="logout()">Log out</a>
   </div>
 </nav>

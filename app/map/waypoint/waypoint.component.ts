@@ -22,10 +22,10 @@ export class WaypointComponent {
   ) { }
 
   gameStart() {
-    if (this.waypoint.id <= this._userService.user.lastCompletedLessonId + 1) {
-      this._router.navigate(["Typewriter", {id: this.waypoint.id}]);
-    } else {
-      throw new BaseException("You dont have permission to open this!");
-    }
+    // if (this.waypoint.id <= this._userService.user.lastCompletedLessonId + 1) {
+    //   this._router.navigate(["lesson", {id: this.waypoint.id}]);
+    // } else {
+    //   throw new BaseException("You dont have permission to open this!");
+    // }
   }
 }
