@@ -4,12 +4,8 @@ import { StatisticsService, Correctness } from "../typewriter/statistics/statist
 import {  } from "@angular/router";
 import { Observable } from "rxjs/Rx";
 import { PieChart } from "primeng/primeng";
-<<<<<<< HEAD
 import { ProgressBar } from 'primeng/primeng';
-import { Pipe, PipeTransform } from "angular2/core";
-=======
 import { Pipe, PipeTransform } from "@angular/core";
->>>>>>> angular2-rc
 
 @Pipe({
   name: "correctnessPie"
