@@ -110,7 +110,7 @@ export class UserService {
   }
 
   saveLessonStatistic(lessonId: number, stat: Statistics) {
-    this._authHttp.put("/api/users/" + this.user.email + "/stats/" + lessonId, JSON.stringify(stat), this._requestOptions)
+    this._authHttp.put("/api/users/" + this.user.email + "/stats/" + lessonId, JSON.stringify(stat), { headers: this._requestOptions.headers })
       .map(data => data.json())
       .subscribe((statWithStar) => {
         this.user.lessonStatistics.set(lessonId, statWithStar);

@@ -7,7 +7,7 @@ import { StatisticsComponent } from "./statistics/statistics.component";
 import { BlinkingCursorComponent } from "../util/blinking-cursor/blinking-cursor.component";
 import { appInjector } from "../app-injector";
 import { UserService } from "../user/user.service";
-// import { LineChart } from "primeng/primeng";
+import { LineChart } from "primeng/primeng";
 import { LessonTextCutPipe } from "./lesson-text-cut.pipe";
 import { SpaceToUnderscorePipe } from "./space-to-underscore.pipe";
 
@@ -17,7 +17,7 @@ import { SpaceToUnderscorePipe } from "./space-to-underscore.pipe";
   templateUrl: "typewriter.component.html",
   styleUrls: ["typewriter.component.css"],
   pipes: [LessonTextCutPipe, SpaceToUnderscorePipe],
-  directives: [StatisticsComponent, BlinkingCursorComponent] // LineChart
+  directives: [StatisticsComponent, BlinkingCursorComponent, LineChart]
 })
 export class TypewriterComponent implements OnActivate, OnInit, AfterViewInit {
   @ViewChild("focus")
