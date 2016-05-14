@@ -1,6 +1,7 @@
-import { Component, Input } from "angular2/core";
+import { Component, Input } from "@angular/core";
 
 @Component({
+  moduleId: module.id,
   selector: "tpw-figure",
   styles: [
     `.figure {
@@ -13,7 +14,7 @@ import { Component, Input } from "angular2/core";
         border-radius: 50px;
     }`
   ],
-  templateUrl: "app/map/figure/figure.component.html"
+  templateUrl: "figure.component.html"
 })
 export class FigureComponent {
   @Input()

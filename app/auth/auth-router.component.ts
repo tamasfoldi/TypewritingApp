@@ -1,5 +1,5 @@
-import { Component } from "angular2/core";
-import { RouteConfig, Router, ROUTER_DIRECTIVES, CanActivate } from "angular2/router";
+import { Component } from "@angular/core";
+import { Routes, Router, ROUTER_DIRECTIVES } from "@angular/router";
 import { RegisterComponent } from "./register/register.component";
 import { LoginComponent } from "./login/login.component";
 import { IngameRouterComponent } from "../ingame-router/ingame-router.component";
@@ -9,21 +9,13 @@ import { tokenNotExpired } from "angular2-jwt/angular2-jwt";
 
 
 @Component({
+  moduleId: module.id,
   selector: "tpw-auth",
-  templateUrl: "app/auth/auth-router.component.html",
+  templateUrl: "auth-router.component.html",
   directives: [ROUTER_DIRECTIVES]
 })
-@RouteConfig([
-  { path: "/login", name: "Login", component: LoginComponent, useAsDefault: true },
-  { path: "/register", name: "Register", component: RegisterComponent },
-  { path: "...", name: "Game", component: IngameRouterComponent }
+@Routes([
+  { path: "login", component: LoginComponent },
+  { path: "register", component: RegisterComponent }
 ])
-@CanActivate((next, prev) => {
-  if(!tokenNotExpired()) {
-    return true;
-  } else {
-    appInjector().get(Router).navigate(["Game"]);
-    return false;
-  }
-})
 export class AuthRouterComponent { }

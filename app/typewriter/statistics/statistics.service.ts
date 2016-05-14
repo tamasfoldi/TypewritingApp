@@ -1,6 +1,6 @@
-import { Injectable, Inject } from "angular2/core";
+import { Injectable, Inject } from "@angular/core";
 import { UserService } from "../../user/user.service";
-import { RequestOptions } from "angular2/http";
+import { RequestOptions } from "@angular/http";
 import { AuthHttp } from "angular2-jwt/angular2-jwt";
 import { Observable } from "rxjs/Rx"
 

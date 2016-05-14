@@ -1,11 +1,11 @@
-import {beforeEachProviders, beforeEach, inject} from "angular2/testing";
-import {MockBackend, MockConnection} from "angular2/http/testing";
-import {BaseRequestOptions, Http, Response, ResponseOptions, RequestOptions} from "angular2/http";
-import {provide} from "angular2/core"
+import {beforeEachProviders, beforeEach, inject} from "@angular/core/testing";
+import {MockBackend, MockConnection} from "@angular/http/testing";
+import {BaseRequestOptions, Http, Response, ResponseOptions, RequestOptions} from "@angular/http";
+import {provide} from "@angular/core"
 import {AuthHttp, AuthConfig} from "angular2-jwt/angular2-jwt";
 import {LessonService} from "../../lesson/lesson.service";
 import { WaypointService } from "./waypoint.service";
-import {BaseException} from 'angular2/src/facade/exceptions';
+import {BaseException} from '@angular/core/src/facade/exceptions';
 import "rxjs/Rx";
 
 describe('WaypointService', () => {

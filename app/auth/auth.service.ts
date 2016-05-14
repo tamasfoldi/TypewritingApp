@@ -1,8 +1,8 @@
-import { Injectable, Inject } from "angular2/core";
-import { Http, Headers, Response } from "angular2/http";
+import { Injectable, Inject } from "@angular/core";
+import { Http, Headers, Response } from "@angular/http";
 import { Observable } from "rxjs/Rx";
 import { User, AuthUser, UserService } from "../user/user.service";
-import {makeTypeError, BaseException} from 'angular2/src/facade/exceptions';
+import { makeTypeError, BaseException } from '@angular/core/src/facade/exceptions';
 
 export class Auth0Response {
   id_token: string;

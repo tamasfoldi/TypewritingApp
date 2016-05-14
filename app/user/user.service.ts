@@ -1,6 +1,6 @@
-import { Injectable, Inject } from "angular2/core";
+import { Injectable, Inject } from "@angular/core";
 import { AuthHttp } from "angular2-jwt/angular2-jwt";
-import { RequestOptions } from "angular2/http";
+import { RequestOptions } from "@angular/http";
 import {Statistics} from "../typewriter/statistics/statistics.service";
 import { isNumber, isType } from "angular2/src/facade/lang";
 

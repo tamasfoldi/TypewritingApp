@@ -1,14 +1,15 @@
-import { Component, OnInit } from "angular2/core";
-import { RouterLink, Router } from "angular2/router";
+import { Component, OnInit } from "@angular/core";
+import { ROUTER_DIRECTIVES, Router } from "@angular/router";
 import { AuthService } from "../auth.service";
 import { User } from "../../user/user.service";
-import { FormBuilder, ControlGroup, Control, Validators } from "angular2/common";
+import { FormBuilder, ControlGroup, Control, Validators } from "@angular/common";
 import { CapitalizeFirstPipe } from "../../util/capitalize-first.pipe";
 
 @Component({
+  moduleId: module.id,
   selector: "tpw-register",
-  templateUrl: "app/auth/register/register.component.html",
-  directives: [RouterLink],
+  templateUrl: "register.component.html",
+  directives: [ROUTER_DIRECTIVES],
   pipes: [CapitalizeFirstPipe]
 })
 export class RegisterComponent implements OnInit {
@@ -53,7 +54,7 @@ export class RegisterComponent implements OnInit {
           .map(rsp => rsp.json())
           .subscribe((data: any) => { // ✔ first capitalizer pipe @done ( April 14th 2016, 8:25:50 am )
             this._authService.handleSuccessLogin(data, user);
-            this._router.navigate(["Game"]);
+            this._router.navigate(["game"]);
           });
       });
 

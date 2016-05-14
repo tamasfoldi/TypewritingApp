@@ -1,12 +1,12 @@
 import {UserComponent} from './user.component';
 import { StatisticsService } from "../typewriter/statistics/statistics.service";
 import { UserService } from "../user/user.service";
-import { Location } from "angular2/platform/common";
-import { RootRouter } from 'angular2/src/router/router';
-import { SpyLocation } from 'angular2/src/mock/location_mock'
-import { RouteRegistry, Router, ROUTER_PRIMARY_COMPONENT, RouteParams } from "angular2/router";
-import {provide} from "angular2/core"
-import {beforeEach, beforeEachProviders, inject, TestComponentBuilder} from "angular2/testing";
+import { Location } from "@angular/common";
+import { SpyLocation } from '@angular/common/testing'
+import { RouteRegistry, Router, ROUTER_PRIMARY_COMPONENT, RouteParams } from "@angular/router-deprecated";
+import {provide} from "@angular/core"
+import {beforeEach, beforeEachProviders, inject} from "@angular/core/testing";
+import { TestComponentBuilder } from '@angular/compiler/testing';
 import * as Rx from 'rxjs/Rx'
 import { Observable } from "rxjs/Rx";
 
@@ -37,7 +37,7 @@ describe('UserComponent ', () => {
     provide(UserService, { useClass: FakeUserService }),
     RouteRegistry,
     provide(Location, { useClass: SpyLocation }),
-    provide(Router, { useClass: RootRouter }),
+    provide(Router, { useFactory: () => {} }),
     provide(ROUTER_PRIMARY_COMPONENT, { useValue: UserComponent })
   ]);
 

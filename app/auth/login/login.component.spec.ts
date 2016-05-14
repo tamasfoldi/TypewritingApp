@@ -1,15 +1,15 @@
 import {LoginComponent} from './login.component';
-import {provide} from "angular2/core"
-import {Router, RouteRegistry, ROUTER_PRIMARY_COMPONENT} from "angular2/router";
-import { RootRouter } from 'angular2/src/router/router';
-import { SpyLocation } from 'angular2/src/mock/location_mock'
-import {beforeEach, beforeEachProviders, inject, TestComponentBuilder} from "angular2/testing";
+import {provide} from "@angular/core"
+import {Router, RouteRegistry, ROUTER_PRIMARY_COMPONENT} from "@angular/router-deprecated";
+import { SpyLocation } from '@angular/common/testing';
+import {beforeEach, beforeEachProviders, inject} from "@angular/core/testing";
+import { TestComponentBuilder } from '@angular/compiler/testing';
 import { AuthService } from "../auth.service";
 import { AuthRouterComponent } from "../auth-router.component";
-import { Location } from "angular2/platform/common";
+import { Location } from "@angular/common";
 import { User, UserService } from "../../user/user.service";
-import { Response, BaseResponseOptions, BaseRequestOptions, ResponseOptions, Http } from "angular2/http";
-import {MockBackend, MockConnection} from "angular2/http/testing";
+import { Response, BaseResponseOptions, BaseRequestOptions, ResponseOptions, Http } from "@angular/http";
+import {MockBackend, MockConnection} from "@angular/http/testing";
 import * as Rx from 'rxjs/Rx'
 import { Observable } from "rxjs/Rx";
 
@@ -30,7 +30,7 @@ describe('LoginComponent specs', () => {
     LoginComponent,
     RouteRegistry,
     provide(Location, { useClass: SpyLocation }),
-    provide(Router, { useClass: RootRouter }),
+    provide(Router, { useFactory: () => {} }),
     provide(ROUTER_PRIMARY_COMPONENT, { useValue: AuthRouterComponent }),
     provide(UserService, { useFactory: () => { } }),
     AuthService,

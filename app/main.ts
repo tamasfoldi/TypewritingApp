@@ -1,8 +1,8 @@
-import { bootstrap } from "angular2/platform/browser";
-import { ComponentRef, provide, ReflectiveInjector } from "angular2/core";
-import { HTTP_PROVIDERS, Http, BaseRequestOptions, Headers, RequestOptions } from "angular2/http";
+import { bootstrap } from "@angular/platform-browser-dynamic";
+import { ComponentRef, provide, ReflectiveInjector } from "@angular/core";
+import { HTTP_PROVIDERS, Http, BaseRequestOptions, Headers, RequestOptions } from "@angular/http";
 import { AuthHttp, AuthConfig, tokenNotExpired } from "angular2-jwt/angular2-jwt";
-import { ROUTER_PROVIDERS } from "angular2/router";
+import { ROUTER_PROVIDERS } from "@angular/router";
 import { AppComponent } from "./app.component";
 import { UserService } from "./user/user.service";
 import { StatisticsService } from "./typewriter/statistics/statistics.service";
@@ -10,7 +10,7 @@ import { AuthService } from "./auth/auth.service";
 import { WaypointService } from "./map/waypoint/waypoint.service";
 import { LessonService } from "./lesson/lesson.service";
 import { appInjector } from "./app-injector";
-import 'rxjs/Rx';
+import "rxjs/Rx";
 
 class MyHeader extends BaseRequestOptions {
   headers: Headers = new Headers();
@@ -53,31 +53,30 @@ if (localStorage.getItem("id_token") && tokenNotExpired()) {
         .map(_response => _response.json())
         .subscribe((user: any) => {
           user.id = user._id;
-          userService.setUser(user.email).then(() => {
-            bootstrap(AppComponent, [
-              LessonService,
-              AuthService,
-              WaypointService,
-              ROUTER_PROVIDERS,
-              HTTP_PROVIDERS,
-              provide(AuthHttp, {
-                useFactory: (http) => {
-                  return new AuthHttp(new AuthConfig({
-                    headerName: "Authorization",
-                    headerPrefix: "Bearer",
-                    tokenName: "id_token",
-                    tokenGetter: (() => localStorage.getItem("id_token")),
-                    noJwtError: true
-                  }), http);
-                },
-                deps: [Http]
-              }),
-              provide(UserService, { useValue: userService }),
-              StatisticsService,
-              provide(RequestOptions, { useClass: MyHeader })
-            ]).then((appRef: ComponentRef) => {
-              appInjector(appRef.injector);
-            });
+          userService.setUser(user.email);
+          bootstrap(AppComponent, [
+            LessonService,
+            AuthService,
+            WaypointService,
+            ROUTER_PROVIDERS,
+            HTTP_PROVIDERS,
+            provide(AuthHttp, {
+              useFactory: (http) => {
+                return new AuthHttp(new AuthConfig({
+                  headerName: "Authorization",
+                  headerPrefix: "Bearer",
+                  tokenName: "id_token",
+                  tokenGetter: (() => localStorage.getItem("id_token")),
+                  noJwtError: true
+                }), http);
+              },
+              deps: [Http]
+            }),
+            provide(UserService, { useValue: userService }),
+            StatisticsService,
+            provide(RequestOptions, { useClass: MyHeader })
+          ]).then((appRef: ComponentRef<any>) => {
+            appInjector(appRef.injector);
           });
         });
     });
@@ -103,12 +102,7 @@ if (localStorage.getItem("id_token") && tokenNotExpired()) {
     UserService,
     StatisticsService,
     provide(RequestOptions, { useClass: MyHeader })
-  ]).then((appRef: ComponentRef) => {
+  ]).then((appRef: ComponentRef<any>) => {
     appInjector(appRef.injector);
   });
 }
-
-
-
-
-

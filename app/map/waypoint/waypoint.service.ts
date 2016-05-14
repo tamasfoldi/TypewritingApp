@@ -1,7 +1,7 @@
-import { Injectable, Inject } from "angular2/core";
+import { Injectable, Inject } from "@angular/core";
 import { Lesson, LessonService } from "../../lesson/lesson.service";
 import { Observable } from "rxjs/Rx";
-import {BaseException} from 'angular2/src/facade/exceptions';
+import { BaseException } from '@angular/core/src/facade/exceptions';
 
 export interface Waypoint {
   id: number;
