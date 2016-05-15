@@ -21,7 +21,7 @@ export class TypewriterComponent implements OnActivate, OnInit, AfterViewInit {
   @ViewChild("focus")
   private focus: ElementRef;
   replaceRegexp: RegExp = new RegExp(" ", "g");
-  
+
 
   private lesson: Lesson;
   private _typedText: string;
@@ -34,7 +34,7 @@ export class TypewriterComponent implements OnActivate, OnInit, AfterViewInit {
   constructor(
     private _lessonService: LessonService,
     private _userService: UserService,
-    private _router: Router 
+    private _router: Router
   ) { }
 
   routerOnActivate(curr: RouteSegment) {
@@ -46,7 +46,7 @@ export class TypewriterComponent implements OnActivate, OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this._typedText = ""; 
+    this._typedText = "";
   }
 
   ngAfterViewInit() {
@@ -79,16 +79,18 @@ export class TypewriterComponent implements OnActivate, OnInit, AfterViewInit {
 
   private handleFirsPress() {
     this._statistics.startTime = Date.now();
-    this.snaphotCreater = setInterval(() => {
-      let snapshot: StatisticSnapshot = {
-        createdAt: Date.now(),
-        numberOfCorrectKeypresses: this._statistics.numberOfCorrectKeypresses,
-        numberOfIncorrectKeypresses: this._statistics.numberOfIncorrectKeypresses,
-        typingSeed: this._statistics.numberOfCorrectKeypresses / ((Date.now() - this._statistics.startTime) / 1000),
-        accuracy: this._statistics.accuracy
-      }
-      this.snapshots.push(snapshot);
-    }, 10);
+    setTimeout(() => {
+      this.snaphotCreater = setInterval(() => {
+        let snapshot: StatisticSnapshot = {
+          createdAt: Date.now(),
+          numberOfCorrectKeypresses: this._statistics.numberOfCorrectKeypresses,
+          numberOfIncorrectKeypresses: this._statistics.numberOfIncorrectKeypresses,
+          typingSeed: this._statistics.numberOfCorrectKeypresses / ((Date.now() - this._statistics.startTime) / 1000),
+          accuracy: this._statistics.accuracy
+        }
+        this.snapshots.push(snapshot);
+      }, 10);
+    }, 200); 
   }
 
   private handleLessonEnd() {
@@ -106,14 +108,14 @@ export class TypewriterComponent implements OnActivate, OnInit, AfterViewInit {
     let labels = new Array<number>();
     let speeds = new Array<number>();
     if (this.snapshots.length > 50) {
-      let divider = Math.floor(this.snapshots.length / 50);
+      let divider = Math.floor(this.snapshots.length / 25);
       this.snapshots = this.snapshots.filter((v, i) => {
         return i % divider === 0 || i === 0 || i === this.snapshots.length - 1;
       });
     }
     this.snapshots.forEach((snapshot, index) => {
-        labels.push(Math.floor((snapshot.createdAt - this._statistics.startTime) / 10) * 10);
-        speeds.push(snapshot.typingSeed);
+      labels.push(Math.floor((snapshot.createdAt - this._statistics.startTime) / 10) * 10);
+      speeds.push(snapshot.typingSeed);
     });
 
     this.lineChartData = {
