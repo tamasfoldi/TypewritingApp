@@ -90,16 +90,18 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
 
   private handleFirsPress() {
     this._statistics.startTime = Date.now();
-    this.snaphotCreater = setInterval(() => {
-      let snapshot: StatisticSnapshot = {
-        createdAt: Date.now(),
-        numberOfCorrectKeypresses: this._statistics.numberOfCorrectKeypresses,
-        numberOfIncorrectKeypresses: this._statistics.numberOfIncorrectKeypresses,
-        typingSeed: this._statistics.numberOfCorrectKeypresses / ((Date.now() - this._statistics.startTime) / 1000),
-        accuracy: this._statistics.accuracy
-      }
-      this.snapshots.push(snapshot);
-    }, 10);
+    setTimeout(() => {
+      this.snaphotCreater = setInterval(() => {
+        let snapshot: StatisticSnapshot = {
+          createdAt: Date.now(),
+          numberOfCorrectKeypresses: this._statistics.numberOfCorrectKeypresses,
+          numberOfIncorrectKeypresses: this._statistics.numberOfIncorrectKeypresses,
+          typingSeed: this._statistics.numberOfCorrectKeypresses / ((Date.now() - this._statistics.startTime) / 1000),
+          accuracy: this._statistics.accuracy
+        }
+        this.snapshots.push(snapshot);
+      }, 10);
+    }); 
   }
 
   private handleLessonEnd() {
@@ -116,8 +118,8 @@ export class TypewriterComponent implements OnInit, AfterViewInit {
   private setLineChartDatas() {
     let labels = new Array<number>();
     let speeds = new Array<number>();
-    if (this.snapshots.length > 50) {
-      let divider = Math.floor(this.snapshots.length / 50);
+    if (this.snapshots.length > 25) {
+      let divider = Math.floor(this.snapshots.length / 25);
       this.snapshots = this.snapshots.filter((v, i) => {
         return i % divider === 0 || i === 0 || i === this.snapshots.length - 1;
       });
