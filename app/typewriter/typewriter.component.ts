@@ -8,7 +8,6 @@ import { BlinkingCursorComponent } from "../util/blinking-cursor/blinking-cursor
 import { appInjector } from "../app-injector";
 import { UserService } from "../user/user.service";
 import { LineChart } from "primeng/primeng";
-import { LessonTextCutPipe } from "./lesson-text-cut.pipe";
 
 @Component({
   moduleId: module.id,
