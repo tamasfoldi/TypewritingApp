@@ -6,5 +6,5 @@
 </div>
 <div *ngIf="hasReachedTheEnd()">
   <tpw-lesson-statistics [statistics]="statistics"></tpw-lesson-statistics>
-  <p-lineChart [value]="lineChartData" width="640" height="320"></p-lineChart>
+  <p-chart type="line" [data]="lineChartData" width="640" height="320"></p-chart>
 </div>
